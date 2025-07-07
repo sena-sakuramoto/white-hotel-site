@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホワイトホテル鎌倉 | 鎌倉の旅が始まる、駅徒歩2分の小さな宿</title>
+    <meta name="description" content="鎌倉駅から歩いてすぐ。窓から江ノ電が眺められる、建築家が手がける小さな宿。あなたの「泊まる」が、この宿の未来に繋がります。公式サイトで、特別な時間を見つけませんか？">
+    <meta name="keywords" content="鎌倉ホテル,鎌倉,宿,江ノ電,リノベーションホテル,建築家,女子旅">
+    <meta property="og:title" content="ホワイトホテル鎌倉 | 鎌倉の旅が始まる、駅徒歩2分の小さな宿">
+    <meta property="og:description" content="窓から江ノ電が眺められる、建築家が手がける小さな宿。あなたの「泊まる」が、この宿の未来に繋がります。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://whitehotel-kamakura.jp">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+    <link rel="canonical" href="https://whitehotel-kamakura.jp">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- 外部ライブラリ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swiper/8.4.5/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery-bundle.min.css">
+    
+    <!-- 作成したCSSファイルを読み込み -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- SVG アイコン定義 -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-search" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></symbol>
+        <symbol id="icon-users" viewBox="0 0 24 24"><path d="M9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 8c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm-6 4c.22-.72 3.31-2 6-2 2.7 0 5.8 1.29 6 2H3zm12-4c0-1.12-.6-2.13-1.55-2.81C15.19 14.53 17 15.65 17 18v2h5v-2c0-2.66-5.33-4-8-4z"/></symbol>
+        <symbol id="icon-bed" viewBox="0 0 24 24"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2V7c0-2.21-1.79-4-4-4z"/></symbol>
+        <symbol id="icon-train" viewBox="0 0 24 24"><path d="M12 2c-4.42 0-8 .5-8 4v10c0 2.21 1.79 4 4 4h.5c.83 0 1.5-.67 1.5-1.5S10.33 17 9.5 17H8v-2h8v2h-1.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5H16c2.21 0 4-1.79 4-4V6c0-3.5-3.58-4-8-4zM8.5 15a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm7 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM18 10H6V7h12v3z"/></symbol>
+        <symbol id="icon-shrine" viewBox="0 0 24 24"><path d="M12 2L2 7v2h2v11h16V9h2V7L12 2zM6 18V9h12v9H6zm2-6h2v4H8v-4zm4 0h2v4h-2v-4z"/></symbol>
+        <symbol id="icon-beach" viewBox="0 0 24 24"><path d="M16.5 6.5c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5-1.57-3.5-3.5-3.5zm0 5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM7 6l-5 4h10L7 6zm15 11.5c0-2.84-2.16-5.2-5-5.2s-5 2.36-5 5.2c0 2.45 2.22 4.5 5 4.5s5-2.05 5-4.5z"/></symbol>
+        <symbol id="icon-shopping" viewBox="0 0 24 24"><path d="M18 6h-2c0-2.21-1.79-4-4-4S8 3.79 8 6H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm6 16H6V8h2v2c0 .55.45 1 1 1s1-.45 1-1V8h4v2c0 .55.45 1 1 1s1-.45 1-1V8h2v12z"/></symbol>
+        <symbol id="icon-expand" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></symbol>
+        <symbol id="icon-chevron-down" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></symbol>
+        <symbol id="icon-chat" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></symbol>
+        <symbol id="icon-instagram" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8A3.6 3.6 0 0 0 20 16.4V7.6A3.6 3.6 0 0 0 16.4 4H7.6zm4.6 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm4-2.5a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></symbol>
+        <symbol id="icon-twitter" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.22-1.95-.55v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.01-.06C3.18 20.75 5.26 21 7.44 21c7.98 0 12.34-6.61 12.34-12.35 0-.19 0-.38-.01-.56.84-.6 1.56-1.36 2.13-2.2z"/></symbol>
+        <symbol id="icon-facebook" viewBox="0 0 24 24"><path d="M18 3a3 3 0 0 0-3 3v2h-3v4h3v8h4v-8h3l1-4h-4V6a1 1 0 0 1 1-1h3V3h-3z"/></symbol>
+    </svg>
+
+    <!-- ページローダー -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-logo">White Hotel</div>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- カスタムモーダル -->
+    <div class="modal-overlay" id="customModal">
+        <div class="modal-content">
+            <h3 class="modal-header" id="modalTitle"></h3>
+            <div class="modal-body" id="modalMessage"></div>
+            <div class="modal-footer" id="modalFooter">
+                <button class="btn modal-close-btn" onclick="closeModal()">閉じる</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ヘッダー -->
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#home" class="logo">White Hotel</a>
+                <nav class="nav-menu">
+                    <a href="#home" class="nav-link">ホーム</a>
+                    <a href="#rooms" class="nav-link">お部屋</a>
+                    <a href="#location" class="nav-link">アクセス</a>
+                    <a href="#reviews" class="nav-link">みんなの声</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                    <a href="#bookingWidget" class="nav-cta">空室をさがす</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="メニューを開閉する">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- モバイルメニュー -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home" class="mobile-nav-link">ホーム</a>
+        <a href="#rooms" class="mobile-nav-link">お部屋</a>
+        <a href="#location" class="mobile-nav-link">アクセス</a>
+        <a href="#reviews" class="mobile-nav-link">みんなの声</a>
+        <a href="#faq" class="mobile-nav-link">FAQ</a>
+        <a href="#bookingWidget" class="mobile-nav-link">空室をさがす</a>
+    </div>
+
+    <main>
+        <!-- ヒーローセクション -->
+        <section id="home" class="hero">
+            <video class="hero-video" src="https://videos.pexels.com/video-files/2099391/2099391-hd_1920_1080_25fps.mp4" autoplay loop muted playsinline poster="https://images.pexels.com/videos/2099391/pexels-photo-2099391.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"></video>
+            <div class="hero-bg"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge">鎌倉駅徒歩2分 • 江ノ電ビュー • 期間限定オープン</div>
+                    <h1>あなたの旅が、<br>物語をつむぐ宿。</h1>
+                    <p class="hero-subtitle">
+                        ここは、若手建築家チームが未来へと繋ぐ、再生プロジェクトの舞台。<br>
+                        あなたの滞在が、この宿の新しい１ページになります。
+                    </p>
+                    <div class="hero-cta-group">
+                        <a href="#bookingWidget" class="btn btn-primary">
+                            <svg><use xlink:href="#icon-search"/></svg> 空室をさがす
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- リアルタイム予約ウィジェット -->
+            <div class="booking-widget" id="bookingWidget">
+                <div class="widget-header">
+                    <h3 class="widget-title">空室検索・料金チェック</h3>
+                    <p class="widget-subtitle">ご希望の日にちで、お部屋を探してみませんか？</p>
+                </div>
+                <form class="booking-form" onsubmit="searchAvailability(event)">
+                    <div class="form-group">
+                        <label for="checkinDate" class="form-label">チェックイン</label>
+                        <input type="date" class="form-input" id="checkinDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkoutDate" class="form-label">チェックアウト</label>
+                        <input type="date" class="form-input" id="checkoutDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guestCount" class="form-label">人数</label>
+                        <select class="form-input" id="guestCount" required>
+                            <option value="1">1名</option>
+                            <option value="2" selected>2名</option>
+                            <option value="3">3名</option>
+                            <option value="4">4名</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="roomType" class="form-label">お部屋タイプ</label>
+                        <select class="form-input" id="roomType">
+                            <option value="any">どちらでも</option>
+                            <option value="single">Room Ⅰ (定員1名)</option>
+                            <option value="twin">Room Ⅱ (定員2名)</option>
+                            <option value="triple">Room Ⅲ (定員3名)</option>
+                            <option value="family">Room Ⅳ (定員4名)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn search-btn">
+                        <svg><use xlink:href="#icon-search"/></svg> 検索する
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- プレミアム客室 -->
+        <section id="rooms" class="rooms-section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2 class="section-title">お部屋と料金のご案内</h2>
+                    <p class="section-subtitle">
+                        シンプルで、だけど心地いい。個性ある4つのお部屋をご用意しました。
+                        ご利用人数に応じて、最適な料金プランが適用されます。
+                    </p>
+                </div>
+
+                <div class="rooms-grid">
+                    <!-- Room I -->
+                    <div class="room-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="room-card-image" style="background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80')"></div>
+                        <div class="room-card-content">
+                            <h3 class="room-card-title">Room Ⅰ</h3>
+                            <p class="room-card-description">
+                                集中できるワークデスクを備えた、一人旅に最適なコンパクトルーム。自分だけの時間を満喫できます。
+                            </p>
+                            <div class="room-card-details">
+                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員1名</div>
+                                <div class="detail-item"><svg><use xlink:href="#icon-bed"/></svg>シングル</div>
+                            </div>
+                            <div class="pricing-plan">
+                                <h4 class="pricing-plan-title">料金プラン (1泊あたり)</h4>
+                                <ul class="pricing-plan-list">
+                                    <li><span>1名様 ご利用</span> <span class="price">¥5,000</span></li>
+                                </ul>
+                            </div>
+                            <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
+                        </div>
+                    </div>
+                    <!-- Room II -->
+                    <div class="room-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="room-card-image" style="background-image: url('https://images.unsplash.com/photo-1598605272254-16f0c0ecdfa5?auto=format&fit=crop&w=800&q=80')"></div>
+                        <div class="room-card-content">
+                            <h3 class="room-card-title">Room Ⅱ</h3>
+                            <p class="room-card-description">
+                                スタンダードなツインルーム。大きな窓から江ノ電を眺めながら、鎌倉の特別な時間をお過ごしください。
+                            </p>
+                             <div class="room-card-details">
+                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員2名</div>
+                                <div class="detail-item"><svg><use xlink:href="#icon-bed"/></svg>ツイン</div>
+                            </div>
+                            <div class="pricing-plan">
+                                <h4 class="pricing-plan-title">料金プラン (1泊あたり)</h4>
+                                <ul class="pricing-plan-list">
+                                    <li><span>1名様 ご利用</span> <span class="price">¥7,000</span></li>
+                                    <li><span>2名様 ご利用</span> <span class="price">¥10,000 <span class="per-person">(¥5,000/人)</span></span></li>
+                                </ul>
+                            </div>
+                            <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
+                        </div>
+                    </div>
+                    <!-- Room III -->
+                    <div class="room-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="room-card-image" style="background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80')"></div>
+                        <div class="room-card-content">
+                            <h3 class="room-card-title">Room Ⅲ</h3>
+                            <p class="room-card-description">
+                                友人との旅行にぴったりなトリプルルーム。広めの空間で、旅の計画を立てるのも楽しいひととき。
+                            </p>
+                             <div class="room-card-details">
+                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員3名</div>
+                                <div class="detail-item"><svg><use xlink:href="#icon-bed"/></svg>トリプル</div>
+                            </div>
+                            <div class="pricing-plan">
+                                <h4 class="pricing-plan-title">料金プラン (1泊あたり)</h4>
+                                <ul class="pricing-plan-list">
+                                     <li><span>1名様 ご利用</span> <span class="price">¥10,000</span></li>
+                                     <li><span>2名様 ご利用</span> <span class="price">¥12,500 <span class="per-person">(¥6,250/人)</span></span></li>
+                                     <li><span>3名様 ご利用</span> <span class="price">¥15,000 <span class="per-person">(¥5,000/人)</span></span></li>
+                                </ul>
+                            </div>
+                            <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
+                        </div>
+                    </div>
+                    <!-- Room IV -->
+                    <div class="room-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="room-card-image" style="background-image: url('https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?auto=format&fit=crop&w=800&q=80')"></div>
+                        <div class="room-card-content">
+                            <h3 class="room-card-title">Room Ⅳ</h3>
+                            <p class="room-card-description">
+                                最大4名様までご利用可能な、広々とした和洋室。ご家族やグループでの思い出作りに最適な、唯一のお部屋です。
+                            </p>
+                             <div class="room-card-details">
+                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員4名</div>
+                                <div class="detail-item"><svg><use xlink:href="#icon-bed"/></svg>ファミリー</div>
+                            </div>
+                            <div class="pricing-plan">
+                                <h4 class="pricing-plan-title">料金プラン (1泊あたり)</h4>
+                                <ul class="pricing-plan-list">
+                                    <li><span>1名様 ご利用</span> <span class="price">¥14,000</span></li>
+                                    <li><span>2名様 ご利用</span> <span class="price">¥16,000 <span class="per-person">(¥8,000/人)</span></span></li>
+                                    <li><span>3名様 ご利用</span> <span class="price">¥18,000 <span class="per-person">(¥6,000/人)</span></span></li>
+                                    <li><span>4名様 ご利用</span> <span class="price">¥20,000 <span class="per-person">(¥5,000/人)</span></span></li>
+                                </ul>
+                            </div>
+                            <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- インタラクティブマップ・ロケーション -->
+        <section id="location" class="map-section">
+            <div class="container">
+                <div class="map-container">
+                    <div class="map-info" data-aos="fade-right">
+                        <h2 class="section-title map-title">鎌倉散策の、秘密基地に。</h2>
+                        <p class="section-subtitle" style="color: var(--text-primary); margin: 0 auto 2rem;">行きたい場所は、すぐそこ。ここを拠点に、気ままな鎌倉の旅へ出かけよう。</p>
+                        <div class="location-grid" id="location-grid">
+                            <div class="location-item active" data-location-query="神奈川県鎌倉市御成町2-2-20">
+                                <div class="location-icon"><svg><use xlink:href="#icon-train"/></svg></div>
+                                <div class="location-details"><h4>White Hotel (現在地)</h4><p>ここが私たちの宿です</p></div>
+                            </div>
+                            <div class="location-item" data-location-query="鎌倉駅">
+                                <div class="location-icon"><svg><use xlink:href="#icon-train"/></svg></div>
+                                <div class="location-details"><h4>鎌倉駅</h4><p>てくてく歩いて2分</p></div>
+                            </div>
+                            <div class="location-item" data-location-query="鶴岡八幡宮">
+                                <div class="location-icon"><svg><use xlink:href="#icon-shrine"/></svg></div>
+                                <div class="location-details"><h4>鶴岡八幡宮</h4><p>のんびり歩いて8分</p></div>
+                            </div>
+                            <div class="location-item" data-location-query="由比ガ浜海岸">
+                                <div class="location-icon"><svg><use xlink:href="#icon-beach"/></svg></div>
+                                <div class="location-details"><h4>由比ガ浜海岸</h4><p>江ノ電でコトコト8分</p></div>
+                            </div>
+                            <div class="location-item" data-location-query="小町通り">
+                                <div class="location-icon"><svg><use xlink:href="#icon-shopping"/></svg></div>
+                                <div class="location-details"><h4>小町通り</h4><p>食べ歩きに、徒歩3分</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="interactive-map" data-aos="fade-left">
+                         <iframe id="map-iframe" src="https://maps.google.com/maps?q=神奈川県鎌倉市御成町2-2-20&t=&z=16&ie=UTF8&iwloc=&output=embed" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- お客様の声・レビューカルーセル -->
+        <section id="reviews" class="reviews-section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2 class="section-title">泊まってくれた、みんなの声</h2>
+                    <p class="section-subtitle">
+                        実際にご宿泊いただいたみなさんから、あたたかいお便りが届いています。
+                    </p>
+                </div>
+
+                <div class="reviews-carousel swiper" data-aos="fade-up" data-aos-delay="200">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="review-slide">
+                                <div class="review-content">
+                                    駅から本当に近くてびっくり！江ノ電の音も心地よいBGMみたいで、すごく鎌倉らしさを感じられました。おしゃれで清潔で、このお値段は信じられない！また絶対に来ます。
+                                </div>
+                                <div class="review-author">
+                                    <div class="author-avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" alt="田中 智子さん アバター" class="lazyload"></div>
+                                    <div class="author-info">
+                                        <h4>田中 智子さん</h4>
+                                        <p>東京都 • Google評価</p>
+                                        <div class="review-rating">★★★★★</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="review-slide">
+                                <div class="review-content">
+                                    家族4人でRoomⅣに。広くて快適で、子どもたちも大はしゃぎでした。冷蔵庫があったのが地味に嬉しかったです。観光の拠点として最高の場所ですね。コスパ最強です！
+                                </div>
+                                <div class="review-author">
+                                    <div class="author-avatar"><img src="https://images.unsplash.com/photo-1500048993953-d23a436266cf?auto=format&fit=crop&w=100&q=80" alt="山田 健一さん アバター" class="lazyload"></div>
+                                    <div class="author-info">
+                                        <h4>山田 健一さん</h4>
+                                        <p>大阪府 • じゃらん評価</p>
+                                        <div class="review-rating">★★★★★</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="review-slide">
+                                <div class="review-content">
+                                    建築家さんのリノベーション、すごく素敵でした。どこを撮っても絵になるので、たくさん写真を撮っちゃいました。Wi-Fiが速いので、リモートワークも快適にできそうです。
+                                </div>
+                                <div class="review-author">
+                                     <div class="author-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="中村 健太さん アバター" class="lazyload"></div>
+                                     <div class="author-info">
+                                        <h4>中村 健太さん</h4>
+                                        <p>愛知県 • 楽天トラベル評価</p>
+                                        <div class="review-rating">★★★★★</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="review-slide">
+                                <div class="review-content">
+                                    一人旅で利用しました。清潔感があって、安心して過ごせました。窓から見える江ノ電をぼーっと眺めている時間が、最高の贅沢でした。スタッフの方も親切で、心温まる滞在になりました。
+                                </div>
+                                <div class="review-author">
+                                    <div class="author-avatar"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=80" alt="小林 あかりさん アバター" class="lazyload"></div>
+                                    <div class="author-info">
+                                        <h4>小林 あかりさん</h4>
+                                        <p>神奈川県 • Google評価</p>
+                                        <div class="review-rating">★★★★★</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- フォトギャラリー -->
+        <section id="gallery" class="gallery-section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2 class="section-title">旅のアルバム</h2>
+                    <p class="section-subtitle">
+                        私たちの宿の、何気ない日常の風景です。
+                        写真をクリックして、旅のイメージを膨らませてみてください。
+                    </p>
+                </div>
+
+                <div class="gallery-grid" id="lightgallery">
+                    <a href="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=1200&q=80" class="gallery-item" data-aos="zoom-in" data-aos-delay="100" style="background-image: url('https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=600&q=80')"><div class="gallery-overlay"><svg><use xlink:href="#icon-expand"/></svg></div></a>
+                    <a href="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" class="gallery-item" data-aos="zoom-in" data-aos-delay="200" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80')"><div class="gallery-overlay"><svg><use xlink:href="#icon-expand"/></svg></div></a>
+                    <a href="https://images.unsplash.com/photo-1613553425599-69d493574a44?auto=format&fit=crop&w=1200&q=80" class="gallery-item" data-aos="zoom-in" data-aos-delay="300" style="background-image: url('https://images.unsplash.com/photo-1613553425599-69d493574a44?auto=format&fit=crop&w=600&q=80')"><div class="gallery-overlay"><svg><use xlink:href="#icon-expand"/></svg></div></a>
+                    <a href="https://images.unsplash.com/photo-1572120360610-d971b9d7767c?auto=format&fit=crop&w=1200&q=80" class="gallery-item" data-aos="zoom-in" data-aos-delay="400" style="background-image: url('https://images.unsplash.com/photo-1572120360610-d971b9d7767c?auto=format&fit=crop&w=600&q=80')"><div class="gallery-overlay"><svg><use xlink:href="#icon-expand"/></svg></div></a>
+                    <a href="https://images.unsplash.com/photo-1554435493-93422e822a2d?auto=format&fit=crop&w=1200&q=80" class="gallery-item" data-aos="zoom-in" data-aos-delay="500" style="background-image: url('https://images.unsplash.com/photo-1554435493-93422e822a2d?auto=format&fit=crop&w=600&q=80')"><div class="gallery-overlay"><svg><use xlink:href="#icon-expand"/></svg></div></a>
+                    <a href="https://images.unsplash.com/photo-1617865068434-02a8e8b6c03b?auto=format&fit=crop&w=1200&q=80" class="gallery-item" data-aos="zoom-in" data-aos-delay="600" style="background-image: url('https://images.unsplash.com/photo-1617865068434-02a8e8b6c03b?auto=format&fit=crop&w=600&q=80')"><div class="gallery-overlay"><svg><use xlink:href="#icon-expand"/></svg></div></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq" class="faq-section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2 class="section-title">気になること</h2>
+                    <p class="section-subtitle">
+                        ご宿泊の前に、ちょっとした疑問を解決しておきましょう。
+                    </p>
+                </div>
+
+                <div class="faq-container" id="faqContainer">
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="faq-question"><span>チェックイン前に荷物は預けられますか？</span><div class="faq-icon"><svg><use xlink:href="#icon-chevron-down"/></svg></div></div>
+                        <div class="faq-answer"><div class="faq-answer-content">ごめんなさい！私たちの宿はとても小さいので、今のところ荷物のお預かりが難しい状況です。鎌倉駅のコインロッカーをご利用いただけると助かります。</div></div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="faq-question"><span>子どもやペットと一緒に泊まれますか？</span><div class="faq-icon"><svg><use xlink:href="#icon-chevron-down"/></svg></div></div>
+                        <div class="faq-answer"><div class="faq-answer-content">未就学のお子様は、添い寝でしたら無料でご宿泊いただけます。残念ながら、ペットは一緒にお泊まりいただけません。ごめんなさい。</div></div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="faq-question"><span>Wi-Fiはありますか？仕事でも使えますか？</span><div class="faq-icon"><svg><use xlink:href="#icon-chevron-down"/></svg></div></div>
+                        <div class="faq-answer"><div class="faq-answer-content">はい、館内どこでも無料でサクサクのWi-Fiが使えます。ツインルームにはワークデスクもあるので、ワーケーションにもおすすめです。</div></div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="faq-question"><span>キャンセル料はいつからかかりますか？</span><div class="faq-icon"><svg><use xlink:href="#icon-chevron-down"/></svg></div></div>
+                        <div class="faq-answer"><div class="faq-answer-content">ご宿泊の3日前まででしたら、キャンセル料はかかりません。それ以降のキャンセルや、ご連絡なくお越しにならなかった場合は、ご予約料金の100%をいただいております。</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA予約セクション -->
+        <section id="booking" class="cta-section">
+            <div class="container">
+                <div class="cta-content" data-aos="fade-up">
+                    <h2 class="cta-title">さあ、鎌倉の旅へ。</h2>
+                    <p class="cta-text">
+                        予約はとってもかんたん。
+                        公式サイトからのご予約が、いちばんお得です。
+                        あなたにお会いできるのを楽しみにしています。
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="#bookingWidget" class="btn btn-primary">
+                            公式サイトで予約する
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>White Hotel Kamakura</h3>
+                    <p>〒248-0012<br>神奈川県鎌倉市御成町2-2-20</p>
+                    <p style="margin-top: 1rem;">
+                        TEL: <a href="tel:0467-00-0000" style="color: rgba(255,255,255,0.7);">0467-00-0000</a><br>
+                        Email: <a href="mailto:info@whitehotel-kamakura.jp" style="color: rgba(255,255,255,0.7);">info@whitehotel-kamakura.jp</a>
+                    </p>
+                    <div class="social-links">
+                        <a href="#" target="_blank" class="social-link" aria-label="Instagram"><svg><use xlink:href="#icon-instagram"/></svg></a>
+                        <a href="#" target="_blank" class="social-link" aria-label="Twitter"><svg><use xlink:href="#icon-twitter"/></svg></a>
+                        <a href="#" target="_blank" class="social-link" aria-label="Facebook"><svg><use xlink:href="#icon-facebook"/></svg></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>サイトマップ</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">ホーム</a></li>
+                        <li><a href="#rooms">お部屋のご案内</a></li>
+                        <li><a href="#location">アクセス</a></li>
+                        <li><a href="#faq">よくあるご質問</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>サポート</h3>
+                    <ul class="footer-links">
+                        <li><a href="#contact">お問い合わせ</a></li>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                        <li><a href="#">利用規約</a></li>
+                        <li style="margin-top: 1rem;"><a href="#" onclick="openStoryModal(event)" class="story-link">この宿の物語について</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 White Hotel Kamakura. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- フローティングチャット -->
+    <div class="floating-chat">
+        <div class="chat-btn" onclick="openChat()" aria-label="チャットを開く">
+            <svg><use xlink:href="#icon-chat"/></svg>
+        </div>
+    </div>
+
+    <!-- 外部ライブラリ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swiper/8.4.5/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+
+    <script>
+        // --- グローバル変数・定数 ---
+        const modal = document.getElementById('customModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalFooter = document.getElementById('modalFooter');
+
+        // --- モーダル表示・非表示 ---
+        const showModal = (title, message, footerContent = '<button class="btn modal-close-btn" onclick="closeModal()">閉じる</button>') => {
+            if (!modal || !modalTitle || !modalMessage || !modalFooter) return;
+            modalTitle.textContent = title;
+            modalMessage.innerHTML = message;
+            modalFooter.innerHTML = footerContent;
+            modal.classList.add('active');
+        };
+        const closeModal = () => {
+            if (!modal) return;
+            modal.classList.remove('active');
+        };
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+
+        // --- 料金計算ロジック ---
+        function calculatePrice(roomType, guests) {
+            const numGuests = parseInt(guests, 10);
+
+            if (roomType === 'single') {
+                return 5000;
+            }
+            
+            if (roomType === 'twin') {
+                if (numGuests <= 1) return 7000;
+                return 10000;
+            } 
+            
+            if (roomType === 'triple') {
+                const soloPrice = 10000;
+                const maxPrice = 15000;
+                if (numGuests <= 1) return soloPrice;
+                if (numGuests >= 3) return maxPrice;
+                const increment = (maxPrice - soloPrice) / 2;
+                return soloPrice + (increment * (numGuests - 1));
+            }
+
+            if (roomType === 'family') {
+                const soloPrice = 14000;
+                const maxPrice = 20000;
+                if (numGuests <= 1) return soloPrice;
+                if (numGuests >= 4) return maxPrice;
+                const increment = (maxPrice - soloPrice) / 3;
+                return Math.round(soloPrice + (increment * (numGuests - 1)));
+            }
+            
+            return 0; // 不明な部屋タイプの場合
+        }
+
+        // --- 予約関連のロジック ---
+
+        /* ① GAS エンドポイント */
+        const ENDPOINT = "https://script.google.com/macros/s/AKfycbzCYPXDeBMO09cNWlxaEINTQMWr6aWR35b6o7OlvXG9j7oMVKwBLUENYofUYn7x0PWL/exec";
+
+        /* ② 空室検索ロジック */
+        async function searchAvailability(event) {
+            event.preventDefault();
+            const btn = event.target.querySelector('.search-btn');
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.innerHTML = '検索中…';
+
+            const cin = document.getElementById('checkinDate').value;
+            const cout = document.getElementById('checkoutDate').value;
+            const guests = document.getElementById('guestCount').value;
+            const type = document.getElementById('roomType').value;
+
+            try {
+                const response = await fetch(ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8',
+                    },
+                    body: JSON.stringify({
+                        action: 'search',
+                        cin: cin,
+                        cout: cout,
+                        guests: guests,
+                        type: type
+                    })
+                });
+                
+                if (!response.ok) {
+                    let errorMsg = `サーバーとの通信に失敗しました (HTTP ${response.status})。`;
+                    try {
+                        const errorData = await response.json();
+                        errorMsg = errorData.msg || errorMsg;
+                    } catch (e) { /* JSONの解析に失敗した場合は、元のエラーメッセージを使用 */ }
+                    throw new Error(errorMsg);
+                }
+                
+                const data = await response.json();
+
+                if (!data.ok) {
+                    throw new Error(data.msg || 'サーバーでエラーが発生しました。');
+                }
+
+                if (data.rooms.length === 0) {
+                    showModal('満室です 😢', '残念ながらご指定の条件では空室がありません。<br>日程や人数を変えて再度お試しください。');
+                    return;
+                }
+
+                const r = data.rooms[0];
+                const roomType = r.type; // GASから返される部屋タイプを使用
+                const price = calculatePrice(roomType, guests);
+
+                const html = `
+                    <b>空室が見つかりました!</b><br>
+                    お部屋: ${r.name}<br>
+                    定員: ${r.capacity} 名様まで<br>
+                    ご宿泊料金: <b>&yen;${price.toLocaleString()}</b> (${guests}名様ご利用)<br><br>
+                    <p>このお部屋で予約手続きに進みますか？</p>
+                `;
+                const footer = `<button class="btn btn-primary" onclick="bookNow('${r.id}', ${price})">この部屋を予約する</button> <button class="btn modal-close-btn" onclick="closeModal()">キャンセル</button>`;
+                showModal('検索結果', html, footer);
+
+            } catch (err) {
+                showModal('検索エラー', `検索中にエラーが発生しました。<br><small>詳細: ${err.message}</small><br><br>時間をおいて再度お試しください。`);
+                console.error(err);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<svg><use xlink:href="#icon-search"/></svg> 検索する';
+            }
+        }
+
+        /* ③ 予約確定ロジック */
+        async function bookNow(roomId, price) {
+            closeModal(); 
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            const bookingFormHtml = `
+                <p>ご予約を確定するには、代表者様のお名前とメールアドレスをご入力ください。</p>
+                <form id="bookingDetailsForm" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="guestName" class="form-label">代表者のお名前</label>
+                        <input type="text" id="guestName" class="form-input" required placeholder="例: 鎌倉 太郎">
+                    </div>
+                    <div class="form-group">
+                        <label for="guestEmail" class="form-label">メールアドレス</label>
+                        <input type="email" id="guestEmail" class="form-input" required placeholder="例: kamakura@example.com">
+                    </div>
+                    <div class="modal-footer" style="margin-top: 1rem; padding:0;">
+                        <button type="submit" class="btn btn-primary">予約を確定する</button>
+                    </div>
+                </form>
+            `;
+            showModal('予約手続き', bookingFormHtml, '');
+
+            document.getElementById('bookingDetailsForm').onsubmit = async (e) => {
+                e.preventDefault();
+                const name = document.getElementById('guestName').value;
+                const email = document.getElementById('guestEmail').value;
+
+                const body = {
+                    action: 'book',
+                    roomId, name, email,
+                    cin: document.getElementById('checkinDate').value,
+                    cout: document.getElementById('checkoutDate').value,
+                    guests: document.getElementById('guestCount').value,
+                    price: price
+                };
+
+                showModal('送信中...', '予約情報をサーバーに送信しています。少々お待ちください…', '');
+
+                try {
+                    const res = await fetch(ENDPOINT, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8', },
+                        body: JSON.stringify(body),
+                    });
+                    
+                    if (!res.ok) {
+                        let errorMsg = `HTTPエラー: ${res.status} ${res.statusText}`;
+                         try {
+                            const errorData = await res.json();
+                            errorMsg = errorData.msg || errorMsg;
+                        } catch(e) { /* JSON解析失敗 */ }
+                        throw new Error(errorMsg);
+                    }
+
+                    const data = await res.json();
+
+                    if (data.ok) {
+                        showModal('予約が完了しました！', `ご予約ありがとうございます。<br><br>ご予約番号: <b>${data.id}</b><br>ご宿泊料金: <b>&yen;${price.toLocaleString()}</b><br><br>確認メールを送信しましたので、ご確認ください。`);
+                    } else {
+                        showModal('予約失敗', data.msg || '何らかのエラーが発生しました。お手数ですが、時間をおいて再度お試しください。');
+                    }
+                } catch (err) {
+                    showModal('通信エラー', `予約情報の送信に失敗しました。<br><small>詳細: ${err.message}</small>`);
+                    console.error(err);
+                }
+            };
+        }
+
+        // --- その他のUI操作関数 ---
+        function openLightGallery(galleryId) {
+            // この機能は現在使用していませんが、将来のために残しておきます
+        }
+
+        function openChat() {
+            const message = `
+                チャットサポートへようこそ！<br>
+                ご不明な点は何でもお尋ねください。<br><br>
+                <b>営業時間:</b> 9:00 - 21:00<br>
+                <b>お急ぎの場合:</b> <a href="tel:0467-00-0000">0467-00-0000</a><br><br>
+                <small>（これはデモです。実際にはIntercom等のチャットウィジェットが開きます）</small>
+            `;
+            showModal('ライブチャット', message);
+        }
+
+        function openStoryModal(event) {
+            event.preventDefault();
+            const storyTitle = "この宿の、未来に向けた物語";
+            const storyMessage = `
+                <p>この度は、私たちの宿に興味を持ってくださり、ありがとうございます。</p>
+                <p>実は、この場所は「実験的なプロジェクト」の真っ最中です。</p>
+                <p>50年近く続いたこのホテルですが、長年ここを守ってこられたオーナー様が体調を崩されたことをきっかけに、私たち若手建築家チームがその想いを引き継がせていただくことになりました。</p>
+                <p>本格的なリニューアルを前に、まずはこの建物が持つありのままの魅力を知るため、<strong>2025年7月から10月までの期間限定</strong>で運営しております。</p>
+                <p>古い柱の傷、少し軋む床、窓から見える江ノ電の風景。この建物が長年積み重ねてきた「記憶の断片」を、あなたに体感していただきたいのです。</p>
+                <p>実を言うと、この3ヶ月間の運営で得られる収益のすべてが、11月からのフルリニューアルに向けた資金となります。もし、この試みがうまくいかなければ、50年の歴史を持つこのホテルは、ここで完全にその役目を終えることになります。</p>
+                <p><strong>あなたの「泊まる」という行為そのものが、この宿の未来を直接支える力になります。</strong></p>
+                <p>そして、あなたの滞在が、未来の宿を創るための大切なヒントにもなります。もしご宿泊いただけた際には、お部屋に置かれたノートに、この建物の好きなところ、少し不便なところ、どんな宿に生まれ変わってほしいかなど、どんな些細なことでも結構です。あなたが見つけた「記憶の断片」について、自由な感想をお聞かせいただけないでしょうか。</p>
+                <p style="text-align: right; margin-top: 2rem;">未来の宿の、最初の宿泊者であり、最初の支援者であるあなたに、心からの感謝を込めて。</p>
+                <p style="text-align: right;"><strong>若手建築家チームより</strong></p>
+            `;
+            showModal(storyTitle, storyMessage);
+        }
+
+        // --- アプリケーションの初期化 ---
+        function initializeApp() {
+            // Loader
+            const loader = document.getElementById('pageLoader');
+            if (loader) {
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    setTimeout(() => { loader.style.display = 'none'; }, 500);
+                }, 1500);
+            }
+
+            // Header Scroll
+            const header = document.getElementById('header');
+            let lastScrollY = window.scrollY;
+            const handleScroll = () => {
+                const currentScrollY = window.scrollY;
+                const isScrolled = currentScrollY > 50;
+                if (header) {
+                    header.classList.toggle('header-transparent', !isScrolled && window.scrollY < 50);
+                     if (window.innerWidth > 768) {
+                        if (currentScrollY > lastScrollY && isScrolled) {
+                            header.style.transform = 'translateY(-100%)';
+                        } else {
+                            header.style.transform = 'translateY(0)';
+                        }
+                    }
+                }
+                lastScrollY = currentScrollY;
+            };
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+
+
+            // Mobile Menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const toggleMobileMenu = () => {
+                mobileMenuBtn.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            };
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            document.querySelectorAll('.mobile-nav-link, .nav-link, .btn, .logo').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        if (mobileMenu.classList.contains('active')) {
+                            toggleMobileMenu();
+                        }
+                        const targetEl = document.querySelector(href);
+                        if (targetEl) {
+                           e.preventDefault();
+                           const offset = (href === '#bookingWidget' && window.innerWidth <= 768) ? 100 : 80;
+                           const bodyRect = document.body.getBoundingClientRect().top;
+                           const elementRect = targetEl.getBoundingClientRect().top;
+                           const elementPosition = elementRect - bodyRect;
+                           const offsetPosition = elementPosition - offset;
+
+                           window.scrollTo({
+                               top: offsetPosition,
+                               behavior: 'smooth'
+                           });
+                        }
+                    }
+                });
+            });
+
+            // Date Picker
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const formatDate = (date) => date.toISOString().split('T')[0];
+            const checkinDateEl = document.getElementById('checkinDate');
+            const checkoutDateEl = document.getElementById('checkoutDate');
+            if (checkinDateEl) {
+                checkinDateEl.min = formatDate(today);
+                checkinDateEl.value = formatDate(today);
+            }
+            if (checkoutDateEl) {
+                checkoutDateEl.min = formatDate(tomorrow);
+                checkoutDateEl.value = formatDate(tomorrow);
+            }
+            if (checkinDateEl) {
+                checkinDateEl.addEventListener('change', function() {
+                    const checkinDate = new Date(this.value);
+                    const nextDay = new Date(checkinDate);
+                    nextDay.setDate(nextDay.getDate() + 1);
+                    const nextDayStr = formatDate(nextDay);
+                    checkoutDateEl.min = nextDayStr;
+                    if (checkoutDateEl.value <= this.value) {
+                        checkoutDateEl.value = nextDayStr;
+                    }
+                });
+            }
+
+            // FAQ
+            const faqContainer = document.getElementById('faqContainer');
+            if (faqContainer) {
+                faqContainer.addEventListener('click', function(e) {
+                    const question = e.target.closest('.faq-question');
+                    if (!question) return;
+                    const faqItem = question.parentElement;
+                    const isActive = faqItem.classList.contains('active');
+                    
+                    const currentlyActive = faqContainer.querySelector('.faq-item.active');
+                    if (currentlyActive && currentlyActive !== faqItem) {
+                        currentlyActive.classList.remove('active');
+                    }
+
+                    faqItem.classList.toggle('active');
+                });
+            }
+
+            // Interactive Map
+            const mapIframe = document.getElementById('map-iframe');
+            const locationGrid = document.getElementById('location-grid');
+            if (mapIframe && locationGrid) {
+                locationGrid.addEventListener('click', function(e) {
+                    const item = e.target.closest('.location-item');
+                    if (!item) return;
+                    locationGrid.querySelectorAll('.location-item').forEach(el => el.classList.remove('active'));
+                    item.classList.add('active');
+                    const query = item.dataset.locationQuery;
+                    if (query) {
+                        const newSrc = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+                        mapIframe.src = newSrc;
+                    }
+                });
+            }
+        }
+
+        function initializeLibraries() {
+            // AOS
+            try {
+                if (typeof AOS !== 'undefined') {
+                    AOS.init({ duration: 800, easing: 'ease-out-quart', once: true });
+                }
+            } catch (e) { console.error("AOS initialization failed:", e); }
+
+            // Swiper Carousel
+            try {
+                if (typeof Swiper !== 'undefined') {
+                     new Swiper('.reviews-carousel', {
+                        slidesPerView: 1,
+                        spaceBetween: 30,
+                        loop: true,
+                        autoplay: { delay: 5000, disableOnInteraction: false },
+                        pagination: { el: '.swiper-pagination', clickable: true },
+                        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                        breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+                    });
+                }
+            } catch (e) { console.error("Swiper failed to initialize:", e); }
+
+            // LightGallery
+             try {
+                if (typeof lightGallery !== 'undefined') {
+                    if (document.getElementById('lightgallery')) {
+                        lightGallery(document.getElementById('lightgallery'), {
+                            plugins: [lgZoom, lgThumbnail], speed: 500, download: false, selector: 'a'
+                        });
+                    }
+                }
+            } catch (e) { console.error("LightGallery initialization failed:", e); }
+        }
+
+        // --- アプリケーションの実行 ---
+        document.addEventListener('DOMContentLoaded', initializeApp);
+        window.addEventListener('load', initializeLibraries);
+
+    </script>
+</body>
+</html>
