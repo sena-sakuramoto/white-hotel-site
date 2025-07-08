@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブログ | ホワイトホテル鎌倉</title>
+    <meta name="description" content="ホワイトホテル鎌倉の最新情報、鎌倉の観光ガイド、ホテルのこだわりなどを紹介するブログです。">
+    <link rel="canonical" href="https://whitehotel-kamakura.jp/blog.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: var(--bg-offwhite);
+            padding-top: 80px; /* ヘッダーの高さ分 */
+        }
+        .blog-container {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        .blog-container h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .blog-container h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+        .blog-post-list {
+            list-style: none;
+            padding: 0;
+        }
+        .blog-post-item {
+            border-bottom: 1px solid var(--border-light);
+            padding: 1.5rem 0;
+        }
+        .blog-post-item:last-child {
+            border-bottom: none;
+        }
+        .blog-post-item h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .blog-post-item h2 a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+        .blog-post-item h2 a:hover {
+            color: var(--primary-color);
+        }
+        .blog-post-meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .blog-post-excerpt {
+            color: var(--text-secondary);
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">White Hotel</a>
+                <nav class="nav-menu">
+                    <a href="index.html#home" class="nav-link">ホーム</a>
+                    <a href="index.html#rooms" class="nav-link">お部屋</a>
+                    <a href="index.html#location" class="nav-link">アクセス</a>
+                    <a href="index.html#reviews" class="nav-link">みんなの声</a>
+                    <a href="index.html#faq" class="nav-link">FAQ</a>
+                    <a href="story.html" class="nav-link">物語</a>
+                    <a href="blog.html" class="nav-link">ブログ</a>
+                    <a href="index.html#bookingWidget" class="nav-cta">空室をさがす</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="メニューを開閉する">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html#home" class="mobile-nav-link">ホーム</a>
+        <a href="index.html#rooms" class="mobile-nav-link">お部屋</a>
+        <a href="index.html#location" class="mobile-nav-link">アクセス</a>
+        <a href="index.html#reviews" class="mobile-nav-link">みんなの声</a>
+        <a href="index.html#faq" class="mobile-nav-link">FAQ</a>
+        <a href="story.html" class="mobile-nav-link">物語</a>
+        <a href="blog.html" class="mobile-nav-link">ブログ</a>
+        <a href="index.html#bookingWidget" class="mobile-nav-link">空室をさがす</a>
+    </div>
+
+    <main>
+        <div class="blog-container">
+            <h1>ブログ</h1>
+            <ul class="blog-post-list">
+                <li class="blog-post-item">
+                    <h2><a href="#">鎌倉の隠れた名所5選</a></h2>
+                    <p class="blog-post-meta">2025年7月7日</p>
+                    <p class="blog-post-excerpt">ホワイトホテル鎌倉からアクセスしやすい、地元の人だけが知る鎌倉の魅力的なスポットをご紹介します。</p>
+                </li>
+                <li class="blog-post-item">
+                    <h2><a href="#">建築家が語る、リノベーションの舞台裏</a></h2>
+                    <p class="blog-post-meta">2025年6月20日</p>
+                    <p class="blog-post-excerpt">当ホテルのリノベーションに携わった若手建築家チームが、デザインのこだわりや苦労話を語ります。</p>
+                </li>
+                <li class="blog-post-item">
+                    <h2><a href="#">江ノ電ビューの魅力とは？</a></h2>
+                    <p class="blog-post-meta">2025年6月1日</p>
+                    <p class="blog-post-excerpt">窓から見える江ノ電の風景が、なぜ旅の思い出を特別なものにするのか。その理由を探ります。</p>
+                </li>
+            </ul>
+        </div>
+        <a href="index.html" class="back-link">← ホームに戻る</a>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swiper/8.4.5/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+    <script>
+        // ヘッダーの透明化とスクロール時の表示/非表示
+        const header = document.getElementById('header');
+        let lastScrollY = window.scrollY;
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            const isScrolled = currentScrollY > 50;
+            if (header) {
+                header.classList.toggle('header-transparent', !isScrolled && window.scrollY < 50);
+                if (window.innerWidth > 768) {
+                    if (currentScrollY > lastScrollY && isScrolled) {
+                        header.style.transform = 'translateY(-100%)';
+                    } else {
+                        header.style.transform = 'translateY(0)';
+                    }
+                }
+            }
+            lastScrollY = currentScrollY;
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+
+        // モバイルメニューのトグル
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const toggleMobileMenu = () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        };
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        // AOS初期化
+        try {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({ duration: 800, easing: 'ease-out-quart', once: true });
+            }
+        } catch (e) { console.error("AOS initialization failed:", e); }
+    </script>
+</body>
+</html>
