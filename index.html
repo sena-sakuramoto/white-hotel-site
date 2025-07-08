@@ -628,16 +628,21 @@
 
                 const r = data.rooms[0];
                 const roomType = r.type; // GASから返される部屋タイプを使用
-                const price = calculatePrice(roomType, guests);
+                const perNightPrice = calculatePrice(roomType, guests);
+
+                const checkinDate = new Date(cin);
+                const checkoutDate = new Date(cout);
+                const nights = Math.round((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24)); // 宿泊日数を計算
+                const totalPrice = perNightPrice * nights; // 合計料金を計算
 
                 const html = `
                     <b>空室が見つかりました!</b><br>
                     お部屋: ${r.name}<br>
                     定員: ${r.capacity} 名様まで<br>
-                    ご宿泊料金: <b>&yen;${price.toLocaleString()}</b> (${guests}名様ご利用)<br><br>
+                    ご宿泊料金: <b>&yen;${totalPrice.toLocaleString()}</b> (${guests}名様ご利用 / ${nights}泊)<br><br>
                     <p>このお部屋で予約手続きに進みますか？</p>
                 `;
-                const footer = `<button class="btn btn-primary" onclick="bookNow('${r.id}', ${price})">この部屋を予約する</button> <button class="btn modal-close-btn" onclick="closeModal()">キャンセル</button>`;
+                const footer = `<button class="btn btn-primary" onclick="bookNow('${r.id}', ${totalPrice})">この部屋を予約する</button> <button class="btn modal-close-btn" onclick="closeModal()">キャンセル</button>`;
                 showModal('検索結果', html, footer);
 
             } catch (err) {
