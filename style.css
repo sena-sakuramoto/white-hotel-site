@@ -249,7 +249,7 @@ select.form-input {
 .rooms-section { padding: 6rem 0; background: var(--bg-offwhite); }
 .rooms-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 最小幅をさらに小さくして調整 */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 最小幅をさらに小さくして調整 */
     gap: 2.5rem;
     margin-top: 4rem;
 }
