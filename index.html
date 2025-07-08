@@ -876,6 +876,9 @@
                     }
                 });
             }
+                // FAQ
+            const faqContainer = document.getElementById('faqContainer');
+            if (faqContainer) {
                 faqContainer.addEventListener('click', function(e) {
                     const question = e.target.closest('.faq-question');
                     if (!question) return;
@@ -908,6 +911,8 @@
                 });
             }
         }
+
+        function initializeLibraries() {
 
         function initializeLibraries() {
             // AOS
