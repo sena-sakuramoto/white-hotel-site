@@ -71,7 +71,7 @@
         }
     </style>
 </head>
-<body>
+<body class="subpage-body">
     <header id="header">
         <div class="container">
             <div class="header-content">
@@ -127,24 +127,25 @@
     <script>
         // ヘッダーの透明化とスクロール時の表示/非表示
         const header = document.getElementById('header');
-        let lastScrollY = window.scrollY;
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-            const isScrolled = currentScrollY > 50;
-            if (header) {
-                header.classList.toggle('header-transparent', !isScrolled && window.scrollY < 50);
-                if (window.innerWidth > 768) {
-                    if (currentScrollY > lastScrollY && isScrolled) {
-                        header.style.transform = 'translateY(-100%)';
-                    } else {
-                        header.style.transform = 'translateY(0)';
-                    }
-                }
-            }
-            lastScrollY = currentScrollY;
-        };
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll();
+        // サブページではヘッダーを常に不透明にするため、header-transparentクラスの制御は行わない
+        // let lastScrollY = window.scrollY;
+        // const handleScroll = () => {
+        //     const currentScrollY = window.scrollY;
+        //     const isScrolled = currentScrollY > 50;
+        //     if (header) {
+        //         header.classList.toggle('header-transparent', !isScrolled && window.innerWidth > 768 && window.scrollY < 50);
+        //          if (window.innerWidth > 768) {
+        //             if (currentScrollY > lastScrollY && isScrolled) {
+        //                 header.style.transform = 'translateY(-100%)';
+        //             } else {
+        //                 header.style.transform = 'translateY(0)';
+        //             }
+        //         }
+        //     }
+        //     lastScrollY = currentScrollY;
+        // };
+        // window.addEventListener('scroll', handleScroll, { passive: true });
+        // handleScroll();
 
         // モバイルメニューのトグル
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
