@@ -34,6 +34,22 @@ body {
     overflow-x: hidden;
 }
 
+body.subpage-body header {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-light);
+}
+
+body.subpage-body header .logo,
+body.subpage-body header .nav-link {
+    color: var(--primary-color);
+}
+
+body.subpage-body header .mobile-menu-btn span {
+    background: var(--text-primary);
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif;
     font-weight: 700;
@@ -216,7 +232,7 @@ select.form-input {
 .rooms-section { padding: 6rem 0; background: var(--bg-offwhite); }
 .rooms-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 最小幅を少し小さくして調整 */
     gap: 2.5rem;
     margin-top: 4rem;
 }

@@ -803,33 +803,42 @@
                 });
             });
 
-            // Date Picker
-            const today = new Date();
-            const tomorrow = new Date(today);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            const formatDate = (date) => date.toISOString().split('T')[0];
-            const checkinDateEl = document.getElementById('checkinDate');
-            const checkoutDateEl = document.getElementById('checkoutDate');
-            if (checkinDateEl) {
-                checkinDateEl.min = formatDate(today);
-                checkinDateEl.value = formatDate(today);
-            }
-            if (checkoutDateEl) {
-                checkoutDateEl.min = formatDate(tomorrow);
-                checkoutDateEl.value = formatDate(tomorrow);
-            }
-            if (checkinDateEl) {
-                checkinDateEl.addEventListener('change', function() {
-                    const checkinDate = new Date(this.value);
-                    const nextDay = new Date(checkinDate);
-                    nextDay.setDate(nextDay.getDate() + 1);
-                    const nextDayStr = formatDate(nextDay);
-                    checkoutDateEl.min = nextDayStr;
-                    if (checkoutDateEl.value <= this.value) {
-                        checkoutDateEl.value = nextDayStr;
-                    }
-                });
-            }
+            // Room Type と Guest Count の連動
+    const guestCountEl = document.getElementById('guestCount');
+    const roomTypeEl = document.getElementById('roomType');
+
+    const updateGuestOptions = () => {
+        const selectedRoomType = roomTypeEl.value;
+        const currentGuests = parseInt(guestCountEl.value);
+        let maxGuests = 4; // デフォルトの最大人数
+
+        // 部屋タイプに応じた最大人数を設定
+        if (selectedRoomType === 'single') maxGuests = 1;
+        else if (selectedRoomType === 'twin') maxGuests = 2;
+        else if (selectedRoomType === 'triple') maxGuests = 3;
+        else if (selectedRoomType === 'family') maxGuests = 4;
+        else if (selectedRoomType === 'any') maxGuests = 4; // 「どちらでも」の場合は最大4名
+
+        // 選択肢を更新
+        guestCountEl.innerHTML = '';
+        for (let i = 1; i <= maxGuests; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `${i}名`;
+            guestCountEl.appendChild(option);
+        }
+
+        // 現在の人数が新しい最大人数を超えていたら、最大人数に設定
+        if (currentGuests > maxGuests) {
+            guestCountEl.value = maxGuests;
+        } else {
+            guestCountEl.value = currentGuests; // 以前の選択を維持
+        }
+    };
+
+    // 初期ロード時と部屋タイプ変更時に人数選択肢を更新
+    roomTypeEl.addEventListener('change', updateGuestOptions);
+    updateGuestOptions(); // 初期表示
 
             // FAQ
             const faqContainer = document.getElementById('faqContainer');
