@@ -845,9 +845,37 @@
     roomTypeEl.addEventListener('change', updateGuestOptions);
     updateGuestOptions(); // 初期表示
 
-            // FAQ
-            const faqContainer = document.getElementById('faqContainer');
-            if (faqContainer) {
+            // Date Picker
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const formatDate = (date) => date.toISOString().split('T')[0];
+            const checkinDateEl = document.getElementById('checkinDate');
+            const checkoutDateEl = document.getElementById('checkoutDate');
+
+            // 初期ロード時に日付を設定
+            if (checkinDateEl) {
+                checkinDateEl.min = formatDate(today);
+                checkinDateEl.value = formatDate(today);
+            }
+            if (checkoutDateEl) {
+                checkoutDateEl.min = formatDate(tomorrow);
+                checkoutDateEl.value = formatDate(tomorrow);
+            }
+
+            // チェックイン日変更時のチェックアウト日自動調整
+            if (checkinDateEl) {
+                checkinDateEl.addEventListener('change', function() {
+                    const checkinDate = new Date(this.value);
+                    const nextDay = new Date(checkinDate);
+                    nextDay.setDate(nextDay.getDate() + 1);
+                    const nextDayStr = formatDate(nextDay);
+                    checkoutDateEl.min = nextDayStr;
+                    if (checkoutDateEl.value <= this.value) {
+                        checkoutDateEl.value = nextDayStr;
+                    }
+                });
+            }
                 faqContainer.addEventListener('click', function(e) {
                     const question = e.target.closest('.faq-question');
                     if (!question) return;
