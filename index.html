@@ -14,16 +14,13 @@
     <link rel="canonical" href="https://whitehotel-kamakura.jp">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     
-    <!-- 外部ライブラリ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swiper/8.4.5/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery-bundle.min.css">
     
-    <!-- 作成したCSSファイルを読み込み -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- SVG アイコン定義 -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="icon-search" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></symbol>
         <symbol id="icon-users" viewBox="0 0 24 24"><path d="M9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 8c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm-6 4c.22-.72 3.31-2 6-2 2.7 0 5.8 1.29 6 2H3zm12-4c0-1.12-.6-2.13-1.55-2.81C15.19 14.53 17 15.65 17 18v2h5v-2c0-2.66-5.33-4-8-4z"/></symbol>
@@ -40,7 +37,6 @@
         <symbol id="icon-facebook" viewBox="0 0 24 24"><path d="M18 3a3 3 0 0 0-3 3v2h-3v4h3v8h4v-8h3l1-4h-4V6a1 1 0 0 1 1-1h3V3h-3z"/></symbol>
     </svg>
 
-    <!-- ページローダー -->
     <div class="page-loader" id="pageLoader">
         <div class="loader-content">
             <div class="loader-logo">White Hotel</div>
@@ -50,7 +46,6 @@
         </div>
     </div>
     
-    <!-- カスタムモーダル -->
     <div class="modal-overlay" id="customModal">
         <div class="modal-content">
             <h3 class="modal-header" id="modalTitle"></h3>
@@ -61,7 +56,6 @@
         </div>
     </div>
 
-    <!-- ヘッダー -->
     <header id="header">
         <div class="container">
             <div class="header-content">
@@ -85,7 +79,6 @@
         </div>
     </header>
 
-    <!-- モバイルメニュー -->
     <div class="mobile-menu" id="mobileMenu">
         <a href="#home" class="mobile-nav-link">ホーム</a>
         <a href="#rooms" class="mobile-nav-link">お部屋</a>
@@ -98,7 +91,6 @@
     </div>
 
     <main>
-        <!-- ヒーローセクション -->
         <section id="home" class="hero">
             <video class="hero-video" src="https://videos.pexels.com/video-files/2099391/2099391-hd_1920_1080_25fps.mp4" autoplay loop muted playsinline poster="https://images.pexels.com/videos/2099391/pexels-photo-2099391.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"></video>
             <div class="hero-bg"></div>
@@ -118,7 +110,6 @@
                 </div>
             </div>
 
-            <!-- リアルタイム予約ウィジェット -->
             <div class="booking-widget" id="bookingWidget">
                 <div class="widget-header">
                     <h3 class="widget-title">空室検索・料金チェック</h3>
@@ -159,7 +150,6 @@
             </div>
         </section>
 
-        <!-- プレミアム客室 -->
         <section id="rooms" class="rooms-section">
             <div class="container">
                 <div class="section-header" data-aos="fade-up">
@@ -171,7 +161,6 @@
                 </div>
 
                 <div class="rooms-grid">
-                    <!-- Room I -->
                     <div class="room-card" data-aos="fade-up" data-aos-delay="100">
                         <div class="room-card-image" style="background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80')"></div>
                         <div class="room-card-content">
@@ -192,7 +181,6 @@
                             <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
                         </div>
                     </div>
-                    <!-- Room II -->
                     <div class="room-card" data-aos="fade-up" data-aos-delay="200">
                         <div class="room-card-image" style="background-image: url('https://images.unsplash.com/photo-1598605272254-16f0c0ecdfa5?auto=format&fit=crop&w=800&q=80')"></div>
                         <div class="room-card-content">
@@ -214,7 +202,6 @@
                             <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
                         </div>
                     </div>
-                    <!-- Room III -->
                     <div class="room-card" data-aos="fade-up" data-aos-delay="300">
                         <div class="room-card-image" style="background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80')"></div>
                         <div class="room-card-content">
@@ -237,7 +224,6 @@
                             <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
                         </div>
                     </div>
-                    <!-- Room IV -->
                     <div class="room-card" data-aos="fade-up" data-aos-delay="400">
                         <div class="room-card-image" style="background-image: url('https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?auto=format&fit=crop&w=800&q=80')"></div>
                         <div class="room-card-content">
@@ -265,7 +251,6 @@
             </div>
         </section>
 
-        <!-- インタラクティブマップ・ロケーション -->
         <section id="location" class="map-section">
             <div class="container">
                 <div class="map-container">
@@ -302,7 +287,6 @@
             </div>
         </section>
 
-        <!-- お客様の声・レビューカルーセル -->
         <section id="reviews" class="reviews-section">
             <div class="container">
                 <div class="section-header" data-aos="fade-up">
@@ -328,7 +312,6 @@
             </div>
         </section>
 
-        <!-- フォトギャラリー -->
         <section id="gallery" class="gallery-section">
             <div class="container">
                 <div class="section-header" data-aos="fade-up">
@@ -350,7 +333,6 @@
             </div>
         </section>
 
-        <!-- FAQ -->
         <section id="faq" class="faq-section">
             <div class="container">
                 <div class="section-header" data-aos="fade-up">
@@ -384,7 +366,6 @@
             </div>
         </section>
 
-        <!-- CTA予約セクション -->
         <section id="booking" class="cta-section">
             <div class="container">
                 <div class="cta-content" data-aos="fade-up">
@@ -404,7 +385,6 @@
         </section>
     </main>
 
-    <!-- フッター -->
     <footer id="contact">
         <div class="container">
             <div class="footer-content">
@@ -441,19 +421,17 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 White Hotel Kamakura. All rights reserved.</p>
+                <p>© 2025 White Hotel Kamakura. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- フローティングチャット -->
     <div class="floating-chat">
         <div class="chat-btn" onclick="openChat()" aria-label="チャットを開く">
             <svg><use xlink:href="#icon-chat"/></svg>
         </div>
     </div>
 
-    <!-- 外部ライブラリ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/swiper/8.4.5/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
@@ -585,7 +563,7 @@
                     <b>空室が見つかりました!</b><br>
                     お部屋: ${r.name}<br>
                     定員: ${r.capacity} 名様まで<br>
-                    ご宿泊料金: <b>&yen;${totalPrice.toLocaleString()}</b> (${guests}名様ご利用 / ${nights}泊)<br><br>
+                    ご宿泊料金: <b>¥${totalPrice.toLocaleString()}</b> (${guests}名様ご利用 / ${nights}泊)<br><br>
                     <p>このお部屋で予約手続きに進みますか？</p>
                 `;
                 const footer = `<button class="btn btn-primary" onclick="bookNow('${r.id}', ${totalPrice})">この部屋を予約する</button> <button class="btn modal-close-btn" onclick="closeModal()">キャンセル</button>`;
@@ -658,7 +636,7 @@
                     const data = await res.json();
 
                     if (data.ok) {
-                        showModal('予約が完了しました！', `ご予約ありがとうございます。<br><br>ご予約番号: <b>${data.id}</b><br>ご宿泊料金: <b>&yen;${price.toLocaleString()}</b><br><br>確認メールを送信しましたので、ご確認ください。`);
+                        showModal('予約が完了しました！', `ご予約ありがとうございます。<br><br>ご予約番号: <b>${data.id}</b><br>ご宿泊料金: <b>¥${price.toLocaleString()}</b><br><br>確認メールを送信しましたので、ご確認ください。`);
                     } else {
                         showModal('予約失敗', data.msg || '何らかのエラーが発生しました。お手数ですが、時間をおいて再度お試しください。');
                     }
@@ -689,7 +667,6 @@
 
         // --- アプリケーションの初期化 ---
         function initializeApp() {
-            function initializeApp() {
             // Loader
             const loader = document.getElementById('pageLoader');
             if (loader) {
@@ -817,22 +794,11 @@
                     const nextDay = new Date(checkinDate);
                     nextDay.setDate(nextDay.getDate() + 1);
                     const nextDayStr = formatDate(nextDay);
-                    checkoutDateEl.min = nextDayEl.value = formatDate(tomorrow);
-                }
-
-                // チェックイン日変更時のチェックアウト日自動調整
-                if (checkinDateEl) {
-                    checkinDateEl.addEventListener('change', function() {
-                        const checkinDate = new Date(this.value);
-                        const nextDay = new Date(checkinDate);
-                        nextDay.setDate(nextDay.getDate() + 1);
-                        const nextDayStr = formatDate(nextDay);
-                        checkoutDateEl.min = nextDayStr;
-                        if (checkoutDateEl.value <= this.value) {
-                            checkoutDateEl.value = nextDayStr;
-                        }
-                    });
-                }
+                    checkoutDateEl.min = nextDayStr;
+                    if (checkoutDateEl.value <= this.value) {
+                        checkoutDateEl.value = nextDayStr;
+                    }
+                });
             }
             // FAQ
             const faqContainer = document.getElementById('faqContainer');
@@ -864,10 +830,10 @@
                     const query = item.dataset.locationQuery;
                     if (query) {
                         let newSrc;
-                        if (query.startsWith('https://www.google.com/maps/embed')) {
+                        if (query.startsWith('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2716.9052598693493!2d139.54928662500606!3d35.31785059969351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601845c24760efcd%3A0x57b591a8af3a433!2z44Os44OH44Kj44O844K544Kk44OzIOODm-ODr-OCpOODiOODm-ODhuODqw!5e1!3m2!1sja!2sjp!4v1752052923352!5m2!1sja!2sjp')) {
                             newSrc = query; // 埋め込みURLならそのまま使用
                         } else {
-                            newSrc = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&t=&z=16&ie=UTF8&iwloc=&output=embed`; // それ以外はクエリをエンコード
+                            newSrc = `https://maps.google.com/maps?q=$${encodeURIComponent(query)}&t=&z=16&ie=UTF8&iwloc=&output=embed`; // それ以外はクエリをエンコード
                         }
                         mapIframe.src = newSrc;
                     }
