@@ -485,7 +485,7 @@ footer { background: var(--secondary-color); color: var(--white); padding: 4rem 
         left: auto; 
         transform: none; 
         animation: none; 
-        margin: -5rem auto 3rem; 
+        margin: 2rem auto; /* 修正: 負のマージンを削除し、適切な余白を設定 */ 
         padding: 1.5rem;
     }
     .info-bar { display: none; }
