@@ -689,6 +689,7 @@
 
         // --- アプリケーションの初期化 ---
         function initializeApp() {
+            function initializeApp() {
             // Loader
             const loader = document.getElementById('pageLoader');
             if (loader) {
@@ -790,7 +791,7 @@
             // 初期ロード時と部屋タイプ変更時に人数選択肢を更新
             roomTypeEl.addEventListener('change', updateGuestOptions);
             updateGuestOptions(); // 初期表示
-
+            
             // Date Picker
             const today = new Date();
             const tomorrow = new Date(today);
@@ -816,11 +817,22 @@
                     const nextDay = new Date(checkinDate);
                     nextDay.setDate(nextDay.getDate() + 1);
                     const nextDayStr = formatDate(nextDay);
-                    checkoutDateEl.min = nextDayStr;
-                    if (checkoutDateEl.value <= this.value) {
-                        checkoutDateEl.value = nextDayStr;
-                    }
-                });
+                    checkoutDateEl.min = nextDayEl.value = formatDate(tomorrow);
+                }
+
+                // チェックイン日変更時のチェックアウト日自動調整
+                if (checkinDateEl) {
+                    checkinDateEl.addEventListener('change', function() {
+                        const checkinDate = new Date(this.value);
+                        const nextDay = new Date(checkinDate);
+                        nextDay.setDate(nextDay.getDate() + 1);
+                        const nextDayStr = formatDate(nextDay);
+                        checkoutDateEl.min = nextDayStr;
+                        if (checkoutDateEl.value <= this.value) {
+                            checkoutDateEl.value = nextDayStr;
+                        }
+                    });
+                }
             }
             // FAQ
             const faqContainer = document.getElementById('faqContainer');
