@@ -273,7 +273,7 @@
                         <h2 class="section-title map-title">鎌倉散策の、秘密基地に。</h2>
                         <p class="section-subtitle" style="color: var(--text-primary); margin: 0 auto 2rem;">行きたい場所は、すぐそこ。ここを拠点に、気ままな鎌倉の旅へ出かけよう。</p>
                         <div class="location-grid" id="location-grid">
-                            <div class="location-item active" data-location-query="神奈川県鎌倉市御成町2-2-20">
+                            <div class="location-item active" data-location-query="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2716.9052598693493!2d139.54928662500606!3d35.31785059969351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601845c24760efcd%3A0x57b591a8af3a433!2z44Os44OH44Kj44O844K544Kk44OzIOODm-ODr-OCpOODiOODm-ODhuODqw!5e1!3m2!1sja!2sjp!4v1752052923352!5m2!1sja!2sjp">
                                 <div class="location-icon"><svg><use xlink:href="#icon-train"/></svg></div>
                                 <div class="location-details"><h4>White Hotel</h4><p>ここが私たちの宿です</p></div>
                             </div>
@@ -905,7 +905,12 @@
                     item.classList.add('active');
                     const query = item.dataset.locationQuery;
                     if (query) {
-                        const newSrc = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+                        let newSrc;
+                        if (query.startsWith('https://www.google.com/maps/embed')) {
+                            newSrc = query; // 埋め込みURLならそのまま使用
+                        } else {
+                            newSrc = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&t=&z=16&ie=UTF8&iwloc=&output=embed`; // それ以外はクエリをエンコード
+                        }
                         mapIframe.src = newSrc;
                     }
                 });
