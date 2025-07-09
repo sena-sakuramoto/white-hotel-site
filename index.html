@@ -467,37 +467,51 @@
         }
 
         // --- 料金計算ロジック ---
-        function calculatePrice(roomType, guests) {
+        function calculatePrice(roomType, guests, checkinDateStr) { // checkinDateStr を追加
             const numGuests = parseInt(guests, 10);
+            let basePrice = 0;
 
             if (roomType === 'single') {
-                return 5000;
-            }
-            
-            if (roomType === 'twin') {
-                if (numGuests <= 1) return 7000;
-                return 10000;
-            } 
-            
-            if (roomType === 'triple') {
+                basePrice = 5000;
+            } else if (roomType === 'twin') {
+                if (numGuests <= 1) basePrice = 7000;
+                else basePrice = 10000;
+            } else if (roomType === 'triple') {
                 const soloPrice = 10000;
                 const maxPrice = 15000;
-                if (numGuests <= 1) return soloPrice;
-                if (numGuests >= 3) return maxPrice;
-                const increment = (maxPrice - soloPrice) / 2;
-                return soloPrice + (increment * (numGuests - 1));
-            }
-
-            if (roomType === 'family') {
+                if (numGuests <= 1) basePrice = soloPrice;
+                else if (numGuests >= 3) basePrice = maxPrice;
+                else {
+                    const increment = (maxPrice - soloPrice) / 2;
+                    basePrice = soloPrice + (increment * (numGuests - 1));
+                }
+            } else if (roomType === 'family') {
                 const soloPrice = 14000;
                 const maxPrice = 20000;
-                if (numGuests <= 1) return soloPrice;
-                if (numGuests >= 4) return maxPrice;
-                const increment = (maxPrice - soloPrice) / 3;
-                return Math.round(soloPrice + (increment * (numGuests - 1)));
+                if (numGuests <= 1) basePrice = soloPrice;
+                else if (numGuests >= 4) basePrice = maxPrice;
+                else {
+                    const increment = (maxPrice - soloPrice) / 3;
+                    basePrice = Math.round(soloPrice + (increment * (numGuests - 1)));
+                }
+            } else {
+                return 0; // 不明な部屋タイプの場合
             }
-            
-            return 0; // 不明な部屋タイプの場合
+
+            // 週末・祝日料金の計算
+            const checkinDate = new Date(checkinDateStr);
+            const dayOfWeek = checkinDate.getDay(); // 0 = Sunday, 6 = Saturday
+
+            if (dayOfWeek === 0 || dayOfWeek === 6) { // 土曜日または日曜日
+                if (roomType === 'single') {
+                    basePrice *= 1.20; // 20% UP
+                } else { // B, C, D (twin, triple, family)
+                    basePrice *= 1.25; // 25% UP
+                }
+            }
+            // TODO: 祝日判定ロジックを追加する場合はここに記述
+
+            return Math.round(basePrice); // 端数処理
         }
 
         // --- 予約関連のロジック ---
@@ -555,7 +569,7 @@
 
                 const r = data.rooms[0];
                 const roomType = r.type; // GASから返される部屋タイプを使用
-                const perNightPrice = calculatePrice(roomType, guests);
+                const perNightPrice = calculatePrice(roomType, guests, cin);
 
                 const checkinDate = new Date(cin);
                 const checkoutDate = new Date(cout);
