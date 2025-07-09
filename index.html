@@ -92,7 +92,7 @@
 
     <main>
         <section id="home" class="hero">
-            <video class="hero-video" src="https://videos.pexels.com/video-files/2099391/2099391-hd_1920_1080_25fps.mp4" autoplay loop muted playsinline poster="https://images.pexels.com/videos/2099391/pexels-photo-2099391.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"></video>
+            <video class="hero-video" src="videos/hero-video.mp4" autoplay loop muted playsinline></video>
             <div class="hero-bg"></div>
             <div class="container">
                 <div class="hero-content">
@@ -308,6 +308,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
                 </div>
             </div>
         </section>
@@ -851,27 +854,36 @@
 
             // Swiper Carousel
             try {
-                if (typeof Swiper !== 'undefined') {
-                     new Swiper('.reviews-carousel', {
+                if (typeof Swiper !== 'undefined' && document.querySelector('.reviews-carousel')) {
+                    new Swiper('.reviews-carousel', {
                         slidesPerView: 1,
                         spaceBetween: 30,
-                        loop: true,
-                        autoplay: { delay: 5000, disableOnInteraction: false },
-                        pagination: { el: '.swiper-pagination', clickable: true },
-                        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-                        breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+                        // loop: true, // 1枚のスライドでループを有効にすると問題が起きる可能性があるため、一旦コメントアウト
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: false,
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
                     });
                 }
             } catch (e) { console.error("Swiper failed to initialize:", e); }
 
             // LightGallery
-             try {
-                if (typeof lightGallery !== 'undefined') {
-                    if (document.getElementById('lightgallery')) {
-                        lightGallery(document.getElementById('lightgallery'), {
-                            plugins: [lgZoom, lgThumbnail], speed: 500, download: false, selector: 'a'
-                        });
-                    }
+            try {
+                if (typeof lightGallery !== 'undefined' && document.getElementById('lightgallery')) {
+                    lightGallery(document.getElementById('lightgallery'), {
+                        plugins: [lgZoom, lgThumbnail],
+                        speed: 500,
+                        download: false,
+                        selector: 'a'
+                    });
                 }
             } catch (e) { console.error("LightGallery initialization failed:", e); }
         }
