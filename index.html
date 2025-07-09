@@ -689,7 +689,6 @@
 
         // --- アプリケーションの初期化 ---
         function initializeApp() {
-            function initializeApp() {
             // Loader
             const loader = document.getElementById('pageLoader');
             if (loader) {
@@ -812,16 +811,6 @@
 
             // チェックイン日変更時のチェックアウト日自動調整
             if (checkinDateEl) {
-                checkinDateEl.addEventListener('change', function() {
-                    const checkinDate = new Date(this.value);
-                    const nextDay = new Date(checkinDate);
-                    nextDay.setDate(nextDay.getDate() + 1);
-                    const nextDayStr = formatDate(nextDay);
-                    checkoutDateEl.min = nextDayEl.value = formatDate(tomorrow);
-                }
-
-                // チェックイン日変更時のチェックアウト日自動調整
-                if (checkinDateEl) {
                     checkinDateEl.addEventListener('change', function() {
                         const checkinDate = new Date(this.value);
                         const nextDay = new Date(checkinDate);
@@ -832,7 +821,6 @@
                             checkoutDateEl.value = nextDayStr;
                         }
                     });
-                }
             }
             // FAQ
             const faqContainer = document.getElementById('faqContainer');
