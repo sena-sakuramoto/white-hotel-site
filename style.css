@@ -216,7 +216,7 @@ header.header-transparent .mobile-menu-btn span { background: var(--white); }
 /* ヒーローセクション */
 /* ヒーローセクション */
 .hero {
-    height: 100vh;
+    height: calc(100vh - 80px);
     min-height: 700px;
     position: relative;
     display: flex;
@@ -225,6 +225,7 @@ header.header-transparent .mobile-menu-btn span { background: var(--white); }
     justify-content: flex-start; /* Changed from center */
     overflow: hidden;
     background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4));
+    padding-top: 80px;
     padding-bottom: 240px;
     box-sizing: border-box;
 }
