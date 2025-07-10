@@ -303,7 +303,7 @@ header.header-transparent .mobile-menu-btn span { background: var(--white); }
 .booking-form {
     display: grid; /* Added */
     grid-template-columns: 1fr; /* Added */
-    gap: 1rem; /* Changed from 1.2rem */
+    gap: 1rem; /* Changed from 1.2rem */ /* Changed from 1.2rem */
     align-items: end; /* Moved from media query */
 }
 .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
@@ -564,12 +564,14 @@ footer { background: var(--secondary-color); color: var(--white); padding: 4rem 
     .nav-menu { display: none; }
     .mobile-menu-btn { display: flex; }
     .hero {
+        .hero {
         padding-bottom: 2rem; /* Adjusted for mobile clearance */
         height: auto; /* Change */
         min-height: auto;
         align-items: center; /* Change */
         justify-content: center; /* Change */
         padding-top: 120px; /* Keep existing value */
+    }
     }
     .hero h1 { font-size: clamp(2.2rem, 10vw, 3rem); }
     .hero-subtitle { font-size: clamp(1rem, 4vw, 1.2rem); }
