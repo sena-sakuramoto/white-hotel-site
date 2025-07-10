@@ -216,7 +216,7 @@ header.header-transparent .mobile-menu-btn span { background: var(--white); }
 /* ヒーローセクション */
 /* ヒーローセクション */
 .hero {
-    height: 100vh; /* calc(100vh - 80px) から変更 */
+    height: 100vh; /* Revert to full viewport height */
     min-height: 700px;
     position: relative;
     display: flex;
@@ -225,8 +225,8 @@ header.header-transparent .mobile-menu-btn span { background: var(--white); }
     justify-content: flex-start;
     overflow: hidden;
     background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4));
-    padding-top: 150px; /* 120px から変更 */
-    padding-bottom: 400px; /* 350px から変更 */
+    padding-top: 150px; /* Increased to push content down from header */
+    padding-bottom: 400px; /* Increased to make space for widget */
     box-sizing: border-box;
 }
 
