@@ -571,13 +571,13 @@ footer { background: var(--secondary-color); color: var(--white); padding: 4rem 
     }
     .hero h1 { font-size: clamp(2.2rem, 10vw, 3rem); }
     .hero-subtitle { font-size: clamp(1rem, 4vw, 1.2rem); }
-    .booking-widget { 
+    .booking-widget {
+        margin: 0 auto; /* 中央揃え */
         position: relative; 
         bottom: auto; 
         left: auto; 
         transform: none; 
         animation: none; 
-        margin: 2rem auto; /* 修正: 負のマージンを削除し、適切な余白を設定 */ 
         padding: 1.5rem;
     }
     .info-bar { display: none; }
