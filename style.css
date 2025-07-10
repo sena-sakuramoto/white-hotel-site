@@ -222,11 +222,11 @@ header.header-transparent .mobile-menu-btn span { background: var(--white); }
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-start; /* Revert to flex-start */
     overflow: hidden;
     background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4));
-    padding-top: 150px; /* Increased to push content down from header */
-    padding-bottom: 400px; /* Increased to make space for widget */
+    padding-top: 130px; /* Adjusted for header clearance */
+    padding-bottom: 530px; /* Adjusted for booking widget clearance */
     box-sizing: border-box;
 }
 
