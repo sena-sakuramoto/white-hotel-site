@@ -588,7 +588,7 @@ footer { background: var(--secondary-color); color: var(--white); padding: 4rem 
         padding: 1.5rem;
     }
     .info-bar { display: none; }
-    .hero-cta-group, .cta-buttons { flex-direction: column; align-items: center; margin-bottom: 2rem; }
+    .hero-cta-group, .cta-buttons { flex-direction: column; align-items: center; }
     .rooms-section, .map-section, .reviews-section, .gallery-section, .faq-section, .cta-section { padding: 4rem 0; }
     .room-details { grid-template-columns: 1fr; }
     .room-title { font-size: 2rem; }
