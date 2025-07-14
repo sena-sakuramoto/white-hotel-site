@@ -216,22 +216,21 @@ header.header-transparent .mobile-menu-btn span { background: var(--white); }
 /* ヒーローセクション */
 /* ヒーローセクション */
 .hero {
-    height: 100vh; /* Revert to full viewport height */
-    min-height: 700px;
+    height: auto; /* Changed from 100vh */
+    min-height: 100vh; /* Keep a minimum height */
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Revert to flex-start */
+    justify-content: center; /* Changed from flex-start */
     overflow: hidden;
     background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4));
-    padding-top: 130px; /* Adjusted for header clearance */
-    padding-bottom: 530px; /* Adjusted for booking widget clearance */
+    padding: 130px 0 4rem; /* Adjusted padding */
     box-sizing: border-box;
 }
 
 .hero-video { position: absolute; top: 50%; left: 50%; width: auto; height: auto; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; z-index: -1; }
-.hero-content { position: relative; z-index: 2; text-align: center; color: var(--white); max-width: 800px; margin: 0 auto 150px; /* Added margin-bottom for clearance */ }
+.hero-content { position: relative; z-index: 2; text-align: center; color: var(--white); max-width: 800px; margin: 0 auto; }
 .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); color: var(--white); padding: 0.7rem 1.5rem; border-radius: 50px; font-weight: 500; font-size: 0.9rem; margin-bottom: 2rem; animation: fadeInUp 1s ease 0.5s both; }
 
 .hero h1 {
@@ -284,17 +283,18 @@ header.header-transparent .mobile-menu-btn span { background: var(--white); }
 /* 予約ウィジェット */
 /* 予約ウィジェット */
 .booking-widget {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative; /* Changed from absolute */
+    bottom: auto; /* Removed fixed positioning */
+    left: auto; /* Removed fixed positioning */
+    transform: none; /* Removed transform */
     background: var(--white);
     padding: 2rem;
-    border-radius: 20px; /* Changed from 24px */
+    border-radius: 20px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.1);
     width: 90%;
     max-width: 900px;
-    animation: slideUp 1s ease 1.3s both;
+    margin-top: 4rem; /* Added margin-top for spacing */
+    animation: fadeInUp 1s ease 1.3s both; /* Changed animation */
     z-index: 10;
 }
 .widget-header { text-align: center; margin-bottom: 1.5rem; }
@@ -616,6 +616,7 @@ footer { background: var(--secondary-color); color: var(--white); padding: 4rem 
         transform: none; 
         animation: none; 
         padding: 1.5rem;
+        margin-top: 3rem; /* Added margin-top for spacing */
     }
     .info-bar { display: none; }
     .hero-cta-group, .cta-buttons { flex-direction: column; align-items: center; margin-bottom: 2rem; }
