@@ -490,6 +490,36 @@ select.form-input {
 .gallery-overlay svg { width: 40px; height: 40px; fill: white;}
 .gallery-item:hover .gallery-overlay { opacity: 1; }
 
+/* 動画ギャラリー */
+.video-gallery-section { padding: 6rem 0; background: var(--bg-light); }
+.video-gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+.video-card {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+    overflow: hidden;
+}
+.video-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-medium);
+}
+.video-card .instagram-media {
+    margin: 0 !important;
+    min-width: unset !important;
+}
+.swipe-indicator {
+    display: none; /* PCでは非表示 */
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--text-secondary);
+}
+
 /* FAQ */
 .faq-section { padding: 6rem 0; background: var(--bg-offwhite); }
 .faq-container { max-width: 800px; margin: 3rem auto 0; }
@@ -593,6 +623,23 @@ footer { background: var(--secondary-color); color: var(--white); padding: 4rem 
     .room-details { grid-template-columns: 1fr; }
     .room-title { font-size: 2rem; }
     .map-container { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+@media (max-width: 768px) {
+    .video-gallery-container {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1.5rem;
+        padding-bottom: 1.5rem; /* for scrollbar */
+    }
+    .video-card {
+        flex: 0 0 80%;
+        scroll-snap-align: center;
+    }
+    .swipe-indicator {
+        display: block;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
