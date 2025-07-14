@@ -1,0 +1,1 @@
+Fix: Final precise adjustments to hero area padding and content alignment for PC view to prevent all overlaps, and mobile spacing.
