@@ -652,75 +652,22 @@
         /* ③ 予約確定ロジック */
         async function bookNow(roomId, price) {
             closeModal(); 
-            await new Promise(resolve => setTimeout(resolve, 300));
+            // 予約情報をURLパラメータとして渡して確認ページへリダイレクト
+            const checkinDate = document.getElementById('checkinDate').value;
+            const checkoutDate = document.getElementById('checkoutDate').value;
+            const guests = document.getElementById('guestCount').value;
+            const roomType = document.getElementById('roomType').value;
 
-            const bookingFormHtml = `
-                <p>ご予約を確定するには、代表者様のお名前とメールアドレスをご入力ください。</p>
-                <form id="bookingDetailsForm" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
-                    <div class="form-group">
-                        <label for="guestName" class="form-label">代表者のお名前</label>
-                        <input type="text" id="guestName" class="form-input" required placeholder="例: 鎌倉 太郎">
-                    </div>
-                    <div class="form-group">
-                        <label for="guestEmail" class="form-label">メールアドレス</label>
-                        <input type="email" id="guestEmail" class="form-input" required placeholder="例: kamakura@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="guestPhone" class="form-label">電話番号</label>
-                        <input type="tel" id="guestPhone" class="form-input" required placeholder="例: 090-1234-5678">
-                    </div>
-                    <div class="modal-footer" style="margin-top: 1rem; padding:0;">
-                        <button type="submit" class="btn btn-primary">予約を確定する</button>
-                    </div>
-                </form>
-            `;
-            showModal('予約手続き', bookingFormHtml, '');
+            const params = new URLSearchParams({
+                roomId: roomId,
+                price: price,
+                checkin: checkinDate,
+                checkout: checkoutDate,
+                guests: guests,
+                roomType: roomType
+            }).toString();
 
-            document.getElementById('bookingDetailsForm').onsubmit = async (e) => {
-                e.preventDefault();
-                const name = document.getElementById('guestName').value;
-                const email = document.getElementById('guestEmail').value;
-                const phone = document.getElementById('guestPhone').value;
-
-                const body = {
-                    action: 'book',
-                    roomId, name, email, phone,
-                    cin: document.getElementById('checkinDate').value,
-                    cout: document.getElementById('checkoutDate').value,
-                    guests: document.getElementById('guestCount').value,
-                    price: price
-                };
-
-                showModal('送信中...', '予約情報をサーバーに送信しています。少々お待ちください…', '');
-
-                try {
-                    const res = await fetch(ENDPOINT, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8', },
-                        body: JSON.stringify(body),
-                    });
-                    
-                    if (!res.ok) {
-                        let errorMsg = `HTTPエラー: ${res.status} ${res.statusText}`;
-                         try {
-                            const errorData = await res.json();
-                            errorMsg = errorData.msg || errorMsg;
-                        } catch(e) { /* JSON解析失敗 */ }
-                        throw new Error(errorMsg);
-                    }
-
-                    const data = await res.json();
-
-                    if (data.ok) {
-                        window.location.href = 'reservation-confirmation.html';
-                    } else {
-                        showModal('予約失敗', data.msg || '何らかのエラーが発生しました。お手数ですが、時間をおいて再度お試しください。');
-                    }
-                } catch (err) {
-                    showModal('通信エラー', `予約情報の送信に失敗しました。<br><small>詳細: ${err.message}</small>`);
-                    console.error(err);
-                }
-            };
+            window.location.href = `reservation-confirmation.html?${params}`;
         }
 
         // --- その他のUI操作関数 ---
