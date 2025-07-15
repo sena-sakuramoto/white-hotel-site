@@ -712,7 +712,7 @@
                     const data = await res.json();
 
                     if (data.ok) {
-                        showModal('予約が完了しました！', `ご予約ありがとうございます。<br><br>ご予約番号: <b>${data.id}</b><br>ご宿泊料金: <b>¥${price.toLocaleString()}</b><br><br>確認メールを送信しましたので、ご確認ください。`);
+                        window.location.href = 'reservation-confirmation.html';
                     } else {
                         showModal('予約失敗', data.msg || '何らかのエラーが発生しました。お手数ですが、時間をおいて再度お試しください。');
                     }
