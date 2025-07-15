@@ -768,11 +768,20 @@
         }
 
         function loadTikTokEmbeds() {
-            if (window.tiktok && window.tiktok.embed && typeof window.tiktok.embed.load === 'function') {
-                window.tiktok.embed.load();
-            } else {
-                console.warn("TikTok embed script not fully loaded or API not available.");
+            // Remove existing TikTok embed script if it's already there
+            const existingScript = document.querySelector('script[src="https://www.tiktok.com/embed.js"]');
+            if (existingScript) {
+                existingScript.remove();
             }
+
+            // Add a new script tag to force re-initialization
+            const script = document.createElement('script');
+            script.src = 'https://www.tiktok.com/embed.js';
+            script.async = true;
+            script.onerror = (error) => {
+                console.error('Error loading TikTok embed script:', error);
+            };
+            document.body.appendChild(script);
         }
 
         // --- アプリケーションの初期化 ---
@@ -780,10 +789,9 @@
             // Loader
             const loader = document.getElementById('pageLoader');
             if (loader) {
-                setTimeout(() => {
-                    loader.style.opacity = '0';
-                    setTimeout(() => { loader.style.display = 'none'; }, 500);
-                }, 1500);
+                // DOMContentLoadedで即座に非表示にする
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 500); // アニメーションのために少し遅延
             }
 
             // Header Scroll
