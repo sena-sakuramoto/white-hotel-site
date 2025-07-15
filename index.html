@@ -139,8 +139,8 @@
                             <option value="any">どちらでも</option>
                             <option value="single">Room A (定員1名)</option>
                             <option value="twin">Room B (定員2名)</option>
-                            <option value="triple">Room C (定員3名)</option>
-                            <option value="family">Room D (定員4名)</option>
+                            <option value="twin">Room C (定員2名)</option>
+                            <option value="triple">Room D (定員3名)</option>
                         </select>
                     </div>
                     <button type="submit" class="btn search-btn">
@@ -215,7 +215,7 @@
                         <div class="room-card-content">
                             <h3 class="room-card-title">Room B</h3>
                             <p class="room-card-description">
-                                スタンダードなツインルーム。大きな窓から江ノ電を眺めながら、鎌倉の特別な時間をお過ごしください。
+                                スタンダードなツインルーム。セミダブルベッド1つ。大きな窓から江ノ電を眺めながら、鎌倉の特別な時間をお過ごしください。
                             </p>
                              <div class="room-card-details">
                                 <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員2名</div>
@@ -224,8 +224,8 @@
                             <div class="pricing-plan">
                                 <h4 class="pricing-plan-title">料金プラン (1泊あたり)</h4>
                                 <ul class="pricing-plan-list">
-                                    <li><span>1名様 ご利用</span> <span class="price">¥7,000</span></li>
-                                    <li><span>2名様 ご利用</span> <span class="price">¥10,000 <span class="per-person">(¥5,000/人)</span></span></li>
+                                    <li><span>1名様 ご利用</span> <span class="price">¥6,000</span></li>
+                                    <li><span>2名様 ご利用</span> <span class="price">¥8,000 <span class="per-person">(¥4,000/人)</span></span></li>
                                 </ul>
                             </div>
                             <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
@@ -239,7 +239,7 @@
                                 友人との旅行にぴったりなトリプルルーム。広めの空間で、旅の計画を立てるのも楽しいひととき。
                             </p>
                              <div class="room-card-details">
-                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員3名</div>
+                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員2名</div>
                                 <div class="detail-item"><svg><use xlink:href="#icon-bed"/></svg>トリプル</div>
                             </div>
                             <div class="pricing-plan">
@@ -261,7 +261,7 @@
                                 最大4名様までご利用可能な、広々とした和洋室。ご家族やグループでの思い出作りに最適な、唯一のお部屋です。
                             </p>
                              <div class="room-card-details">
-                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員4名</div>
+                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員3名</div>
                                 <div class="detail-item"><svg><use xlink:href="#icon-bed"/></svg>ファミリー</div>
                             </div>
                             <div class="pricing-plan">
@@ -270,7 +270,6 @@
                                     <li><span>1名様 ご利用</span> <span class="price">¥14,000</span></li>
                                     <li><span>2名様 ご利用</span> <span class="price">¥16,000 <span class="per-person">(¥8,000/人)</span></span></li>
                                     <li><span>3名様 ご利用</span> <span class="price">¥18,000 <span class="per-person">(¥6,000/人)</span></span></li>
-                                    <li><span>4名様 ご利用</span> <span class="price">¥20,000 <span class="per-person">(¥5,000/人)</span></span></li>
                                 </ul>
                             </div>
                             <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
@@ -505,24 +504,24 @@
             if (roomType === 'single') {
                 basePrice = 5000;
             } else if (roomType === 'twin') {
-                if (numGuests <= 1) basePrice = 7000;
-                else basePrice = 10000;
+                if (numGuests <= 1) basePrice = 6000;
+                else basePrice = 8000;
             } else if (roomType === 'triple') {
                 const soloPrice = 10000;
-                const maxPrice = 15000;
+                const maxPrice = 12500;
                 if (numGuests <= 1) basePrice = soloPrice;
-                else if (numGuests >= 3) basePrice = maxPrice;
+                else if (numGuests >= 2) basePrice = maxPrice;
                 else {
-                    const increment = (maxPrice - soloPrice) / 2;
+                    const increment = (maxPrice - soloPrice) / 1;
                     basePrice = soloPrice + (increment * (numGuests - 1));
                 }
             } else if (roomType === 'family') {
                 const soloPrice = 14000;
-                const maxPrice = 20000;
+                const maxPrice = 18000;
                 if (numGuests <= 1) basePrice = soloPrice;
-                else if (numGuests >= 4) basePrice = maxPrice;
+                else if (numGuests >= 3) basePrice = maxPrice;
                 else {
-                    const increment = (maxPrice - soloPrice) / 3;
+                    const increment = (maxPrice - soloPrice) / 2;
                     basePrice = Math.round(soloPrice + (increment * (numGuests - 1)));
                 }
             } else {
@@ -534,11 +533,7 @@
             const dayOfWeek = checkinDate.getDay(); // 0 = Sunday, 6 = Saturday
 
             if (dayOfWeek === 0 || dayOfWeek === 6) { // 土曜日または日曜日
-                if (roomType === 'single') {
-                    basePrice *= 1.20; // 20% UP
-                } else { // B, C, D (twin, triple, family)
-                    basePrice *= 1.25; // 25% UP
-                }
+                basePrice *= 1.20; // 20% UP
             }
             // TODO: 祝日判定ロジックを追加する場合はここに記述
 
