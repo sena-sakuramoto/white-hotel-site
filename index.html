@@ -208,7 +208,7 @@
                                     <li><span>1名様 ご利用</span> <span class="price">¥5,000</span></li>
                                 </ul>
                             </div>
-                            <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
+                            <a href="#bookingWidget" onclick="selectRoomType(0)" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
                         </div>
                     </div>
                     <div class="room-card" data-aos="fade-up" data-aos-delay="200">
@@ -229,7 +229,7 @@
                                     <li><span>2名様 ご利用</span> <span class="price">¥8,000 <span class="per-person">(¥4,000/人)</span></span></li>
                                 </ul>
                             </div>
-                            <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
+                            <a href="#bookingWidget" onclick="selectRoomType(1)" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
                         </div>
                     </div>
                     <div class="room-card" data-aos="fade-up" data-aos-delay="300">
@@ -251,7 +251,7 @@
                                      <li><span>3名様 ご利用</span> <span class="price">¥15,000 <span class="per-person">(¥5,000/人)</span></span></li>
                                 </ul>
                             </div>
-                            <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
+                            <a href="#bookingWidget" onclick="selectRoomType(2)" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
                         </div>
                     </div>
                     <div class="room-card" data-aos="fade-up" data-aos-delay="400">
@@ -273,7 +273,7 @@
                                      <li><span>3名様 ご利用</span> <span class="price">¥15,000 <span class="per-person">(¥5,000/人)</span></span></li>
                                 </ul>
                             </div>
-                            <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
+                            <a href="#bookingWidget" onclick="selectRoomType(3)" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
                         </div>
                     </div>
                 </div>
@@ -682,6 +682,11 @@
                 <a href="https://www.instagram.com/suz.u3n.chu" target="_blank">https://www.instagram.com/suz.u3n.chu</a>
             `;
             showModal('ライブチャット', message);
+        }
+
+        function selectRoomType(index) {
+            const roomTypeEl = document.getElementById('roomType');
+            roomTypeEl.selectedIndex = index;
         }
 
         
