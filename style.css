@@ -434,6 +434,52 @@ select.form-input {
     color: var(--text-secondary);
 }
 
+/* Rules Section */
+.rules-section {
+    padding: 6rem 0;
+    background: var(--bg-light);
+}
+
+.rules-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.rule-item {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+}
+
+.rule-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.rule-item h4 {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.rule-item p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .rules-section {
+        padding: 4rem 0;
+    }
+    .rules-content {
+        grid-template-columns: 1fr;
+    }
+}
 
 /* マップセクション */
 .map-section { padding: 6rem 0; background: var(--white); }
@@ -645,4 +691,51 @@ footer { background: var(--secondary-color); color: var(--white); padding: 4rem 
 
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* Rules Section */
+.rules-section {
+    padding: 6rem 0;
+    background: var(--bg-light);
+}
+
+.rules-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.rule-item {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+}
+
+.rule-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.rule-item h4 {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.rule-item p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .rules-section {
+        padding: 4rem 0;
+    }
+    .rules-content {
+        grid-template-columns: 1fr;
+    }
 }
