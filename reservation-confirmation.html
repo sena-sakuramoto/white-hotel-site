@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ご予約内容の確認 | ホワイトホテル鎌倉</title>
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #DD9946;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section-title {
+            color: #4A5568;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        .consent-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .consent-item input[type="checkbox"] {
+            margin-top: 4px;
+            margin-right: 10px;
+            min-width: 18px;
+            min-height: 18px;
+        }
+        .consent-item label {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .consent-item a {
+            color: #60A5FA;
+            text-decoration: none;
+        }
+        .consent-item a:hover {
+            text-decoration: underline;
+        }
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #DD9946;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s ease;
+        }
+        .submit-button:hover {
+            background-color: #c2843a;
+        }
+        .submit-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ご予約内容の確認</h1>
+
+        <p>ご予約を確定する前に、以下の内容をご確認いただき、同意をお願いいたします。</p>
+
+        <h2 class="section-title">同意事項</h2>
+        <form id="confirmationForm">
+            <div class="consent-item">
+                <input type="checkbox" id="termsConsent" required>
+                <label for="termsConsent">
+                    <a href="/terms.html" target="_blank">宿泊約款（利用規約）</a>に同意します。
+                </label>
+            </div>
+
+            <div class="consent-item">
+                <input type="checkbox" id="cancelPolicyConsent" required>
+                <label for="cancelPolicyConsent">
+                    <a href="/cancel.html" target="_blank">キャンセルポリシー</a>に同意します。
+                </label>
+            </div>
+
+            <div class="consent-item">
+                <input type="checkbox" id="privacyPolicyConsent" required>
+                <label for="privacyPolicyConsent">
+                    <a href="/privacy.html" target="_blank">プライバシーポリシー（個人情報の取り扱い）</a>に同意します。
+                </label>
+            </div>
+
+            <div class="consent-item">
+                <input type="checkbox" id="houseRulesConsent" required>
+                <label for="houseRulesConsent">
+                    <a href="/house-r" target="_blank">館内規則／ハウスルール</a>に同意します。
+                </label>
+            </div>
+
+            <p style="margin-top: 20px;">
+                <a href="/tokushoho.html" target="_blank">特定商取引法に基づく表記</a>
+            </p>
+
+            <button type="submit" class="submit-button" id="confirmButton">上記に同意して予約を確定する</button>
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('confirmationForm');
+        const confirmButton = document.getElementById('confirmButton');
+        const errorMessage = document.getElementById('errorMessage');
+        const checkboxes = form.querySelectorAll('input[type="checkbox"][required]');
+
+        function checkAllCheckboxes() {
+            let allChecked = true;
+            checkboxes.forEach(checkbox => {
+                if (!checkbox.checked) {
+                    allChecked = false;
+                }
+            });
+            confirmButton.disabled = !allChecked;
+            return allChecked;
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', checkAllCheckboxes);
+        });
+
+        // Initial check on page load
+        checkAllCheckboxes();
+
+        form.addEventListener('submit', function(event) {
+            if (!checkAllCheckboxes()) {
+                event.preventDefault();
+                errorMessage.textContent = 'すべての同意事項にチェックを入れてください。';
+                errorMessage.style.display = 'block';
+            } else {
+                errorMessage.style.display = 'none';
+                // In a real application, you would submit the form data here
+                // For this example, we'll just show an alert
+                alert('ご予約が確定されました！');
+                // Prevent actual form submission for this example
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
