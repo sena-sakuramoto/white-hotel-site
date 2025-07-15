@@ -767,7 +767,13 @@
             roomTypeEl.selectedIndex = index;
         }
 
-        
+        function loadTikTokEmbeds() {
+            if (window.tiktok && window.tiktok.embed && typeof window.tiktok.embed.load === 'function') {
+                window.tiktok.embed.load();
+            } else {
+                console.warn("TikTok embed script not fully loaded or API not available.");
+            }
+        }
 
         // --- アプリケーションの初期化 ---
         function initializeApp() {
@@ -992,6 +998,7 @@
         // --- アプリケーションの実行 ---
         document.addEventListener('DOMContentLoaded', initializeApp);
         window.addEventListener('load', initializeLibraries);
+        window.addEventListener('load', loadTikTokEmbeds); // TikTok埋め込みの再読み込み
 
     </script>
 </body>
