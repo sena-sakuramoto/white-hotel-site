@@ -136,7 +136,7 @@
                     <div class="form-group">
                         <label for="roomType" class="form-label">お部屋タイプ</label>
                         <select class="form-input" id="roomType">
-                            <option value="any">どちらでも</option>
+                            <!-- <option value="any">どちらでも</option> -->
                             <option value="single">Room A (定員1名)</option>
                             <option value="twin">Room B (定員2名)</option>
                             <option value="twin">Room C (定員2名)</option>
@@ -267,9 +267,9 @@
                             <div class="pricing-plan">
                                 <h4 class="pricing-plan-title">料金プラン (1泊あたり)</h4>
                                 <ul class="pricing-plan-list">
-                                    <li><span>1名様 ご利用</span> <span class="price">¥14,000</span></li>
-                                    <li><span>2名様 ご利用</span> <span class="price">¥16,000 <span class="per-person">(¥8,000/人)</span></span></li>
-                                    <li><span>3名様 ご利用</span> <span class="price">¥18,000 <span class="per-person">(¥6,000/人)</span></span></li>
+                                     <li><span>1名様 ご利用</span> <span class="price">¥10,000</span></li>
+                                     <li><span>2名様 ご利用</span> <span class="price">¥12,500 <span class="per-person">(¥6,250/人)</span></span></li>
+                                     <li><span>3名様 ご利用</span> <span class="price">¥15,000 <span class="per-person">(¥5,000/人)</span></span></li>
                                 </ul>
                             </div>
                             <a href="#bookingWidget" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
@@ -516,8 +516,8 @@
                     basePrice = soloPrice + (increment * (numGuests - 1));
                 }
             } else if (roomType === 'family') {
-                const soloPrice = 14000;
-                const maxPrice = 18000;
+                const soloPrice = 10000;
+                const maxPrice = 15000;
                 if (numGuests <= 1) basePrice = soloPrice;
                 else if (numGuests >= 3) basePrice = maxPrice;
                 else {
