@@ -739,3 +739,143 @@ footer { background: var(--secondary-color); color: var(--white); padding: 4rem 
         grid-template-columns: 1fr;
     }
 }
+
+/* Services Section */
+.services-section {
+    padding: 6rem 0;
+    background: var(--bg-light);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-top: 4rem;
+    align-items: start;
+}
+
+.service-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+    height: 100%;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-medium);
+}
+
+.service-main {
+    border: 2px solid var(--primary-color);
+}
+
+.service-card-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.service-card-description {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+.pricing-table th,
+.pricing-table td {
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.pricing-table th {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.pricing-table td {
+    font-weight: 500;
+    color: var(--text-primary);
+    text-align: right;
+}
+
+.pricing-table .item-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding-top: 0.25rem;
+    padding-bottom: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.pricing-table tr:last-child th,
+.pricing-table tr:last-child td {
+    border-bottom: none;
+}
+
+.service-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+}
+
+.service-benefits li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.benefit-icon {
+    width: 22px;
+    height: 22px;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.service-notes {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 15px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.notes-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.service-notes ul {
+    list-style-position: inside;
+    color: var(--text-secondary);
+}
+
+.faq-link {
+    color: var(--primary-color);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .services-section {
+        padding: 4rem 0;
+    }
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .service-card {
+        padding: 2rem;
+    }
+}
