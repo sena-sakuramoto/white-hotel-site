@@ -313,7 +313,7 @@
                     errorMessage.style.display = 'block';
                 }
             } catch (err) {
-                errorMessage.textContent = `予約情報の送信に失敗しました。<br><small>詳細: ${err.message}</small>`;
+                errorMessage.textContent = `予約情報の送信に失敗しました。お手数ですが、時間をおいて再度お試しください。`;
                 errorMessage.style.display = 'block';
                 console.error(err);
             } finally {
