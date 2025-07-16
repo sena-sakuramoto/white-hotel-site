@@ -970,17 +970,17 @@
                 }
             } catch (e) { console.error("Swiper failed to initialize:", e); }
 
-            // LightGallery
-            try {
-                if (typeof lightGallery !== 'undefined' && document.getElementById('lightgallery')) {
-                    lightGallery(document.getElementById('lightgallery'), {
-                        plugins: [lgZoom, lgThumbnail],
-                        speed: 500,
-                        download: false,
-                        selector: 'a'
-                    });
-                }
-            } catch (e) { console.error("LightGallery initialization failed:", e); }
+            // LightGallery (一時的に無効化 - 画像がないため)
+            // try {
+            //     if (typeof lightGallery !== 'undefined' && document.getElementById('lightgallery')) {
+            //         lightGallery(document.getElementById('lightgallery'), {
+            //             plugins: [lgZoom, lgThumbnail],
+            //             speed: 500,
+            //             download: false,
+            //             selector: 'a'
+            //         });
+            //     }
+            // } catch (e) { console.error("LightGallery initialization failed:", e); }
         }
 
         // --- アプリケーションの実行 ---
