@@ -80,7 +80,7 @@ h1, h2, h3, h4, h5, h6 {
 .loader-content { text-align: center; color: var(--white); }
 .loader-logo { font-size: 2.5rem; font-weight: 700; margin-bottom: 2rem; }
 .loader-bar { width: 200px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden; margin: 0 auto; }
-.loader-progress { height: 100%; background: var(--white); border-radius: 4px; width: 0%; animation: loading 0.5s ease-in-out forwards; }
+.loader-progress { height: 100%; background: var(--white); border-radius: 4px; width: 0%; animation: loading 3s ease-in-out forwards; }
 @keyframes loading {
     0% { width: 0%; }
     100% { width: 100%; }
