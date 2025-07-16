@@ -12,6 +12,10 @@
             margin: 0;
             padding: 20px;
             background-color: #f4f4f4;
+            display: flex; /* Flexbox for centering content */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
         }
         .container {
             max-width: 800px;
@@ -20,6 +24,7 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center; /* Center text within container */
         }
         h1 {
             color: #DD9946;
@@ -83,9 +88,11 @@
         }
         .booking-details p {
             margin-bottom: 10px;
+            text-align: left; /* Align booking details to left */
         }
         .form-group {
             margin-bottom: 15px;
+            text-align: left; /* Align form groups to left */
         }
         .form-label {
             display: block;
@@ -99,10 +106,29 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+        .thank-you-message {
+            margin-top: 40px;
+            font-size: 1.2rem;
+            color: #4A5568;
+        }
+        .home-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #4A5568;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 30px;
+            transition: background-color 0.3s ease;
+        }
+        .home-button:hover {
+            background-color: #333;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="mainContent">
+        <!-- Initial content for booking confirmation -->
         <h1>ご予約内容の確認</h1>
 
         <p>ご予約を確定する前に、以下の内容をご確認いただき、同意をお願いいたします。</p>
@@ -169,7 +195,7 @@
 
     <script>
         // GAS エンドポイント (index.htmlからコピー)
-        const ENDPOINT = "https://script.google.com/macros/s/AKfycbz9ybWGJQYZ1gYAa2mXpOWtzIiCoNdCVXYgykmEiXBvpy8Ufmf5P1Lgn_rYesm-vH6p/exec";
+        const ENDPOINT = "https://script.google.com/macros/s/AKfycbz9ybWGJQYZ1gYaa2mXpOWtzIiCoNdCVXYgykmEiXBvpy8Ufmf5P1Lgn_rYesm-vH6p/exec";
 
         const confirmationForm = document.getElementById('confirmationForm');
         const bookingDetailsForm = document.getElementById('bookingDetailsForm');
@@ -177,6 +203,7 @@
         const errorMessage = document.getElementById('errorMessage');
         const checkboxes = confirmationForm.querySelectorAll('input[type="checkbox"][required]');
         const bookingDetailsDiv = document.getElementById('bookingDetails');
+        const mainContent = document.getElementById('mainContent'); // Main content container
 
         let bookingData = {}; // 予約情報を保持するオブジェクト
 
@@ -192,11 +219,11 @@
 
             // 取得した予約情報を表示
             bookingDetailsDiv.innerHTML = `
-                <b>チェックイン:</b> ${bookingData.checkin}<p></p>
-                <b>チェックアウト:</b> ${bookingData.checkout}<p></p>
-                <b>人数:</b> ${bookingData.guests}名<p></p>
-                <b>お部屋タイプ:</b> ${bookingData.roomType}<p></p>
-                <b>合計料金:</b> ¥${bookingData.price.toLocaleString()}<p></p>
+                <p><b>チェックイン:</b> ${bookingData.checkin}</p>
+                <p><b>チェックアウト:</b> ${bookingData.checkout}</p>
+                <p><b>人数:</b> ${bookingData.guests}名</p>
+                <p><b>お部屋タイプ:</b> ${bookingData.roomType}</p>
+                <p><b>合計料金:</b> ¥${bookingData.price.toLocaleString()}</p>
             `;
         }
 
@@ -273,9 +300,14 @@
                 const data = await res.json();
 
                 if (data.ok) {
-                    alert(`ご予約が完了しました！\nご予約番号: ${data.id}\n確認メールを送信しましたので、ご確認ください。`);
-                    // 予約完了後のリダイレクトなど
-                    // window.location.href = 'thank-you.html'; // 例
+                    // 予約完了メッセージとホームボタンを表示
+                    mainContent.innerHTML = `
+                        <h1>ご予約ありがとうございます！</h1>
+                        <p class="thank-you-message">ご予約が完了いたしました。</p>
+                        <p>ご予約番号: <b>${data.id}</b></p>
+                        <p>確認メールを送信しましたので、ご確認ください。</p>
+                        <a href="index.html" class="home-button">ホームに戻る</a>
+                    `;
                 } else {
                     errorMessage.textContent = data.msg || '何らかのエラーが発生しました。お手数ですが、時間をおいて再度お試しください。';
                     errorMessage.style.display = 'block';
