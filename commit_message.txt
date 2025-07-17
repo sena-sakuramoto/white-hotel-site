@@ -1,1 +1,1 @@
-revert: Revert fetch to application/json and remove name attributes
+feat: Update roomType values in index.html to match Google Sheet
