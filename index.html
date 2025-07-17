@@ -656,7 +656,8 @@
                         cout: cout,
                         guests: guests,
                         type: type
-                    })
+                    }),
+                    mode: 'cors'  // 追加
                 });
                 
                 if (!response.ok) {
