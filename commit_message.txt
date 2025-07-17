@@ -1,1 +1,1 @@
-feat: Update roomType values in index.html to match Google Sheet
+fix: Update GAS endpoint in reservation-confirmation.html
