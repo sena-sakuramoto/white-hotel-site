@@ -645,19 +645,19 @@
             const type = document.getElementById('roomType').value;
 
             try {
+                // URLSearchParams を使用（CORSエラーを回避）
+                const formData = new URLSearchParams();
+                formData.append('data', JSON.stringify({
+                    action: 'search',
+                    cin: cin,
+                    cout: cout,
+                    guests: guests,
+                    type: type
+                }));
+
                 const response = await fetch(ENDPOINT, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain'  // application/json から変更
-                    },
-                    body: JSON.stringify({
-                        action: 'search',
-                        cin: cin,
-                        cout: cout,
-                        guests: guests,
-                        type: type
-                    }),
-                    mode: 'cors'  // 追加
+                    body: formData  // Content
                 });
                 
                 if (!response.ok) {
@@ -701,7 +701,7 @@
 
             } catch (err) {
                 showModal('検索エラー', `検索中にエラーが発生しました。<br><small>詳細: ${err.message}</small><br><br>時間をおいて再度お試しください。`);
-                console.error(err);
+                console.error('検索エラー:', err);
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<svg><use xlink:href="#icon-search"/></svg> 検索する';
