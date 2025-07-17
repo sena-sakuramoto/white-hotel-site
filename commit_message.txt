@@ -1,1 +1,1 @@
-feat: Update GAS endpoint to new deployment
+refactor: Clean up unused TikTok related code in index.html
