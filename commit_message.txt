@@ -1,1 +1,1 @@
-revert: Revert roomType values in index.html to original and enable 'any' option
+feat: Adjust room types and logic for semi-twin and other rooms
