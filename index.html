@@ -648,7 +648,7 @@
                 const response = await fetch(ENDPOINT, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'text/plain'  // application/json から変更
                     },
                     body: JSON.stringify({
                         action: 'search',
