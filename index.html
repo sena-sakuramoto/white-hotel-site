@@ -612,10 +612,13 @@
             const checkinDate = new Date(checkinDateStr);
             const dayOfWeek = checkinDate.getDay(); // 0 = Sunday, 6 = Saturday
 
-            if (dayOfWeek === 0 || dayOfWeek === 6) { // 土曜日または日曜日
+            // 金曜日 (5), 土曜日 (6) にチェックインした場合に1.2倍
+            if (dayOfWeek === 5 || dayOfWeek === 6) {
                 basePrice *= 1.20; // 20% UP
             }
             // TODO: 祝日判定ロジックを追加する場合はここに記述
+            // 祝日の前日を判定するには、祝日リストが必要です。
+            // 祝日リストが提供された場合、ここにロジックを追加できます。
 
             return Math.round(basePrice); // 端数処理
         }
