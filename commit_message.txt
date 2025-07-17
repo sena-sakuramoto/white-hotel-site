@@ -1,1 +1,1 @@
-feat: Change Content-Type to text/plain for Simple Request CORS
+refactor: Revert fetch Content-Type to application/json
