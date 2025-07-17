@@ -138,7 +138,7 @@
                     <div class="form-group">
                         <label for="roomType" class="form-label">お部屋タイプ</label>
                         <select class="form-input" id="roomType">
-                            <option value="any">どちらでも</option>
+                            
                             <option value="single">Room A (定員1名)</option>
                             <option value="twin">Room B (定員2名)</option>
                             <option value="twin">Room C (定員2名)</option>
@@ -207,7 +207,7 @@
                         <div class="room-card-content">
                             <h3 class="room-card-title">Room B</h3>
                             <p class="room-card-description">
-                                スタンダードなツインルーム。セミダブルベッド1つ。大きな窓から江ノ電を眺めながら、鎌倉の特別な時間をお過ごしください。
+                                スタンダードなツインルーム。セミダブルベッド1つを2名で共用いただく形になります。その代わり、一人当たりの料金を抑えております。大きな窓から江ノ電を眺めながら、鎌倉の特別な時間をお過ごしください。
                             </p>
                              <div class="room-card-details">
                                 <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員2名</div>
@@ -693,6 +693,7 @@
                     <b>空室が見つかりました!</b><br>
                     お部屋: ${r.name}<br>
                     定員: ${r.capacity} 名様まで<br>
+                    ${r.name === 'Room B' ? 'セミダブルベッド1つを2名で共用いただく形になります。<br>' : ''} // Room B の場合のみ追加
                     ご宿泊料金: <b>¥${totalPrice.toLocaleString()}</b> (${guests}名様ご利用 / ${nights}泊)<br><br>
                     <p>このお部屋で予約手続きに進みますか？</p>
                 `;
@@ -828,8 +829,7 @@
                 // 部屋タイプに応じた最大人数を設定
                 if (selectedRoomType === 'single') maxGuests = 1;
                 else if (selectedRoomType === 'twin') maxGuests = 2;
-                else if (selectedRoomType === 'triple') maxGuests = 2; // Room C は定員2名
-            else if (selectedRoomType === 'family') maxGuests = 3; // Room D は定員3名
+                else if (selectedRoomType === 'triple') maxGuests = 3; // Room D は定員3名
                 else if (selectedRoomType === 'any') maxGuests = 4; // 「どちらでも」の場合は最大4名
 
                 // 選択肢を更新
