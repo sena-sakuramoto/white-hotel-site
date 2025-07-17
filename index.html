@@ -612,10 +612,10 @@
             const checkinDate = new Date(checkinDateStr);
             const dayOfWeek = checkinDate.getDay(); // 0 = Sunday, 6 = Saturday
 
-            if (dayOfWeek === 0 || dayOfWeek === 6) { // 土曜日または日曜日
+            // 金曜日 (5), 土曜日 (6), または祝前日 (isPreHoliday) にチェックインした場合に1.2倍
+            if (dayOfWeek === 5 || dayOfWeek === 6 || isPreHoliday(checkinDate)) {
                 basePrice *= 1.20; // 20% UP
             }
-            // TODO: 祝日判定ロジックを追加する場合はここに記述
 
             return Math.round(basePrice); // 端数処理
         }
@@ -624,6 +624,36 @@
 
         /* ① GAS エンドポイント */
         const ENDPOINT = "https://script.google.com/macros/s/AKfycbx38gteyFQ9LnYtAIP5iFI1x16QyknqiWn0Gm44ittEULRPRKURO-TAEjcwrmBWD8W2/exec";
+
+        // Holiday list for 2025 (YYYY-MM-DD format)
+        const HOLIDAYS_2025 = new Set([
+            '2025-01-01', '2025-01-13', '2025-02-11', '2025-02-23', '2025-02-24',
+            '2025-03-20', '2025-04-29', '2025-04-30', '2025-05-01', '2025-05-02',
+            '2025-05-03', '2025-05-04', '2025-05-05', '2025-05-06', '2025-07-21',
+            '2025-08-11', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16',
+            '2025-09-15', '2025-09-23', '2025-10-13', '2025-11-03', '2025-11-23',
+            '2025-11-24', '2025-12-29', '2025-12-30', '2025-12-31'
+        ]);
+
+        // Helper function to format date to YYYY-MM-DD
+        function formatDateToYYYYMMDD(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Helper function to check if a date is a holiday
+        function isHoliday(date) {
+            return HOLIDAYS_2025.has(formatDateToYYYYMMDD(date));
+        }
+
+        // Helper function to check if the day after is a holiday (i.e., current day is pre-holiday)
+        function isPreHoliday(date) {
+            const nextDay = new Date(date);
+            nextDay.setDate(date.getDate() + 1);
+            return isHoliday(nextDay);
+        }
 
         /* ② 空室検索ロジック */
         async function searchAvailability(event) {
