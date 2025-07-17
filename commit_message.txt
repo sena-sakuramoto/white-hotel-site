@@ -1,1 +1,1 @@
-feat: Change fetch Content-Type to text/plain for CORS
+feat: Use URLSearchParams for fetch body in index.html for CORS
