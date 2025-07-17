@@ -1,1 +1,1 @@
-fix: Remove comment from Room B display logic in index.html
+feat: Implement holiday and pre-holiday pricing logic in index.html
