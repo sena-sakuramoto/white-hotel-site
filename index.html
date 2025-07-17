@@ -120,15 +120,15 @@
                 <form class="booking-form" onsubmit="searchAvailability(event)">
                     <div class="form-group">
                         <label for="checkinDate" class="form-label">チェックイン</label>
-                        <input type="date" class="form-input" id="checkinDate" required>
+                        <input type="date" class="form-input" id="checkinDate" name="cin" required>
                     </div>
                     <div class="form-group">
                         <label for="checkoutDate" class="form-label">チェックアウト</label>
-                        <input type="date" class="form-input" id="checkoutDate" required>
+                        <input type="date" class="form-input" id="checkoutDate" name="cout" required>
                     </div>
                     <div class="form-group">
                         <label for="guestCount" class="form-label">人数</label>
-                        <select class="form-input" id="guestCount" required>
+                        <select class="form-input" id="guestCount" name="guests" required>
                             <option value="1">1名</option>
                             <option value="2" selected>2名</option>
                             <option value="3">3名</option>
@@ -137,7 +137,7 @@
                     </div>
                     <div class="form-group">
                         <label for="roomType" class="form-label">お部屋タイプ</label>
-                        <select class="form-input" id="roomType">
+                        <select class="form-input" id="roomType" name="type">
                             <!-- <option value="any">どちらでも</option> -->
                             <option value="single">Room A (定員1名)</option>
                             <option value="twin">Room B (定員2名)</option>
@@ -648,9 +648,9 @@
                 const response = await fetch(ENDPOINT, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: JSON.stringify({
+                    body: new URLSearchParams({
                         action: 'search',
                         cin: cin,
                         cout: cout,
