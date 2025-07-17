@@ -1,1 +1,1 @@
-refactor: switch HTML fetch to URLSearchParams (avoid CORS preflight)
+revert: Revert fetch to application/json and remove name attributes
