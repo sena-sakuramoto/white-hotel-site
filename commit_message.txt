@@ -1,1 +1,1 @@
-refactor: Revert fetch Content-Type to application/json
+refactor: switch fetch to application/x-www-form-urlencoded (avoid CORS preflight)
