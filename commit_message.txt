@@ -1,1 +1,1 @@
-feat: Adjust room types and logic for semi-twin and other rooms
+fix: Remove comment from Room B display logic in index.html
