@@ -1,1 +1,1 @@
-feat: Adjust price for Room C (twin) to 7000 JPY for 1 person, 10000 JPY for 2 persons
+fix: Remove comment from Room B display logic in index.html
