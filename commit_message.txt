@@ -1,1 +1,1 @@
-feat: Add mode: 'cors' to fetch requests
+feat: Change fetch Content-Type to text/plain for CORS
