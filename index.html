@@ -139,10 +139,10 @@
                         <label for="roomType" class="form-label">お部屋タイプ</label>
                         <select class="form-input" id="roomType">
                             
-                            <option value="RoomA">Room A (定員1名)</option>
-                            <option value="RoomB">Room B (定員2名)</option>
-                            <option value="RoomC">Room C (定員2名)</option>
-                            <option value="RoomD">Room D (定員3名)</option>
+                            <option value="single">Room A (定員1名)</option>
+                            <option value="twin">Room B (定員2名)</option>
+                            <option value="twin">Room C (定員2名)</option>
+                            <option value="triple">Room D (定員3名)</option>
                         </select>
                     </div>
                     <button type="submit" class="btn search-btn">
@@ -587,12 +587,12 @@
             const numGuests = parseInt(guests, 10);
             let basePrice = 0;
 
-            if (roomType === 'RoomA') {
+            if (roomType === 'single') {
                 basePrice = 5000;
-            } else if (roomType === 'RoomB') {
+            } else if (roomType === 'twin') {
                 if (numGuests <= 1) basePrice = 6000;
                 else basePrice = 8000;
-            } else if (roomType === 'RoomC') {
+            } else if (roomType === 'triple') {
                 const soloPrice = 10000;
                 const maxPrice = 12500;
                 if (numGuests <= 1) basePrice = soloPrice;
@@ -601,7 +601,7 @@
                     const increment = (maxPrice - soloPrice) / 1;
                     basePrice = soloPrice + (increment * (numGuests - 1));
                 }
-            } else if (roomType === 'RoomD') {
+            } else if (roomType === 'family') {
                 const soloPrice = 10000;
                 const maxPrice = 15000;
                 if (numGuests <= 1) basePrice = soloPrice;
@@ -746,13 +746,7 @@
 
         function selectRoomType(index) {
             const roomTypeEl = document.getElementById('roomType');
-            const roomValues = ['RoomA', 'RoomB', 'RoomC', 'RoomD']; // 部屋のvalue値の配列
-            if (index >= 0 && index < roomValues.length) {
-                roomTypeEl.value = roomValues[index];
-                // 人数選択肢も更新
-                const event = new Event('change');
-                roomTypeEl.dispatchEvent(event);
-            }
+            roomTypeEl.selectedIndex = index;
         }
 
         
@@ -833,10 +827,10 @@
                 let maxGuests = 4; // デフォルトの最大人数
 
                 // 部屋タイプに応じた最大人数を設定
-                if (selectedRoomType === 'RoomA') maxGuests = 1;
-                else if (selectedRoomType === 'RoomB') maxGuests = 2;
-                else if (selectedRoomType === 'RoomC') maxGuests = 2;
-                else if (selectedRoomType === 'RoomD') maxGuests = 3;
+                if (selectedRoomType === 'single') maxGuests = 1;
+                else if (selectedRoomType === 'twin') maxGuests = 2;
+                else if (selectedRoomType === 'triple') maxGuests = 3; // Room D は定員3名
+                else if (selectedRoomType === 'any') maxGuests = 4; // 「どちらでも」の場合は最大4名
 
                 // 選択肢を更新
                 guestCountEl.innerHTML = '';
