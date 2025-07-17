@@ -284,7 +284,7 @@
             try {
                 const res = await fetch(ENDPOINT, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'text/plain' },  // application/json から変更
                     body: JSON.stringify(body),
                     mode: 'cors'  // この行を追加
                 });
