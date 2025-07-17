@@ -161,7 +161,7 @@
                     </p>
                 </div>
                 <div class="video-gallery-container">
-                    <!-- TikTokコンテンツは削除されました -->
+                    <!-- -->
                 </div>
                 <div class="swipe-indicator">
                     <p>スワイプして他の動画を見る</p>
@@ -555,7 +555,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
 
     <!-- <script async src="//www.instagram.com/embed.js"></script> -->
-    <script async src="https://www.tiktok.com/embed.js"></script>
+    
 
     <script>
         // --- グローバル変数・定数 ---
@@ -747,22 +747,7 @@
             roomTypeEl.selectedIndex = index;
         }
 
-        function loadTikTokEmbeds() {
-            // Remove existing TikTok embed script if it's already there
-            const existingScript = document.querySelector('script[src="https://www.tiktok.com/embed.js"]');
-            if (existingScript) {
-                existingScript.remove();
-            }
-
-            // Add a new script tag to force re-initialization
-            const script = document.createElement('script');
-            script.src = 'https://www.tiktok.com/embed.js';
-            script.async = true;
-            script.onerror = (error) => {
-                console.error('Error loading TikTok embed script:', error);
-            };
-            document.body.appendChild(script);
-        }
+        
 
         // --- アプリケーションの初期化 ---
         function initializeApp() {
@@ -986,7 +971,7 @@
         // --- アプリケーションの実行 ---
         document.addEventListener('DOMContentLoaded', initializeApp);
         window.addEventListener('load', initializeLibraries);
-        window.addEventListener('load', loadTikTokEmbeds); // TikTok埋め込みの再読み込み
+        
 
     </script>
 </body>
