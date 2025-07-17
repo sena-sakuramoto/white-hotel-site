@@ -1,1 +1,1 @@
-feat: Use URLSearchParams for fetch body in index.html for CORS
+revert: Revert roomType values in index.html to original and enable 'any' option
