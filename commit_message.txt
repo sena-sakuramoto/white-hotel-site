@@ -1,1 +1,1 @@
-refactor: Clean up unused TikTok related code in index.html
+feat: Change Content-Type to text/plain for Simple Request CORS
