@@ -1,1 +1,1 @@
-revert: Revert roomType values in index.html to original and enable 'any' option
+feat: Update Room B description, fix guest options for Room D, and remove 'any' room type option
