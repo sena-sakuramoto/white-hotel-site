@@ -154,7 +154,59 @@
             </div>
         </form>
 
-        <h2 class="section-title">同意事項</h2>
+        <!-- === 未成年同意書機能 ここから === -->
+        <h2 class="section-title">ご宿泊者様の年齢について</h2>
+        <form id="ageVerificationForm">
+            <div class="form-group">
+                <label class="form-label">代表者を含むご宿泊者全員が18歳以上ですか？</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="isAdult" value="yes" checked> はい</label>
+                    <label><input type="radio" name="isAdult" value="no"> いいえ</label>
+                </div>
+            </div>
+            <div id="guardianConsentSection" style="display: none;">
+                <p class="consent-description">
+                    18歳未満の方がご宿泊される場合は、親権者様の同意書が必要です。<br>
+                    下記より同意書をダウンロード・印刷し、ご記入いただいたものをPDFファイルでアップロードしてください。
+                </p>
+                <a href="./documents/未成年者宿泊同意書.pdf" download="未成年者宿泊同意書.pdf" target="_blank" class="download-button">同意書をダウンロード</a>
+                <div class="form-group">
+                    <label for="guardianConsentPdf" class="form-label">親権者同意書 (PDF形式, 5MB以下)</label>
+                    <input type="file" id="guardianConsentPdf" class="form-input" accept=".pdf">
+                    <div id="fileProgress" class="progress-bar" style="display: none;">
+                        <div class="progress-bar-inner"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- === 未成年同意書機能 ここまで === -->
+
+        <!-- === 未成年同意書機能 ここから === -->
+        <h2 class="section-title">ご宿泊者様の年齢について</h2>
+        <div id="ageVerificationSection" class="form-group">
+            <label class="form-label">ご宿泊者全員が18歳未満ですか？</label>
+            <div class="radio-group">
+                <label><input type="radio" name="ageCheck" value="yes"> はい</label>
+                <label><input type="radio" name="ageCheck" value="no" checked> いいえ</label>
+            </div>
+        </div>
+        
+        <div id="guardianConsentNotice" style="display: none;">
+            <p class="consent-description">
+                <b>【重要】18歳未満のお客様のご宿泊について</b><br>
+                18歳未満の方がご宿泊される場合は、親権者様の同意書が必要です。<br>
+                下記より同意書をダウンロード・印刷し、必要事項をご記入・署名捺印の上、チェックイン時に必ず原本をご提出ください。
+            </p>
+            <a href="./documents/未成年者宿泊同意書.pdf" download="未成年者宿泊同意書.pdf" target="_blank" class="download-button">親権者同意書をダウンロード</a>
+            <div class="notice-box">
+                <p><b>ご注意ください</b></p>
+                <ul>
+                    <li>同意書の原本をご持参いただけない場合、ご宿泊をお断りさせていただきます。</li>
+                    <li>ご宿泊者様（未成年者）の身分証明書（学生証など）を確認させていただく場合がございます。</li>
+                </ul>
+            </div>
+        </div>
+        <!-- === 未成年同意書機能 ここまで === -->
         <form id="confirmationForm">
             <div class="consent-item">
                 <input type="checkbox" id="termsConsent" required>
@@ -194,20 +246,69 @@
     </div>
 
     <script>
-        // GAS エンドポイント (index.htmlからコピー)
+        // === 未成年同意書機能 ここから ===
+        // --- スタイル定義 ---
+        const style = document.createElement('style');
+        style.textContent = `
+            .radio-group { display: flex; gap: 20px; margin-top: 10px; }
+            .radio-group label { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+            #guardianConsentNotice {
+                border: 1px solid #FBBF24; /* 黄色系のボーダー */
+                border-radius: 8px;
+                padding: 20px;
+                margin-top: 20px;
+                background-color: #FFFBEB; /* 薄い黄色 */
+            }
+            .consent-description { text-align: left; margin-bottom: 15px; line-height: 1.7; }
+            .download-button {
+                display: inline-block;
+                padding: 12px 24px;
+                background-color: #3B82F6; /* 青 */
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                margin-bottom: 20px;
+                font-weight: bold;
+                transition: background-color 0.3s;
+            }
+            .download-button:hover { background-color: #2563EB; }
+            .notice-box { 
+                margin-top: 15px; 
+                padding: 15px;
+                background-color: #FEF2F2; /* 薄い赤色 */
+                border: 1px solid #F87171; /* 赤系のボーダー */
+                border-radius: 5px;
+                text-align: left;
+            }
+            .notice-box p { font-weight: bold; margin-top: 0; }
+            .notice-box ul { padding-left: 20px; margin-bottom: 0; }
+        `;
+        document.head.appendChild(style);
+        // === 未成年同意書機能 ここまで ===
+
+        // GAS エンドポイント
         const ENDPOINT = "https://script.google.com/macros/s/AKfycbx38gteyFQ9LnYtAIP5iFI1x16QyknqiWn0Gm44ittEULRPRKURO-TAEjcwrmBWD8W2/exec";
 
+        // --- 要素の取得 ---
         const confirmationForm = document.getElementById('confirmationForm');
         const bookingDetailsForm = document.getElementById('bookingDetailsForm');
         const confirmButton = document.getElementById('confirmButton');
         const errorMessage = document.getElementById('errorMessage');
         const checkboxes = confirmationForm.querySelectorAll('input[type="checkbox"][required]');
         const bookingDetailsDiv = document.getElementById('bookingDetails');
-        const mainContent = document.getElementById('mainContent'); // Main content container
+        const mainContent = document.getElementById('mainContent');
 
-        let bookingData = {}; // 予約情報を保持するオブジェクト
+        // === 未成年同意書機能 ここから ===
+        const ageVerificationSection = document.getElementById('ageVerificationSection');
+        const ageRadioButtons = ageVerificationSection.querySelectorAll('input[name="isAdult"]');
+        const guardianConsentNotice = document.getElementById('guardianConsentNotice');
+        // === 未成年同意書機能 ここまで ===
 
-        // URLパラメータから予約情報を取得
+        let bookingData = {};
+
+        // --- 関数の定義 ---
+
+        // URLから予約データを取得して表示
         function getBookingDataFromUrl() {
             const params = new URLSearchParams(window.location.search);
             bookingData.roomId = params.get('roomId');
@@ -217,7 +318,6 @@
             bookingData.guests = parseInt(params.get('guests'));
             bookingData.roomType = params.get('roomType');
 
-            // 取得した予約情報を表示
             bookingDetailsDiv.innerHTML = `
                 <p><b>チェックイン:</b> ${bookingData.checkin}</p>
                 <p><b>チェックアウト:</b> ${bookingData.checkout}</p>
@@ -227,6 +327,7 @@
             `;
         }
 
+        // すべての必須チェックボックスがチェックされているか確認
         function checkAllCheckboxes() {
             let allChecked = true;
             checkboxes.forEach(checkbox => {
@@ -238,31 +339,47 @@
             return allChecked;
         }
 
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', checkAllCheckboxes);
-        });
+        // === 未成年同意書機能: 年齢確認ラジオボタンの処理 ===
+        function handleAgeCheck() {
+            const isUnderage = document.querySelector('input[name="isAdult"]:checked').value === 'no';
+            guardianConsentNotice.style.display = isUnderage ? 'block' : 'none';
+        }
 
-        // ページ読み込み時に予約情報を取得し、チェックボックスの状態を初期化
-        document.addEventListener('DOMContentLoaded', () => {
-            getBookingDataFromUrl();
-            checkAllCheckboxes();
-        });
+        // フォーム送信処理
+        async function handleFormSubmit(event) {
+            event.preventDefault();
 
-        confirmationForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // デフォルトのフォーム送信を防止
-
+            // --- バリデーション ---
             if (!checkAllCheckboxes()) {
                 errorMessage.textContent = 'すべての同意事項にチェックを入れてください。';
                 errorMessage.style.display = 'block';
                 return;
             }
 
-            // お客様情報を取得
-            const guestName = document.getElementById('guestName').value;
-            const guestEmail = document.getElementById('guestEmail').value;
-            const guestPhone = document.getElementById('guestPhone').value;
+            const guestName = document.getElementById('guestName').value.trim();
+            const guestEmail = document.getElementById('guestEmail').value.trim();
+            const guestPhone = document.getElementById('guestPhone').value.trim();
 
-            // 予約APIに送信するデータを作成
+            if (!guestName || !guestEmail || !guestPhone) {
+                errorMessage.textContent = 'お客様情報（お名前、メールアドレス、電話番号）をすべて入力してください。';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // === 未成年同意書機能: 確認アラート ===
+            const hasMinors = document.querySelector('input[name="isAdult"]:checked').value === 'no';
+            if (hasMinors) {
+                const confirmed = confirm(
+                    '【要確認】18歳未満の方が含まれるご予約です。\n\n' +
+                    'チェックイン時に、親権者様が署名・捺印した「同意書」の原本が必ず必要です。\n\n' +
+                    '上記を理解し、予約を続けますか？'
+                );
+                if (!confirmed) {
+                    return; // ユーザーがキャンセルしたら処理を中断
+                }
+            }
+
+            // --- 送信データの構築 ---
             const body = {
                 action: 'book',
                 roomId: bookingData.roomId,
@@ -273,10 +390,11 @@
                 cout: bookingData.checkout,
                 guests: bookingData.guests,
                 type: bookingData.roomType,
-                price: bookingData.price
+                price: bookingData.price,
+                hasMinors: hasMinors // 未成年者フラグを追加
             };
 
-            // 送信中の表示
+            // --- 送信処理 ---
             confirmButton.disabled = true;
             confirmButton.textContent = '予約を確定中...';
             errorMessage.style.display = 'none';
@@ -284,44 +402,63 @@
             try {
                 const res = await fetch(ENDPOINT, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'text/plain' },  // application/json から変更
+                    headers: { 'Content-Type': 'text/plain' },
                     body: JSON.stringify(body),
-                    mode: 'cors'  // この行を追加
+                    mode: 'cors'
                 });
-                
+
                 if (!res.ok) {
-                    let errorMsg = `HTTPエラー: ${res.status} ${res.statusText}`;
-                         try {
-                            const errorData = await res.json();
-                            errorMsg = errorData.msg || errorMsg;
-                        } catch(e) { /* JSON解析失敗 */ }
-                        throw new Error(errorMsg);
-                    }
+                    let errorMsg = `HTTPエラー: ${res.status}`;
+                    try {
+                        const errorData = await res.json();
+                        errorMsg = errorData.msg || errorMsg;
+                    } catch (e) { /* JSON解析失敗 */ }
+                    throw new Error(errorMsg);
+                }
 
                 const data = await res.json();
 
                 if (data.ok) {
-                    // 予約完了メッセージとホームボタンを表示
                     mainContent.innerHTML = `
                         <h1>ご予約ありがとうございます！</h1>
                         <p class="thank-you-message">ご予約が完了いたしました。</p>
                         <p>ご予約番号: <b>${data.id}</b></p>
-                        <p>確認メールを送信しましたので、ご確認ください。</p>
+                        <p>${data.special_message || '確認メールを送信しましたので、ご確認ください。'}</p>
                         <a href="index.html" class="home-button">ホームに戻る</a>
                     `;
                 } else {
-                    errorMessage.textContent = data.msg || '何らかのエラーが発生しました。お手数ですが、時間をおいて再度お試しください。';
-                    errorMessage.style.display = 'block';
+                    throw new Error(data.msg || '予約処理中に不明なエラーが発生しました。');
                 }
             } catch (err) {
-                errorMessage.textContent = `予約情報の送信に失敗しました。お手数ですが、時間をおいて再度お試しください。`;
+                errorMessage.textContent = `予約情報の送信に失敗しました: ${err.message} お手数ですが、時間をおいて再度お試しください。`;
                 errorMessage.style.display = 'block';
                 console.error(err);
             } finally {
+                // ボタンの状態を元に戻す（成功・失敗に関わらず）
+                // ただし、成功時は画面が切り替わるので実質エラー時のみ影響
                 confirmButton.disabled = false;
                 confirmButton.textContent = '上記に同意して予約を確定する';
             }
+        }
+
+        // --- イベントリスナーの設定 ---
+        document.addEventListener('DOMContentLoaded', () => {
+            getBookingDataFromUrl();
+            checkAllCheckboxes();
+            handleAgeCheck(); // 初期表示のため呼び出し
         });
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', checkAllCheckboxes);
+        });
+
+        // === 未成年同意書機能 ===
+        ageRadioButtons.forEach(radio => {
+            radio.addEventListener('change', handleAgeCheck);
+        });
+
+        confirmationForm.addEventListener('submit', handleFormSubmit);
+
     </script>
 </body>
 </html>

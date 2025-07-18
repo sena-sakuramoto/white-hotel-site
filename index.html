@@ -145,6 +145,20 @@
                             <option value="triple">Room D (定員3名)</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label class="form-label">ご宿泊者全員が18歳未満ですか？</label>
+                        <div class="radio-group">
+                            <input type="radio" id="allMinorsNo" name="allMinors" value="false" checked>
+                            <label for="allMinorsNo">いいえ</label>
+                            <input type="radio" id="allMinorsYes" name="allMinors" value="true">
+                            <label for="allMinorsYes">はい</label>
+                        </div>
+                    </div>
+                    <div id="minorConsentSection" class="form-group" style="display: none;">
+                        <p class="consent-message">
+                            <a href="./documents/未成年者宿泊同意書.pdf" target="_blank">未成年者宿泊同意書</a>をダウンロードし、保護者の方に記入・署名いただいた手書き原本をチェックイン時に必ずご持参ください。
+                        </p>
+                    </div>
                     <button type="submit" class="btn search-btn">
                         <svg><use xlink:href="#icon-search"/></svg> 検索する
                     </button>
@@ -670,12 +684,14 @@
             try {
                 // URLSearchParams を使用（CORSエラーを回避）
                 const formData = new URLSearchParams();
+                const allMinors = document.querySelector('input[name="allMinors"]:checked').value;
                 formData.append('data', JSON.stringify({
                     action: 'search',
                     cin: cin,
                     cout: cout,
                     guests: guests,
-                    type: type
+                    type: type,
+                    allMinors: allMinors
                 }));
 
                 const response = await fetch(ENDPOINT, {
@@ -913,6 +929,24 @@
                     }
                 });
             }
+
+            // 未成年者同意書セクションの表示/非表示
+            const allMinorsRadios = document.querySelectorAll('input[name="allMinors"]');
+            const minorConsentSection = document.getElementById('minorConsentSection');
+
+            const toggleMinorConsentSection = () => {
+                if (document.getElementById('allMinorsYes').checked) {
+                    minorConsentSection.style.display = 'block';
+                } else {
+                    minorConsentSection.style.display = 'none';
+                }
+            };
+
+            allMinorsRadios.forEach(radio => {
+                radio.addEventListener('change', toggleMinorConsentSection);
+            });
+            toggleMinorConsentSection(); // 初期表示
+
             // FAQ
             const faqContainer = document.getElementById('faqContainer');
             if (faqContainer) {
