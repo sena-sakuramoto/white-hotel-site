@@ -262,6 +262,10 @@
             const guestEmail = document.getElementById('guestEmail').value;
             const guestPhone = document.getElementById('guestPhone').value;
 
+            // URLパラメータからallMinorsを取得
+            const params = new URLSearchParams(window.location.search);
+            const allMinors = params.get('allMinors') || 'false';
+
             // 予約APIに送信するデータを作成
             const body = {
                 action: 'book',
@@ -273,7 +277,8 @@
                 cout: bookingData.checkout,
                 guests: bookingData.guests,
                 type: bookingData.roomType,
-                price: bookingData.price
+                price: bookingData.price,
+                allMinors: allMinors
             };
 
             // 送信中の表示
