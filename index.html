@@ -763,7 +763,8 @@
                 checkin: checkinDate,
                 checkout: checkoutDate,
                 guests: guests,
-                roomType: roomType
+                roomType: roomType,
+                allMinors: document.querySelector('input[name="allMinors"]:checked').value
             }).toString();
 
             window.location.href = `reservation-confirmation.html?${params}`;
