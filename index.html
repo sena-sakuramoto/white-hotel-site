@@ -139,10 +139,10 @@
                         <label for="roomType" class="form-label">お部屋タイプ</label>
                         <select class="form-input" id="roomType">
                             
-                            <option value="single">Room A (定員1名)</option>
-                            <option value="semi-twin">Room B (定員2名)</option>
-                            <option value="twin">Room C (定員2名)</option>
-                            <option value="triple">Room D (定員3名)</option>
+                            <option value="triple">Room A (定員3名)</option>
+                            <option value="twin">Room B (定員2名)</option>
+                            <option value="semi-twin">Room C (定員2名)</option>
+                            <option value="single">Room D (定員1名)</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -201,16 +201,18 @@
                         <div class="room-card-content">
                             <h3 class="room-card-title">Room A</h3>
                             <p class="room-card-description">
-                                一人旅に最適なコンパクトルーム。自分だけの時間を満喫できます。
+                                駅に最も近く、広々とした和洋室。最大3名様までご利用可能で、ご家族やグループでの思い出作りに最適な、唯一のお部屋です。
                             </p>
-                            <div class="room-card-details">
-                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員1名</div>
-                                <div class="detail-item"><svg><use xlink:href="#icon-bed"/></svg>シングル</div>
+                             <div class="room-card-details">
+                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員3名</div>
+                                <div class="detail-item"><svg><use xlink:href="#icon-bed"/></svg>ファミリー</div>
                             </div>
                             <div class="pricing-plan">
                                 <h4 class="pricing-plan-title">料金プラン (1泊あたり)</h4>
                                 <ul class="pricing-plan-list">
-                                    <li><span>1名様 ご利用</span> <span class="price">¥5,000</span></li>
+                                     <li><span>1名様 ご利用</span> <span class="price">¥10,000</span></li>
+                                     <li><span>2名様 ご利用</span> <span class="price">¥12,500 <span class="per-person">(¥6,250/人)</span></span></li>
+                                     <li><span>3名様 ご利用</span> <span class="price">¥15,000 <span class="per-person">(¥5,000/人)</span></span></li>
                                 </ul>
                             </div>
                             <a href="#bookingWidget" onclick="selectRoomType(0)" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
@@ -220,27 +222,6 @@
                         <div class="room-card-image" style=""></div>
                         <div class="room-card-content">
                             <h3 class="room-card-title">Room B</h3>
-                            <p class="room-card-description">
-                                スタンダードなツインルーム。セミダブルベッド1つを2名で共用いただく形になります。その代わり、一人当たりの料金を抑えております。大きな窓から江ノ電を眺めながら、鎌倉の特別な時間をお過ごしください。
-                            </p>
-                             <div class="room-card-details">
-                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員2名</div>
-                                <div class="detail-item"><svg><use xlink:href="#icon-bed"/></svg>ツイン</div>
-                            </div>
-                            <div class="pricing-plan">
-                                <h4 class="pricing-plan-title">料金プラン (1泊あたり)</h4>
-                                <ul class="pricing-plan-list">
-                                    <li><span>1名様 ご利用</span> <span class="price">¥6,000</span></li>
-                                    <li><span>2名様 ご利用</span> <span class="price">¥8,000 <span class="per-person">(¥4,000/人)</span></span></li>
-                                </ul>
-                            </div>
-                            <a href="#bookingWidget" onclick="selectRoomType(1)" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
-                        </div>
-                    </div>
-                    <div class="room-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="room-card-image" style=""></div>
-                        <div class="room-card-content">
-                            <h3 class="room-card-title">Room C</h3>
                             <p class="room-card-description">
                                 広めの空間で、ゆったりと過ごせるツインルーム。友人との旅行にぴったりです。
                             </p>
@@ -255,6 +236,27 @@
                                      <li><span>2名様 ご利用</span> <span class="price">¥10,000 <span class="per-person">(¥5,000/人)</span></span></li>
                                 </ul>
                             </div>
+                            <a href="#bookingWidget" onclick="selectRoomType(1)" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
+                        </div>
+                    </div>
+                    <div class="room-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="room-card-image" style=""></div>
+                        <div class="room-card-content">
+                            <h3 class="room-card-title">Room C</h3>
+                            <p class="room-card-description">
+                                スタンダードなツインルーム。セミダブルベッド1つを2名で共用いただく形になります。その代わり、一人当たりの料金を抑えております。大きな窓から江ノ電を眺めながら、鎌倉の特別な時間をお過ごしください。
+                            </p>
+                             <div class="room-card-details">
+                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員2名</div>
+                                <div class="detail-item"><svg><use xlink:href="#icon-bed"/></svg>ツイン</div>
+                            </div>
+                            <div class="pricing-plan">
+                                <h4 class="pricing-plan-title">料金プラン (1泊あたり)</h4>
+                                <ul class="pricing-plan-list">
+                                    <li><span>1名様 ご利用</span> <span class="price">¥6,000</span></li>
+                                    <li><span>2名様 ご利用</span> <span class="price">¥8,000 <span class="per-person">(¥4,000/人)</span></span></li>
+                                </ul>
+                            </div>
                             <a href="#bookingWidget" onclick="selectRoomType(2)" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
                         </div>
                     </div>
@@ -263,18 +265,16 @@
                         <div class="room-card-content">
                             <h3 class="room-card-title">Room D</h3>
                             <p class="room-card-description">
-                                駅に最も近く、広々とした和洋室。最大3名様までご利用可能で、ご家族やグループでの思い出作りに最適な、唯一のお部屋です。
+                                一人旅に最適なコンパクトルーム。自分だけの時間を満喫できます。
                             </p>
-                             <div class="room-card-details">
-                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員3名</div>
-                                <div class="detail-item"><svg><use xlink:href="#icon-bed"/></svg>ファミリー</div>
+                            <div class="room-card-details">
+                                <div class="detail-item"><svg><use xlink:href="#icon-users"/></svg>定員1名</div>
+                                <div class="detail-item"><svg><use xlink:href="#icon-bed"/></svg>シングル</div>
                             </div>
                             <div class="pricing-plan">
                                 <h4 class="pricing-plan-title">料金プラン (1泊あたり)</h4>
                                 <ul class="pricing-plan-list">
-                                     <li><span>1名様 ご利用</span> <span class="price">¥10,000</span></li>
-                                     <li><span>2名様 ご利用</span> <span class="price">¥12,500 <span class="per-person">(¥6,250/人)</span></span></li>
-                                     <li><span>3名様 ご利用</span> <span class="price">¥15,000 <span class="per-person">(¥5,000/人)</span></span></li>
+                                    <li><span>1名様 ご利用</span> <span class="price">¥5,000</span></li>
                                 </ul>
                             </div>
                             <a href="#bookingWidget" onclick="selectRoomType(3)" class="btn btn-primary" style="width: 100%; justify-content: center;">この部屋タイプで空室を探す</a>
@@ -786,7 +786,7 @@
 
         function selectRoomType(index) {
             const roomTypeEl = document.getElementById('roomType');
-            const roomValues = ['single', 'semi-twin', 'twin', 'triple']; // 部屋のvalue値の配列
+            const roomValues = ['triple', 'twin', 'semi-twin', 'single']; // 部屋のvalue値の配列
             if (index >= 0 && index < roomValues.length) {
                 roomTypeEl.value = roomValues[index];
                 // 人数選択肢も更新
