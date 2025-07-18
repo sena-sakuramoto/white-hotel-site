@@ -947,23 +947,6 @@
             });
             toggleMinorConsentSection(); // 初期表示
 
-            // 未成年者同意書セクションの表示/非表示
-            const allMinorsRadios = document.querySelectorAll('input[name="allMinors"]');
-            const minorConsentSection = document.getElementById('minorConsentSection');
-
-            const toggleMinorConsentSection = () => {
-                if (document.getElementById('allMinorsYes').checked) {
-                    minorConsentSection.style.display = 'block';
-                } else {
-                    minorConsentSection.style.display = 'none';
-                }
-            };
-
-            allMinorsRadios.forEach(radio => {
-                radio.addEventListener('change', toggleMinorConsentSection);
-            });
-            toggleMinorConsentSection(); // 初期表示
-
             // FAQ
             const faqContainer = document.getElementById('faqContainer');
             if (faqContainer) {
