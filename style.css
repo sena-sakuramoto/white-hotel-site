@@ -879,3 +879,50 @@ footer { background: var(--secondary-color); color: var(--white); padding: 4rem 
         padding: 2rem;
     }
 }
+
+/* Minor Consent Section */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-group label {
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.radio-group input[type="radio"]:checked + label {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.consent-message {
+    background-color: #fff3cd;
+    border-left: 5px solid #ffc107;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    color: #664d03;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+.consent-message a {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.consent-message a:hover {
+    color: #003d82;
+}
