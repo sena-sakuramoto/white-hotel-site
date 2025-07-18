@@ -15,6 +15,7 @@ function doPost(e) {
   try {
     // POSTされてきたJSONデータをパース
     const params = JSON.parse(e.postData.contents);
+    Logger.log('doPost received params.allMinors: ' + params.allMinors);
 
     let response;
     switch (params.action) {
@@ -112,7 +113,7 @@ ${data.name} 様
 
 ---
 ホワイトホテル鎌倉
-TEL: 046-722-4407
+TEL: 08088515250
 Email: ${ADMIN_EMAIL}
 `;
 
@@ -151,7 +152,7 @@ ${data.name} 様
 
 ---
 ホワイトホテル鎌倉
-TEL: 046-722-4407
+TEL: 08088515250
 Email: ${ADMIN_EMAIL}
 `;
   }
