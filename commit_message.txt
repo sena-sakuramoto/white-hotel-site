@@ -1,8 +1,5 @@
-feat: 未成年者同意書機能の追加 (修正版)
+fix: JavaScriptの重複宣言とCSSの復元
 
-- ホテル予約フォームに未成年者確認のラジオボタンと同意書表示セクションを追加
-- 未成年者確認の選択に応じて同意書セクションの表示を切り替えるJavaScriptロジックを追加
-- 予約データにallMinorsフィールドを追加し、GASに送信
-- GAS側でallMinorsフィールドを処理し、スプレッドシートに保存
-- allMinors=trueの場合に特別なメールを送信するロジックを追加
-- style.cssに新しい要素のスタイルを追加
+- index.htmlのJavaScriptにおけるallMinorsRadiosの重複宣言を修正
+- style.cssを元の状態に復元し、未成年者同意書機能のCSSを追記
+- Code.gsを再作成し、allMinorsロジックを再適用

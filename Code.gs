@@ -130,7 +130,7 @@ ${data.name} 様
 
 1. 親権者様が署名・捺印した「未成年者宿泊に関する保護者同意書」の原本
    下記URLよりダウンロード・印刷してご記入ください。
-   ダウンロードURL: https://white-hotel.archi-prisma.co.jp/documents/未成年者宿泊同意書.pdf
+   ダウンロードURL: https://white-hotel.archi-prisma.co.jp/documents/minor_consent_form.pdf
 
 2. ご宿泊される未成年者全員分の身分証明書（学生証、健康保険証など）
 
