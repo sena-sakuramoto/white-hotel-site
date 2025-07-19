@@ -364,6 +364,7 @@ select.form-input {
     padding-top: 65%;
     background-size: cover;
     background-position: center;
+    position: relative;
 }
 .room-card-content {
     padding: 1.5rem;
@@ -433,6 +434,53 @@ select.form-input {
     font-size: 0.8rem;
     color: var(--text-secondary);
 }
+
+/* Placeholder Image Styles */
+.placeholder-image {
+    background-color: var(--placeholder-color, #ccc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.placeholder-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 1rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Room Card Image Overlay */
+.room-card-image.gallery-trigger {
+    cursor: pointer;
+}
+
+.room-card-image .gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.room-card-image.gallery-trigger:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay svg {
+    width: 40px;
+    height: 40px;
+    fill: white;
+}
+
 
 /* Rules Section */
 .rules-section {
@@ -529,12 +577,91 @@ select.form-input {
 
 /* フォトギャラリー */
 .gallery-section { padding: 6rem 0; background: var(--white); }
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin-top: 3rem; }
-.gallery-item { height: 300px; background-size: cover; background-position: center; border-radius: 15px; overflow: hidden; cursor: pointer; transition: var(--transition-smooth); position: relative; }
-.gallery-item:hover { transform: scale(1.03); box-shadow: var(--shadow-medium); }
-.gallery-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition-smooth); }
-.gallery-overlay svg { width: 40px; height: 40px; fill: white;}
-.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+
+.gallery-item-container {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+}
+
+.gallery-item-container:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.gallery-item {
+    height: 200px; /* Adjust as needed */
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay svg {
+    width: 40px;
+    height: 40px;
+    fill: white;
+}
+
+.gallery-caption {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1rem;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.caption-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.caption-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    .gallery-item {
+        height: 250px; /* Adjust for mobile */
+    }
+    .caption-title {
+        font-size: 1rem;
+    }
+    .caption-description {
+        font-size: 0.85rem;
+    }
+}
 
 /* 動画ギャラリー */
 .video-gallery-section { padding: 6rem 0; background: var(--bg-light); }
