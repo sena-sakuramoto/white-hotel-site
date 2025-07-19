@@ -700,10 +700,18 @@ select.form-input {
     transform: translateY(-8px);
     box-shadow: var(--shadow-medium);
 }
-.video-card .instagram-media {
-    margin: 0 !important;
+.video-gallery-container .instagram-media {
+    width: 100% !important;
+    max-width: 100% !important;
     min-width: unset !important;
 }
+
+.video-gallery-container .instagram-media iframe {
+    width: 100% !important;
+    height: auto !important; /* Instagram handles aspect ratio internally */
+    min-height: 300px; /* 最小の高さを設定して、コンテンツが見えるようにする */
+}
+
 .swipe-indicator {
     display: none; /* PCでは非表示 */
     text-align: center;
