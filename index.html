@@ -219,8 +219,8 @@
                 <div class="rooms-grid">
                     <!-- Room A -->
                     <div class="room-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="room-card-image placeholder-image gallery-trigger" style="--placeholder-color: #FF9999;" data-room="a">
-                            <div class="placeholder-text">Room A 写真準備中</div>
+                        <div class="room-card-image gallery-trigger" data-room="a">
+                            <img src="images/A/LINE_ALBUM_レタッチ済み A_250719_サムネイル.jpg" alt="Room A" style="width: 100%; height: 100%; object-fit: cover;">
                             <div class="gallery-overlay"><svg><use xlink:href="#icon-expand"/></svg></div>
                         </div>
                         <div class="room-card-content">
@@ -245,8 +245,8 @@
                     </div>
                     <!-- Room B -->
                     <div class="room-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="room-card-image placeholder-image gallery-trigger" style="--placeholder-color: #99CCFF;" data-room="b">
-                            <div class="placeholder-text">Room B 写真準備中</div>
+                        <div class="room-card-image gallery-trigger" data-room="b">
+                            <img src="images/B/LINE_ALBUM_レタッチ済み B_250719_サムネイル.jpg" alt="Room B" style="width: 100%; height: 100%; object-fit: cover;">
                             <div class="gallery-overlay"><svg><use xlink:href="#icon-expand"/></svg></div>
                         </div>
                         <div class="room-card-content">
@@ -270,8 +270,8 @@
                     </div>
                     <!-- Room C -->
                     <div class="room-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="room-card-image placeholder-image gallery-trigger" style="--placeholder-color: #99FF99;" data-room="c">
-                            <div class="placeholder-text">Room C 写真準備中</div>
+                        <div class="room-card-image gallery-trigger" data-room="c">
+                            <img src="images/C/LINE_ALBUM_レタッチ済み C_250719_サムネイル.jpg" alt="Room C" style="width: 100%; height: 100%; object-fit: cover;">
                             <div class="gallery-overlay"><svg><use xlink:href="#icon-expand"/></svg></div>
                         </div>
                         <div class="room-card-content">
@@ -295,8 +295,8 @@
                     </div>
                     <!-- Room D -->
                     <div class="room-card" data-aos="fade-up" data-aos-delay="400">
-                        <div class="room-card-image placeholder-image gallery-trigger" style="--placeholder-color: #FFCC99;" data-room="d">
-                            <div class="placeholder-text">Room D 写真準備中</div>
+                        <div class="room-card-image gallery-trigger" data-room="d">
+                            <img src="images/D/LINE_ALBUM_レタッチ済み D_250719_サムネイル.jpg" alt="Room D" style="width: 100%; height: 100%; object-fit: cover;">
                             <div class="gallery-overlay"><svg><use xlink:href="#icon-expand"/></svg></div>
                         </div>
                         <div class="room-card-content">
@@ -1191,12 +1191,37 @@
             galleryTriggers.forEach(trigger => {
                 trigger.addEventListener('click', () => {
                     const room = trigger.dataset.room;
-                    const items = [
-                        { src: `images/rooms/room-${room}-1.jpg`, thumb: `images/rooms/room-${room}-1.jpg`, subHtml: `<h4>Room ${room.toUpperCase()} - View 1</h4>` },
-                        { src: `images/rooms/room-${room}-2.jpg`, thumb: `images/rooms/room-${room}-2.jpg`, subHtml: `<h4>Room ${room.toUpperCase()} - View 2</h4>` },
-                        { src: `images/rooms/room-${room}-3.jpg`, thumb: `images/rooms/room-${room}-3.jpg`, subHtml: `<h4>Room ${room.toUpperCase()} - View 3</h4>` },
-                        { src: `images/rooms/room-${room}-4.jpg`, thumb: `images/rooms/room-${room}-4.jpg`, subHtml: `<h4>Room ${room.toUpperCase()} - View 4</h4>` }
-                    ];
+                    let items = [];
+                    switch (room) {
+                        case 'a':
+                            items = [
+                                { src: 'images/A/LINE_ALBUM_レタッチ済み A_250719_サムネイル.jpg', thumb: 'images/A/LINE_ALBUM_レタッチ済み A_250719_サムネイル.jpg', subHtml: '<h4>Room A</h4>' },
+                                { src: 'images/A/LINE_ALBUM_レタッチ済み A_250719_1.jpg', thumb: 'images/A/LINE_ALBUM_レタッチ済み A_250719_1.jpg', subHtml: '<h4>Room A</h4>' },
+                                { src: 'images/A/LINE_ALBUM_レタッチ済み A_250719_2.jpg', thumb: 'images/A/LINE_ALBUM_レタッチ済み A_250719_2.jpg', subHtml: '<h4>Room A</h4>' },
+                                { src: 'images/A/LINE_ALBUM_レタッチ済み A_250719_3.jpg', thumb: 'images/A/LINE_ALBUM_レタッチ済み A_250719_3.jpg', subHtml: '<h4>Room A</h4>' },
+                                { src: 'images/A/LINE_ALBUM_レタッチ済み A_250719_4.jpg', thumb: 'images/A/LINE_ALBUM_レタッチ済み A_250719_4.jpg', subHtml: '<h4>Room A</h4>' }
+                            ];
+                            break;
+                        case 'b':
+                            items = [
+                                { src: 'images/B/LINE_ALBUM_レタッチ済み B_250719_サムネイル.jpg', thumb: 'images/B/LINE_ALBUM_レタッチ済み B_250719_サムネイル.jpg', subHtml: '<h4>Room B</h4>' },
+                                { src: 'images/B/LINE_ALBUM_レタッチ済み B_250719_1.jpg', thumb: 'images/B/LINE_ALBUM_レタッチ済み B_250719_1.jpg', subHtml: '<h4>Room B</h4>' },
+                                { src: 'images/B/LINE_ALBUM_レタッチ済み B_250719_3.jpg', thumb: 'images/B/LINE_ALBUM_レタッチ済み B_250719_3.jpg', subHtml: '<h4>Room B</h4>' }
+                            ];
+                            break;
+                        case 'c':
+                            items = [
+                                { src: 'images/C/LINE_ALBUM_レタッチ済み C_250719_サムネイル.jpg', thumb: 'images/C/LINE_ALBUM_レタッチ済み C_250719_サムネイル.jpg', subHtml: '<h4>Room C</h4>' },
+                                { src: 'images/C/LINE_ALBUM_レタッチ済み C_250719_2.jpg', thumb: 'images/C/LINE_ALBUM_レタッチ済み C_250719_2.jpg', subHtml: '<h4>Room C</h4>' }
+                            ];
+                            break;
+                        case 'd':
+                            items = [
+                                { src: 'images/D/LINE_ALBUM_レタッチ済み D_250719_サムネイル.jpg', thumb: 'images/D/LINE_ALBUM_レタッチ済み D_250719_サムネイル.jpg', subHtml: '<h4>Room D</h4>' },
+                                { src: 'images/D/LINE_ALBUM_レタッチ済み D_250719_1.jpg', thumb: 'images/D/LINE_ALBUM_レタッチ済み D_250719_1.jpg', subHtml: '<h4>Room D</h4>' }
+                            ];
+                            break;
+                    }
 
                     const galleryContainer = document.createElement('div');
                     
