@@ -1,5 +1,0 @@
-fix: JavaScriptの重複宣言とCSSの復元
-
-- index.htmlのJavaScriptにおけるallMinorsRadiosの重複宣言を修正
-- style.cssを元の状態に復元し、未成年者同意書機能のCSSを追記
-- Code.gsを再作成し、allMinorsロジックを再適用
