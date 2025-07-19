@@ -78,7 +78,8 @@ h1, h2, h3, h4, h5, h6 {
     transition: opacity 0.5s ease;
 }
 .loader-content { text-align: center; color: var(--white); }
-.loader-logo { font-size: 2.5rem; font-weight: 700; margin-bottom: 2rem; }
+.loader-logo { font-size: 2.5rem; font-weight: 700; margin-bottom: 2rem; display: none; } /* Hide text logo */
+.loader-logo-image { height: 80px; margin-bottom: 2rem; } /* Style for image logo */
 .loader-bar { width: 200px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden; margin: 0 auto; }
 .loader-progress { height: 100%; background: var(--white); border-radius: 4px; width: 0%; animation: loading 3s ease-in-out forwards; }
 @keyframes loading {
@@ -135,7 +136,24 @@ header.header-transparent .mobile-menu-btn span { background: var(--white); }
     padding: 1rem 0;
     min-height: 70px; /* Added */
 }
-.logo { font-size: 1.8rem; font-weight: 700; color: var(--primary-color); text-decoration: none; transition: var(--transition-smooth); }
+.logo { font-size: 1.8rem; font-weight: 700; color: var(--primary-color); text-decoration: none; transition: var(--transition-smooth); display: flex; align-items: center; gap: 10px; }
+.header-logo {
+    height: 50px; /* Adjust as needed */
+    width: auto;
+    transition: var(--transition-smooth);
+}
+
+.logo-text {
+    color: var(--white);
+    font-size: 1.8rem;
+    font-weight: 700;
+    transition: var(--transition-smooth);
+}
+
+header.header-transparent .header-logo {
+    filter: brightness(0) invert(1); /* White logo on transparent header */
+}
+
 /* デスクトップメニュー */
 .nav-menu {
     display: flex;
@@ -720,16 +738,44 @@ select.form-input {
 /* フッター */
 footer { background: var(--secondary-color); color: var(--white); padding: 4rem 0 2rem; border-top: 4px solid var(--primary-color); }
 .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
-.footer-section h3 { font-size: 1.2rem; margin-bottom: 1rem; color: var(--white); font-weight: 700; }
+.footer-section h3 { font-size: 1.4rem; margin-bottom: 1rem; color: var(--white); font-weight: 700; }
+
+.footer-logo-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.footer-logo-image {
+    height: 40px; /* Adjust as needed */
+    width: auto;
+}
+
+.footer-logo-text {
+    font-size: 1.2rem;
+    color: var(--white);
+    font-weight: 700;
+    margin: 0;
+}
+
 .footer-links { list-style: none; }
 .footer-links li { margin-bottom: 0.8rem; }
-.footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; transition: var(--transition-smooth); }
+.footer-links a { color: var(--white); text-decoration: none; transition: var(--transition-smooth); font-size: 1.05rem; font-weight: 700; }
 .footer-links a:hover { color: var(--white); padding-left: 5px; }
+
+footer p {
+    color: var(--white);
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 700;
+}
+
 .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
 .social-link { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); text-decoration: none; transition: var(--transition-smooth); }
 .social-link svg { width: 18px; height: 18px; fill: var(--white); }
 .social-link:hover { background: var(--primary-color); transform: translateY(-3px); }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; color: var(--white); font-size: 0.9rem; }
 
 .story-link { color: rgba(255,255,255,0.8); text-decoration: underline; cursor: pointer; transition: var(--transition-smooth); }
 .story-link:hover { color: var(--white); }
