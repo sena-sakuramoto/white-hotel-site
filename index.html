@@ -858,7 +858,7 @@
                 }
 
                 const r = data.rooms[0];
-                const roomType = r.type; // GASから返される部屋タイプを使用
+                const roomType = type; // フォームで選択された部屋タイプを使用
                 const perNightPrice = calculatePrice(roomType, guests, cin);
 
                 const checkinDate = new Date(cin);
