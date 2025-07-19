@@ -453,10 +453,6 @@ select.form-input {
 .pricing-plan-list li:last-child {
     border-bottom: none;
 }
-.pricing-plan-list li span {
-    white-space: nowrap;
-    flex-grow: 1;
-}
 .pricing-plan-list .price {
     font-weight: 700;
     color: var(--text-primary);
