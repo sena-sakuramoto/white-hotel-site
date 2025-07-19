@@ -734,6 +734,13 @@
         }
 
         // --- 料金計算ロジック ---
+        const ROOM_DETAILS = {
+            'triple': { name: 'Room A', capacity: 3 },
+            'twin': { name: 'Room B', capacity: 2 },
+            'semi-twin': { name: 'Room C', capacity: 2 },
+            'single': { name: 'Room D', capacity: 1 }
+        };
+
         function calculatePrice(roomType, guests, checkinDateStr) { // checkinDateStr を追加
             const numGuests = parseInt(guests, 10);
             let basePrice = 0;
@@ -817,7 +824,7 @@
             const cin = document.getElementById('checkinDate').value;
             const cout = document.getElementById('checkoutDate').value;
             const guests = document.getElementById('guestCount').value;
-            const type = document.getElementById('roomType').value;
+            const type = document.getElementById('roomType').value; // ユーザーが選択した部屋タイプ
 
             try {
                 // URLSearchParams を使用（CORSエラーを回避）
@@ -857,9 +864,13 @@
                     return;
                 }
 
-                const r = data.rooms[0];
-                const roomType = type; // フォームで選択された部屋タイプを使用
-                const perNightPrice = calculatePrice(roomType, guests, cin);
+                // ユーザーが選択した部屋タイプに対応する詳細情報を取得
+                const selectedRoomDetails = ROOM_DETAILS[type];
+                if (!selectedRoomDetails) {
+                    throw new Error('選択された部屋タイプが見つかりません。');
+                }
+
+                const perNightPrice = calculatePrice(type, guests, cin); // ここもtypeを使用
 
                 const checkinDate = new Date(cin);
                 const checkoutDate = new Date(cout);
@@ -868,13 +879,13 @@
 
                 const html = `
                     <b>空室が見つかりました!</b><br>
-                    お部屋: ${r.name}<br>
-                    定員: ${r.capacity} 名様まで<br>
-                    ${r.name === 'Room B' ? 'セミダブルベッド1つを2名で共用いただく形になります。<br>' : ''}
+                    お部屋: ${selectedRoomDetails.name}<br>
+                    定員: ${selectedRoomDetails.capacity} 名様まで<br>
+                    ${type === 'twin' ? 'セミダブルベッド1つを2名で共用いただく形になります。<br>' : ''}
                     ご宿泊料金: <b>¥${totalPrice.toLocaleString()}</b> (${guests}名様ご利用 / ${nights}泊)<br><br>
                     <p>このお部屋で予約手続きに進みますか？</p>
                 `;
-                const footer = `<button class="btn btn-primary" onclick="bookNow('${r.id}', ${totalPrice})">この部屋を予約する</button> <button class="btn modal-close-btn" onclick="closeModal()">キャンセル</button>`;
+                const footer = `<button class="btn btn-primary" onclick="bookNow('${data.rooms[0].id}', ${totalPrice})">この部屋を予約する</button> <button class="btn modal-close-btn" onclick="closeModal()">キャンセル</button>`;
                 showModal('検索結果', html, footer);
 
             } catch (err) {
