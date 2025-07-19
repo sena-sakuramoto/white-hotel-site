@@ -925,12 +925,23 @@
         }
 
         function openChat() {
-            const message = `
-                現在、ライブチャットは準備中です。<br><br>
-                ご質問がある場合は、InstagramのDMにてお問い合わせください。<br>
-                <a href="https://www.instagram.com/suz.u3n.chu" target="_blank">https://www.instagram.com/suz.u3n.chu</a>
+            // ここにあなたのデプロイしたGASウェブアプリのURLを貼り付けてください
+            const chatBotUrl = "https://script.google.com/macros/s/AKfycbwpSb-B6RHsNy9pbW1c147M4whrQlaGWwFhXDaDLBN-KVSNuE7-Lx-zHKMuXiKcJtDU/exec"; 
+
+            const iframeHtml = `
+                <iframe 
+                    src="${chatBotUrl}" 
+                    width="100%" 
+                    height="calc(100vh - 180px)" // 高さの調整が必要かもしれません
+                    frameborder="0" 
+                    style="border: none; border-radius: 8px;">
+                </iframe>
+                <p style="font-size: 0.8rem; color: #666; margin-top: 10px; text-align: center;">
+                    上記チャットで解決しない場合は、直接お電話またはメールでお問い合わせください。<br>
+                    <a href="tel:08088515250">080-8851-5250</a> または <a href="mailto:white-hotel@archi-prisma.co.jp">white-hotel@archi-prisma.co.jp</a>
+                </p>
             `;
-            showModal('ライブチャット', message);
+            showModal('チャットでお問い合わせ', iframeHtml, '<button class="btn modal-close-btn" onclick="closeModal()">閉じる</button>');
         }
 
         function selectRoomType(index) {
