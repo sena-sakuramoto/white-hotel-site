@@ -1,3 +1,3 @@
-revert: Instagramリール表示のCSS変更を元に戻す
+revert: style.cssをGit履歴から復元
 
-- デザイン崩れが発生したため、style.cssへのInstagram関連CSSの追加を元に戻す
+- 誤ってstyle.cssの内容を削除してしまったため、Git履歴から復元
