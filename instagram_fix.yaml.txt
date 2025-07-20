@@ -1,0 +1,234 @@
+# Gemini CLI用 Instagram リール修正・GitHubプッシュ自動化プロンプト
+task: "Instagramリール表示修正とGitHubプッシュ"
+description: "HTMLファイルのInstagramリール埋め込み部分を修正し、GitHubにプッシュする"
+
+instructions:
+  # 1. プロジェクトの確認と準備
+  - action: "check_project_structure"
+    description: "プロジェクト構造を確認し、index.htmlファイルの場所を特定"
+    commands:
+      - "ls -la"
+      - "find . -name '*.html' -type f"
+
+  # 2. 現在のコードのバックアップ
+  - action: "backup_current_code"
+    description: "現在のindex.htmlをバックアップ"
+    commands:
+      - "cp index.html index.html.backup"
+      - "git add index.html.backup"
+      - "git commit -m 'backup: 修正前のindex.htmlをバックアップ'"
+
+  # 3. HTMLファイルの修正
+  - action: "modify_html_structure"
+    description: "InstagramリールのHTML構造を修正"
+    target_file: "index.html"
+    modifications:
+      # head部分にSwiperのCSSを追加
+      - search_pattern: "</head>"
+        replace_with: |
+          <!-- Swiperのスタイル -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css">
+          <style>
+          .video-gallery-container {
+              width: 100%;
+              max-width: 1200px;
+              margin: 0 auto;
+              padding: 20px;
+          }
+          
+          .swiper-slide {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: auto;
+          }
+          
+          .instagram-media {
+              margin: 10px !important;
+              max-width: 540px !important;
+              width: 100% !important;
+          }
+          
+          .swiper-button-next,
+          .swiper-button-prev {
+              color: #333 !important;
+          }
+          
+          .swiper-pagination-bullet-active {
+              background: #333 !important;
+          }
+          
+          .swipe-indicator {
+              text-align: center;
+              margin-top: 20px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 10px;
+          }
+          
+          .loading-message {
+              text-align: center;
+              padding: 40px;
+              color: #666;
+          }
+          </style>
+          </head>
+
+      # 各blockquoteをswiper-slideで囲む
+      - search_pattern: '<blockquote class="instagram-media"'
+        replace_with: |
+          <div class="swiper-slide">
+          <blockquote class="instagram-media"
+        
+      - search_pattern: '</blockquote>'
+        replace_with: |
+          </blockquote>
+          </div>
+
+      # body終了タグ前にスクリプトを追加
+      - search_pattern: "</body>"
+        replace_with: |
+          <!-- Swiperライブラリ -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+          
+          <!-- Instagramの埋め込みスクリプト -->
+          <script async src="https://www.instagram.com/embed.js"></script>
+          
+          <script>
+          // Swiperの初期化
+          const swiper = new Swiper('#instagram-swiper', {
+              // 基本設定
+              slidesPerView: 1,
+              spaceBetween: 30,
+              loop: true,
+              
+              // レスポンシブ設定
+              breakpoints: {
+                  768: {
+                      slidesPerView: 2,
+                      spaceBetween: 20
+                  },
+                  1024: {
+                      slidesPerView: 3,
+                      spaceBetween: 30
+                  }
+              },
+              
+              // ナビゲーション
+              navigation: {
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev',
+              },
+              
+              // ページネーション
+              pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+              },
+              
+              // その他の設定
+              autoplay: {
+                  delay: 5000,
+                  disableOnInteraction: false,
+              }
+          });
+          
+          // Instagramの埋め込みを再読み込み
+          function reinitializeInstagram() {
+              if (window.instgrm) {
+                  window.instgrm.Embeds.process();
+              } else {
+                  setTimeout(reinitializeInstagram, 1000);
+              }
+          }
+          
+          // ページ読み込み完了後にInstagramを初期化
+          document.addEventListener('DOMContentLoaded', function() {
+              setTimeout(reinitializeInstagram, 2000);
+          });
+          
+          // エラーハンドリング
+          window.addEventListener('error', function(e) {
+              console.log('エラーが発生しました:', e.message);
+          });
+          </script>
+          </body>
+
+      # swiper-wrapperのIDを修正
+      - search_pattern: '<div class="video-gallery-container swiper">'
+        replace_with: '<div class="video-gallery-container swiper" id="instagram-swiper">'
+
+  # 4. コードの検証
+  - action: "validate_changes"
+    description: "修正されたコードが正しいかチェック"
+    commands:
+      - "echo '修正されたファイルの確認:'"
+      - "head -50 index.html"
+      - "echo '--- 中略 ---'"
+      - "tail -50 index.html"
+
+  # 5. ローカルテスト（オプション）
+  - action: "local_test"
+    description: "可能であればローカルでテスト"
+    commands:
+      - "python3 -m http.server 8000 > /dev/null 2>&1 &"
+      - "echo 'ローカルサーバーを起動しました: http://localhost:8000'"
+      - "sleep 3"
+      - "pkill -f 'python3 -m http.server'"
+
+  # 6. Gitコミット
+  - action: "git_commit"
+    description: "変更をコミット"
+    commands:
+      - "git add ."
+      - "git status"
+      - "git commit -m 'fix: Instagramリール表示の修正
+
+      - Swiperライブラリの追加
+      - 各リールをswiper-slideで囲む構造に変更
+      - Instagram埋め込みスクリプトの追加
+      - レスポンシブ対応の改善
+      - 自動再生とナビゲーション機能の追加'"
+
+  # 7. GitHubにプッシュ
+  - action: "github_push"
+    description: "GitHubリポジトリにプッシュ"
+    commands:
+      - "git branch"
+      - "git remote -v"
+      - "git push origin main"  # または "git push origin master"
+
+  # 8. プッシュ結果の確認
+  - action: "verify_push"
+    description: "プッシュが成功したか確認"
+    commands:
+      - "git log --oneline -5"
+      - "echo 'GitHubプッシュが完了しました'"
+
+# エラーハンドリング
+error_handling:
+  - if_error: "git_push_failed"
+    then: 
+      - "git status"
+      - "git pull origin main --rebase"  # コンフリクト解決
+      - "git push origin main"
+
+  - if_error: "file_not_found"
+    then:
+      - "find . -name '*.html' -type f"
+      - "echo '対象ファイルが見つからない場合は手動で確認してください'"
+
+# 実行前チェック項目
+prerequisites:
+  - "Gitリポジトリが初期化されている"
+  - "GitHubリモートリポジトリが設定されている"  
+  - "適切なGit認証が設定されている"
+  - "index.htmlファイルが存在する"
+
+# 実行後の確認項目
+post_execution_check:
+  - "Instagramリールが正しく表示される"
+  - "スワイプ機能が動作する"
+  - "レスポンシブデザインが適用されている"
+  - "GitHubリポジトリに変更が反映されている"
