@@ -158,7 +158,7 @@ header.header-transparent .header-logo {
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
+    gap: 1.5rem; /* gapを小さく調整 */
 }
 .nav-link { color: var(--text-primary); text-decoration: none; font-weight: 500; font-size: 0.95rem; position: relative; transition: var(--transition-smooth); }
 .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--primary-color); transition: var(--transition-smooth); }
@@ -168,7 +168,7 @@ header.header-transparent .header-logo {
 .nav-cta {
     background: var(--gradient-gold);
     color: var(--white) !important;
-    padding: 0.7rem 1.8rem;
+    padding: 0.7rem 1.2rem; /* paddingを調整 */
     border-radius: 50px;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -182,7 +182,7 @@ header.header-transparent .header-logo {
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 0.9rem;
+    font-size: 0.8rem; /* フォントサイズを小さく調整 */
     font-weight: 500;
 }
 
