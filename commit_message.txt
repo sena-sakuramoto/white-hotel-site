@@ -1,5 +1,5 @@
-fix: Instagramリール表示の修正 (Swiper初期化の修正)
+fix: Instagramリール表示の修正 (Swiper初期化とCSSの再修正)
 
-- Swiperの二重初期化を解消
-- CSSの重複を削除
-- スクリプトの配置を最適化
+- Instagram関連のスタイルをstyle.cssに移動
+- Swiperの初期化ロジックを最適化し、Instagram埋め込みの再処理をSwiperのイベントに紐付け
+- paginationのelを修正
