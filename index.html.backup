@@ -20,53 +20,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery-bundle.min.css">
     
     <link rel="stylesheet" href="style.css">
-    <!-- Swiperのスタイル -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css">
-    <style>
-    .video-gallery-container {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-    
-    .swiper-slide {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: auto;
-    }
-    
-    .instagram-media {
-        margin: 10px !important;
-        max-width: 540px !important;
-        width: 100% !important;
-    }
-    
-    .swiper-button-next,
-    .swiper-button-prev {
-        color: #333 !important;
-    }
-    
-    .swiper-pagination-bullet-active {
-        background: #333 !important;
-    }
-    
-    .swipe-indicator {
-        text-align: center;
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-    }
-    
-    .loading-message {
-        text-align: center;
-        padding: 40px;
-        color: #666;
-    }
-    </style>
 </head>
 <body>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -225,53 +178,23 @@
                         若手建築家チームが奮闘する、宿づくりの裏側をショート動画でお届けします。
                     </p>
                 </div>
-                <div class="video-gallery-container swiper" id="instagram-swiper">
+                <div class="video-gallery-container swiper">
                     <div class="swiper-wrapper">
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DL45woyzY3y/?igsh=bDgwaW8yZnY0MHJm" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DL45woyzY3y/?igsh=bDgwaW8yZnY0MHJm" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DL45woyzY3y/?igsh=bDgwaW8yZnY0MHJm" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DL7FjtNzAQj/?igsh=MTgwdTJkc283bGZyYQ==" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DL7FjtNzAQj/?igsh=MTgwdTJkc283bGZyYQ==" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DL7FjtNzAQj/?igsh=MTgwdTJkc283bGZyYQ==" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DL9vqsnzbTi/?igsh=ZHpvZ3U2dWQxNG9n" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DL9vqsnzbTi/?igsh=ZHpvZ3U2dWQxNG9n" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DL7FjtNzAQj/?igsh=MTgwdTJkc283bGZyYQ==" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DL9vqsnzbTi/?igsh=ZHpvZ3U2dWQxNG9n" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DL9vqsnzbTi/?igsh=ZHpvZ3U2dWQxNG9n" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DL9vqsnzbTi/?igsh=ZHpvZ3U2dWQxNG9n" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DMAWFk5zPz3/?igsh=MWt4NmZzZDNkbGUxMg==" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DMAWFk5zPz3/?igsh=MWt4NmZzZDNkbGUxMg==" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DMAWFk5zPz3/?igsh=MWt4NmZzZDNkbGUxMg==" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DMC7bs1xRTW/?igsh=dmo0dWltMWs0c2gz" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DMC7bs1xRTW/?igsh=dmo0dWltMWs0c2gz" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DMC7bs1xRTW/?igsh=dmo0dWltMWs0c2gz" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DMFYXaozXTn/?igsh=MWhjbTVldHp2MnZuaQ==" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DMFYXaozXTn/?igsh=MWhjbTVldHp2MnZuaQ==" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DMFYXaozXTn/?igsh=MWhjbTVldHp2MnZuaQ==" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DMH_exJT15I/?igsh=eTAxaXlqODV0YXNi" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DMH_exJT15I/?igsh=eTAxaXlqODV0YXNi" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DMH_exJT15I/?igsh=eTAxaXlqODV0YXNi" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DMKhd1wTW0i/?igsh=MXE2MWwwN3gzam9zaw==" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DMKhd1wTW0i/?igsh=MXE2MWwwN3gzam9zaw==" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DMKhd1wTW0i/?igsh=MXE2MWwwN3gzam9zaw==" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DMNIsuuzq-6/?igsh=MTludGpqZGJ2dWg0MQ==" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DMNIsuuzq-6/?igsh=MTludGpqZGJ2dWg0MQ==" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DMNIsuuzq-6/?igsh=MTludGpqZGJ2dWg0MQ==" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DMPukjaTE4n/?igsh=NzkzaHEwdmdlODFn" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DMPukjaTE4n/?igsh=NzkzaHEwdmdlODFn" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DMPukjaTE4n/?igsh=NzkzaHEwdmdlODFn" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DMFYXaozXTn/?igsh=MWhjbTVldHp2MnZuaQ==" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DMFYXaozXTn/?igsh=MWhjbTVldHp2MnZuaQ==" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DMFYXaozXTn/?igsh=MWhjbTVldHp2MnZuaQ==" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DMH_exJT15I/?igsh=eTAxaXlqODV0YXNi" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DMH_exJT15I/?igsh=eTAxaXlqODV0YXNi" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DMH_exJT15I/?igsh=eTAxaXlqODV0YXNi" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DMNIsuuzq-6/?igsh=MTludGpqZGJ2dWg0MQ==" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DMNIsuuzq-6/?igsh=MTludGpqZGJ2dWg0MQ==" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DMNIsuuzq-6/?igsh=MTludGpqZGJ2dWg0MQ==" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
-                    <div class="swiper-slide">
                     <blockquote class="instagram-media" data-instgrm-preserve-tab-focus="true" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DMPukjaTE4n/?igsh=NzkzaHEwdmdlODFn" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DMPukjaTE4n/?igsh=NzkzaHEwdmdlODFn" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100%;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100%;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.116,60.657 530.342,55.887 530.342,50 C530.342,44.113 535.116,39.343 541,39.343 C546.884,39.343 551.658,44.113 551.658,50 C551.658,55.887 546.884,60.657 541,60.657 M541,33.886 C532.186,33.886 524.886,41.186 524.886,50 C524.886,58.814 532.186,66.114 541,66.114 C549.814,66.114 557.114,58.814 557.114,50 C557.114,41.186 549.814,33.886 541,33.886 M565.378,62.101 C565.244,65.047 564.093,66.006 562.101,67.042 C560.11,68.076 557.216,68.603 552.918,68.787 C547.318,69.041 545.68,69.065 541,69.065 C536.32,69.065 534.682,69.041 529.082,68.787 C524.784,68.603 521.89,68.076 519.899,67.042 C517.907,66.006 516.755,65.047 516.622,62.101 C516.479,59.276 516.454,58.333 516.454,50 C516.454,41.667 516.479,40.724 516.622,37.899 C516.755,34.953 517.907,33.994 519.899,32.958 C521.89,31.923 524.784,31.396 529.082,31.213 C534.682,30.959 536.32,30.935 541,30.935 C545.68,30.935 547.318,30.959 552.918,31.213 C557.216,31.396 560.11,31.923 562.101,32.958 C564.093,33.994 565.244,34.953 565.378,37.899 C565.522,40.724 565.546,41.667 565.546,50 C565.546,58.333 565.522,59.276 565.378,62.101 M570.82,37.631 C570.674,34.438 569.511,32.988 567.539,31.016 C565.566,29.044 564.116,27.881 560.923,27.738 C550.995,27.276 547.86,27.249 541,27.249 C534.14,27.249 531.005,27.276 521.077,27.738 C517.884,27.881 516.433,29.044 514.46,31.016 C512.488,32.988 511.326,34.438 511.181,37.631 C511.035,40.827 511,41.851 511,50 C511,58.147 511.035,59.173 511.181,62.369 C511.326,65.562 512.488,67.012 514.46,68.985 C516.433,70.958 517.884,72.121 521.077,72.264 C531.005,72.726 534.14,72.751 541,72.751 C547.86,72.751 550.995,72.726 560.923,72.264 C564.116,72.121 565.566,70.958 567.539,68.985 C569.511,67.012 570.674,65.562 570.82,62.369 C570.966,59.173 571,58.147 571,50 C571,41.851 570.966,40.827 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 220px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 180px;"></div> </div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DMPukjaTE4n/?igsh=NzkzaHEwdmdlODFn" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by White Hotel Kamakura</a></p></div></blockquote>
-                    </div>
                     </div>
                     <div class="swiper-pagination"></div>
                     <div class="swiper-button-prev"></div>
@@ -784,69 +707,569 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
 
-    <!-- Swiperライブラリ -->
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
-          
-          <!-- Instagramの埋め込みスクリプト -->
-          <script async src="https://www.instagram.com/embed.js"></script>
-          
-          <script>
-          // Swiperの初期化
-          const swiper = new Swiper('#instagram-swiper', {
-              // 基本設定
-              slidesPerView: 1,
-              spaceBetween: 30,
-              loop: true,
-              
-              // レスポンシブ設定
-              breakpoints: {
-                  768: {
-                      slidesPerView: 2,
-                      spaceBetween: 20
-                  },
-                  1024: {
-                      slidesPerView: 3,
-                      spaceBetween: 30
-                  }
-              },
-              
-              // ナビゲーション
-              navigation: {
-                  nextEl: '.swiper-button-next',
-                  prevEl: '.swiper-button-prev',
-              },
-              
-              // ページネーション
-              pagination: {
-                  el: '.swiper-pagination',
-                  clickable: true,
-              },
-              
-              // その他の設定
-              autoplay: {
-                  delay: 5000,
-                  disableOnInteraction: false,
-              }
-          });
-          
-          // Instagramの埋め込みを再読み込み
-          function reinitializeInstagram() {
-              if (window.instgrm) {
-                  window.instgrm.Embeds.process();
-              } else {
-                  setTimeout(reinitializeInstagram, 1000);
-              }
-          }
-          
-          // ページ読み込み完了後にInstagramを初期化
-          document.addEventListener('DOMContentLoaded', function() {
-              setTimeout(reinitializeInstagram, 2000);
-          });
-          
-          // エラーハンドリング
-          window.addEventListener('error', function(e) {
-              console.log('エラーが発生しました:', e.message);
-          });
-          </script>
-          </body>
+    <script async src="//www.instagram.com/embed.js"></script>
+    
+
+    <script>
+        // --- グローバル変数・定数 ---
+        const modal = document.getElementById('customModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalFooter = document.getElementById('modalFooter');
+
+        // --- モーダル表示・非表示 ---
+        const showModal = (title, message, footerContent = '<button class="btn modal-close-btn" onclick="closeModal()">閉じる</button>') => {
+            if (!modal || !modalTitle || !modalMessage || !modalFooter) return;
+            modalTitle.textContent = title;
+            modalMessage.innerHTML = message;
+            modalFooter.innerHTML = footerContent;
+            modal.classList.add('active');
+        };
+        const closeModal = () => {
+            if (!modal) return;
+            modal.classList.remove('active');
+        };
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+
+        // --- 料金計算ロジック ---
+        const ROOM_DETAILS = {
+            'triple': { name: 'Room A', capacity: 3 },
+            'twin': { name: 'Room B', capacity: 2 },
+            'semi-twin': { name: 'Room C', capacity: 2 },
+            'single': { name: 'Room D', capacity: 1 }
+        };
+
+        function calculatePrice(roomType, guests, checkinDateStr) { // checkinDateStr を追加
+            const numGuests = parseInt(guests, 10);
+            let basePrice = 0;
+
+            if (roomType === 'single') {
+                basePrice = 5000;
+            } else if (roomType === 'semi-twin') {
+                if (numGuests <= 1) basePrice = 6000;
+                else basePrice = 8000;
+            } else if (roomType === 'twin') {
+                if (numGuests === 1) basePrice = 7000;
+                else if (numGuests === 2) basePrice = 10000;
+            } else if (roomType === 'triple') {
+                const soloPrice = 10000;
+                const maxPrice = 15000;
+                if (numGuests <= 1) basePrice = soloPrice;
+                else if (numGuests >= 3) basePrice = maxPrice;
+                else {
+                    const increment = (maxPrice - soloPrice) / 2;
+                    basePrice = Math.round(soloPrice + (increment * (numGuests - 1)));
+                }
+            } else {
+                return 0; // 不明な部屋タイプの場合
+            }
+
+            // 週末・祝日料金の計算
+            const checkinDate = new Date(checkinDateStr);
+            const dayOfWeek = checkinDate.getDay(); // 0 = Sunday, 6 = Saturday
+
+            // 金曜日 (5), 土曜日 (6), または祝前日 (isPreHoliday) にチェックインした場合に1.2倍
+            if (dayOfWeek === 5 || dayOfWeek === 6 || isPreHoliday(checkinDate)) {
+                basePrice *= 1.20; // 20% UP
+            }
+
+            return Math.round(basePrice); // 端数処理
+        }
+
+        // --- 予約関連のロジック ---
+
+        /* ① GAS エンドポイント */
+        const ENDPOINT = "https://script.google.com/macros/s/AKfycbx38gteyFQ9LnYtAIP5iFI1x16QyknqiWn0Gm44ittEULRPRKURO-TAEjcwrmBWD8W2/exec";
+
+        // Holiday list for 2025 (YYYY-MM-DD format)
+        const HOLIDAYS_2025 = new Set([
+            '2025-01-01', '2025-01-13', '2025-02-11', '2025-02-23', '2025-02-24',
+            '2025-03-20', '2025-04-29', '2025-04-30', '2025-05-01', '2025-05-02',
+            '2025-05-03', '2025-05-04', '2025-05-05', '2025-05-06', '2025-07-21',
+            '2025-08-11', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16',
+            '2025-09-15', '2025-09-23', '2025-10-13', '2025-11-03', '2025-11-23',
+            '2025-11-24', '2025-12-29', '2025-12-30', '2025-12-31'
+        ]);
+
+        // Helper function to format date to YYYY-MM-DD
+        function formatDateToYYYYMMDD(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Helper function to check if a date is a holiday
+        function isHoliday(date) {
+            return HOLIDAYS_2025.has(formatDateToYYYYMMDD(date));
+        }
+
+        // Helper function to check if the day after is a holiday (i.e., current day is pre-holiday)
+        function isPreHoliday(date) {
+            const nextDay = new Date(date);
+            nextDay.setDate(date.getDate() + 1);
+            return isHoliday(nextDay);
+        }
+
+        /* ② 空室検索ロジック */
+        async function searchAvailability(event) {
+            event.preventDefault();
+            const btn = event.target.querySelector('.search-btn');
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.innerHTML = '検索中…';
+
+            const cin = document.getElementById('checkinDate').value;
+            const cout = document.getElementById('checkoutDate').value;
+            const guests = document.getElementById('guestCount').value;
+            const type = document.getElementById('roomType').value; // ユーザーが選択した部屋タイプ
+
+            try {
+                // URLSearchParams を使用（CORSエラーを回避）
+                const formData = new URLSearchParams();
+                const allMinors = document.querySelector('input[name="allMinors"]:checked').value;
+                formData.append('data', JSON.stringify({
+                    action: 'search',
+                    cin: cin,
+                    cout: cout,
+                    guests: guests,
+                    type: type,
+                    allMinors: allMinors
+                }));
+
+                const response = await fetch(ENDPOINT, {
+                    method: 'POST',
+                    body: formData  // Content
+                });
+                
+                if (!response.ok) {
+                    let errorMsg = `サーバーとの通信に失敗しました (HTTP ${response.status})。`;
+                    try {
+                        const errorData = await response.json();
+                        errorMsg = errorData.msg || errorMsg;
+                    } catch (e) { /* JSONの解析に失敗した場合は、元のエラーメッセージを使用 */ }
+                    throw new Error(errorMsg);
+                }
+                
+                const data = await response.json();
+
+                if (!data.ok) {
+                    throw new Error(data.msg || 'サーバーでエラーが発生しました。');
+                }
+
+                if (data.rooms.length === 0) {
+                    showModal('満室です 😢', '残念ながらご指定の条件では空室がありません。<br>日程や人数を変えて再度お試しください。');
+                    return;
+                }
+
+                // ユーザーが選択した部屋タイプに対応する詳細情報を取得
+                const selectedRoomDetails = ROOM_DETAILS[type];
+                if (!selectedRoomDetails) {
+                    throw new Error('選択された部屋タイプが見つかりません。');
+                }
+
+                const perNightPrice = calculatePrice(type, guests, cin); // ここもtypeを使用
+
+                const checkinDate = new Date(cin);
+                const checkoutDate = new Date(cout);
+                const nights = Math.round((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24)); // 宿泊日数を計算
+                const totalPrice = perNightPrice * nights; // 合計料金を計算
+
+                const html = `
+                    <b>空室が見つかりました!</b><br>
+                    お部屋: ${selectedRoomDetails.name}<br>
+                    定員: ${selectedRoomDetails.capacity} 名様まで<br>
+                    ${type === 'twin' ? 'セミダブルベッド1つを2名で共用いただく形になります。<br>' : ''}
+                    ご宿泊料金: <b>¥${totalPrice.toLocaleString()}</b> (${guests}名様ご利用 / ${nights}泊)<br><br>
+                    <p>このお部屋で予約手続きに進みますか？</p>
+                `;
+                const footer = `<button class="btn btn-primary" onclick="bookNow('${data.rooms[0].id}', ${totalPrice})">この部屋を予約する</button> <button class="btn modal-close-btn" onclick="closeModal()">キャンセル</button>`;
+                showModal('検索結果', html, footer);
+
+            } catch (err) {
+                showModal('検索エラー', `検索中にエラーが発生しました。<br><small>詳細: ${err.message}</small><br><br>時間をおいて再度お試しください。`);
+                console.error('検索エラー:', err);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<svg><use xlink:href="#icon-search"/></svg> 検索する';
+            }
+        }
+
+        /* ③ 予約確定ロジック */
+        async function bookNow(roomId, price) {
+            closeModal(); 
+            // 予約情報をURLパラメータとして渡して確認ページへリダイレクト
+            const checkinDate = document.getElementById('checkinDate').value;
+            const checkoutDate = document.getElementById('checkoutDate').value;
+            const guests = document.getElementById('guestCount').value;
+            const roomType = document.getElementById('roomType').value;
+
+            const params = new URLSearchParams({
+                roomId: roomId,
+                price: price,
+                checkin: checkinDate,
+                checkout: checkoutDate,
+                guests: guests,
+                roomType: roomType,
+                allMinors: document.querySelector('input[name="allMinors"]:checked').value
+            }).toString();
+
+            window.location.href = `reservation-confirmation.html?${params}`;
+        }
+
+        // --- その他のUI操作関数 ---
+        function openLightGallery(galleryId) {
+            // この機能は現在使用していませんが、将来のために残しておきます
+        }
+
+        function openChat() {
+            // ここにあなたのデプロイしたGASウェブアプリのURLを貼り付けてください
+            const chatBotUrl = "https://script.google.com/macros/s/AKfycbwpSb-B6RHsNy9pbW1c147M4whrQlaGWwFhXDaDLBN-KVSNuE7-Lx-zHKMuXiKcJtDU/exec"; 
+
+            const iframeHtml = `
+                <iframe 
+                    src="${chatBotUrl}" 
+                    width="100%" 
+                    height="calc(100vh - 180px)" // 高さの調整が必要かもしれません
+                    frameborder="0" 
+                    style="border: none; border-radius: 8px;">
+                </iframe>
+                <p style="font-size: 0.8rem; color: #666; margin-top: 10px; text-align: center;">
+                    上記チャットで解決しない場合は、直接お電話またはメールでお問い合わせください。<br>
+                    <a href="tel:08088515250">080-8851-5250</a> または <a href="mailto:white-hotel@archi-prisma.co.jp">white-hotel@archi-prisma.co.jp</a>
+                </p>
+            `;
+            showModal('チャットでお問い合わせ', iframeHtml, '<button class="btn modal-close-btn" onclick="closeModal()">閉じる</button>');
+        }
+
+        function selectRoomType(index) {
+            const roomTypeEl = document.getElementById('roomType');
+            const roomValues = ['triple', 'twin', 'semi-twin', 'single']; // 部屋のvalue値の配列
+            if (index >= 0 && index < roomValues.length) {
+                roomTypeEl.value = roomValues[index];
+                // 人数選択肢も更新
+                const event = new Event('change');
+                roomTypeEl.dispatchEvent(event);
+            }
+        }
+
+        
+
+        // --- アプリケーションの初期化 ---
+        function initializeApp() {
+            // Loader
+            const loader = document.getElementById('pageLoader');
+            if (loader) {
+                // DOMContentLoadedで即座に非表示にする
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 500); // アニメーションのために少し遅延
+            }
+
+            // Header Scroll
+            const header = document.getElementById('header');
+            let lastScrollY = window.scrollY;
+            const handleScroll = () => {
+                const currentScrollY = window.scrollY;
+                const isScrolled = currentScrollY > 50;
+                if (header) {
+                    header.classList.toggle('header-transparent', !isScrolled && window.scrollY < 50);
+                     if (window.innerWidth > 768) {
+                        if (currentScrollY > lastScrollY && isScrolled) {
+                            header.style.transform = 'translateY(-100%)';
+                        } else {
+                            header.style.transform = 'translateY(0)';
+                        }
+                    }
+                }
+                lastScrollY = currentScrollY;
+            };
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+
+
+            // Mobile Menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const toggleMobileMenu = () => {
+                mobileMenuBtn.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            };
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            document.querySelectorAll('.mobile-nav-link, .nav-link, .btn, .logo').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        if (mobileMenu.classList.contains('active')) {
+                            toggleMobileMenu();
+                        }
+                        const targetEl = document.querySelector(href);
+                        if (targetEl) {
+                           e.preventDefault();
+                           const offset = (href === '#bookingWidget' && window.innerWidth <= 768) ? 100 : 80;
+                           const bodyRect = document.body.getBoundingClientRect().top;
+                           const elementRect = targetEl.getBoundingClientRect().top;
+                           const elementPosition = elementRect - bodyRect;
+                           const offsetPosition = elementPosition - offset;
+
+                           window.scrollTo({
+                               top: offsetPosition,
+                               behavior: 'smooth'
+                           });
+                        }
+                    }
+                });
+            });
+
+            // Room Type と Guest Count の連動
+            const guestCountEl = document.getElementById('guestCount');
+            const roomTypeEl = document.getElementById('roomType');
+
+            const updateGuestOptions = () => {
+                const selectedRoomType = roomTypeEl.value;
+                const currentGuests = parseInt(guestCountEl.value);
+                let maxGuests = 4; // デフォルトの最大人数
+
+                // 部屋タイプに応じた最大人数を設定
+                if (selectedRoomType === 'single') maxGuests = 1;
+                else if (selectedRoomType === 'semi-twin') maxGuests = 2;
+                else if (selectedRoomType === 'twin') maxGuests = 2;
+                else if (selectedRoomType === 'triple') maxGuests = 3;
+
+                // 選択肢を更新
+                guestCountEl.innerHTML = '';
+                for (let i = 1; i <= maxGuests; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = `${i}名`;
+                    guestCountEl.appendChild(option);
+                }
+
+                // 現在の人数が新しい最大人数を超えていたら、最大人数に設定
+                if (currentGuests > maxGuests) {
+                    guestCountEl.value = maxGuests;
+                } else {
+                    guestCountEl.value = currentGuests; // 以前の選択を維持
+                }
+            };
+
+            // 初期ロード時と部屋タイプ変更時に人数選択肢を更新
+            roomTypeEl.addEventListener('change', updateGuestOptions);
+            updateGuestOptions(); // 初期表示
+            
+            // Date Picker
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const formatDate = (date) => date.toISOString().split('T')[0];
+            const checkinDateEl = document.getElementById('checkinDate');
+            const checkoutDateEl = document.getElementById('checkoutDate');
+
+            // 初期ロード時に日付を設定
+            if (checkinDateEl) {
+                checkinDateEl.min = formatDate(today);
+                checkinDateEl.value = formatDate(today);
+            }
+            if (checkoutDateEl) {
+                checkoutDateEl.min = formatDate(tomorrow);
+                checkoutDateEl.value = formatDate(tomorrow);
+            }
+
+            // チェックイン日変更時のチェックアウト日自動調整
+            if (checkinDateEl) {
+                checkinDateEl.addEventListener('change', function() {
+                    const checkinDate = new Date(this.value);
+                    const nextDay = new Date(checkinDate);
+                    nextDay.setDate(nextDay.getDate() + 1);
+                    const nextDayStr = formatDate(nextDay);
+                    checkoutDateEl.min = nextDayStr;
+                    if (checkoutDateEl.value <= this.value) {
+                        checkoutDateEl.value = nextDayStr;
+                    }
+                });
+            }
+
+            // 未成年者同意書セクションの表示/非表示
+            const allMinorsRadios = document.querySelectorAll('input[name="allMinors"]');
+            const minorConsentSection = document.getElementById('minorConsentSection');
+
+            const toggleMinorConsentSection = () => {
+                if (document.getElementById('allMinorsYes').checked) {
+                    minorConsentSection.style.display = 'block';
+                } else {
+                    minorConsentSection.style.display = 'none';
+                }
+            };
+
+            allMinorsRadios.forEach(radio => {
+                radio.addEventListener('change', toggleMinorConsentSection);
+            });
+            toggleMinorConsentSection(); // 初期表示
+
+            // FAQ
+            const faqContainer = document.getElementById('faqContainer');
+            if (faqContainer) {
+                faqContainer.addEventListener('click', function(e) {
+                    const question = e.target.closest('.faq-question');
+                    if (!question) return;
+                    const faqItem = question.parentElement;
+                    const isActive = faqItem.classList.contains('active');
+                    
+                    const currentlyActive = faqContainer.querySelector('.faq-item.active');
+                    if (currentlyActive && currentlyActive !== faqItem) {
+                        currentlyActive.classList.remove('active');
+                    }
+
+                    faqItem.classList.toggle('active');
+                });
+            }
+
+            // Interactive Map
+            const mapIframe = document.getElementById('map-iframe');
+            const locationGrid = document.getElementById('location-grid');
+            if (mapIframe && locationGrid) {
+                locationGrid.addEventListener('click', function(e) {
+                    const item = e.target.closest('.location-item');
+                    if (!item) return;
+                    locationGrid.querySelectorAll('.location-item').forEach(el => el.classList.remove('active'));
+                    item.classList.add('active');
+                    const query = item.dataset.locationQuery;
+                    if (query) {
+                        let newSrc;
+                        if (query.startsWith('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2716.9052598693493!2d139.54928662500606!3d35.31785059969351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601845c24760efcd%3A0x57b591a8af3a433!2z44Os44OH44Kj44O844K544Kk44OzIOODm-ODr-OCpOODiOODm-ODhuODqw!5e1!3m2!1sja!2sjp!4v1752052923352!5m2!1sja!2sjp')) {
+                            newSrc = query; // 埋め込みURLならそのまま使用
+                        } else {
+                            newSrc = `https://maps.google.com/maps?q=$${encodeURIComponent(query)}&t=&z=16&ie=UTF8&iwloc=&output=embed`; // それ以外はクエリをエンコード
+                        }
+                        mapIframe.src = newSrc;
+                    }
+                });
+            }
+        }
+
+        function initializeLibraries() {
+            // AOS
+            try {
+                if (typeof AOS !== 'undefined') {
+                    AOS.init({ duration: 800, easing: 'ease-out-quart', once: true });
+                }
+            } catch (e) { console.error("AOS initialization failed:", e); }
+
+            // Swiper Carousel (Reviews)
+            try {
+                if (typeof Swiper !== 'undefined' && document.querySelector('.reviews-carousel')) {
+                    new Swiper('.reviews-carousel', {
+                        slidesPerView: 1,
+                        spaceBetween: 30,
+                        // loop: true, // 1枚のスライドでループを有効にすると問題が起きる可能性があるため、一旦コメントアウト
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: false,
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                    });
+                }
+            } catch (e) { console.error("Reviews Swiper failed to initialize:", e); }
+
+            // Swiper Carousel (Video Gallery)
+            try {
+                if (typeof Swiper !== 'undefined' && document.querySelector('.video-gallery-container.swiper')) {
+                    new Swiper('.video-gallery-container.swiper', {
+                        slidesPerView: 1,
+                        spaceBetween: 30,
+                        loop: true,
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: false,
+                        },
+                        pagination: {
+                            el: '.video-gallery-container .swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.video-gallery-container .swiper-button-next',
+                            prevEl: '.video-gallery-container .swiper-button-prev',
+                        },
+                    });
+                }
+            } catch (e) { console.error("Video Gallery Swiper failed to initialize:", e); }
+
+            // Re-process Instagram embeds after Swiper initialization
+            if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === 'function') {
+                window.instgrm.Embeds.process();
+            }
+
+            // LightGallery for Rooms
+            const galleryTriggers = document.querySelectorAll('.gallery-trigger');
+            galleryTriggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const room = trigger.dataset.room;
+                    let items = [];
+                    switch (room) {
+                        case 'a':
+                            items = [
+                                { src: 'images/A/LINE_ALBUM_レタッチ済み A_250719_サムネイル.jpg', thumb: 'images/A/LINE_ALBUM_レタッチ済み A_250719_サムネイル.jpg', subHtml: '<h4>Room A</h4>' },
+                                { src: 'images/A/LINE_ALBUM_レタッチ済み A_250719_1.jpg', thumb: 'images/A/LINE_ALBUM_レタッチ済み A_250719_1.jpg', subHtml: '<h4>Room A</h4>' },
+                                { src: 'images/A/LINE_ALBUM_レタッチ済み A_250719_2.jpg', thumb: 'images/A/LINE_ALBUM_レタッチ済み A_250719_2.jpg', subHtml: '<h4>Room A</h4>' },
+                                { src: 'images/A/LINE_ALBUM_レタッチ済み A_250719_3.jpg', thumb: 'images/A/LINE_ALBUM_レタッチ済み A_250719_3.jpg', subHtml: '<h4>Room A</h4>' },
+                                { src: 'images/A/LINE_ALBUM_レタッチ済み A_250719_4.jpg', thumb: 'images/A/LINE_ALBUM_レタッチ済み A_250719_4.jpg', subHtml: '<h4>Room A</h4>' }
+                            ];
+                            break;
+                        case 'b':
+                            items = [
+                                { src: 'images/B/LINE_ALBUM_レタッチ済み B_250719_サムネイル.jpg', thumb: 'images/B/LINE_ALBUM_レタッチ済み B_250719_サムネイル.jpg', subHtml: '<h4>Room B</h4>' },
+                                { src: 'images/B/LINE_ALBUM_レタッチ済み B_250719_1.jpg', thumb: 'images/B/LINE_ALBUM_レタッチ済み B_250719_1.jpg', subHtml: '<h4>Room B</h4>' },
+                                { src: 'images/B/LINE_ALBUM_レタッチ済み B_250719_3.jpg', thumb: 'images/B/LINE_ALBUM_レタッチ済み B_250719_3.jpg', subHtml: '<h4>Room B</h4>' }
+                            ];
+                            break;
+                        case 'c':
+                            items = [
+                                { src: 'images/C/LINE_ALBUM_レタッチ済み C_250719_サムネイル.jpg', thumb: 'images/C/LINE_ALBUM_レタッチ済み C_250719_サムネイル.jpg', subHtml: '<h4>Room C</h4>' },
+                                { src: 'images/C/LINE_ALBUM_レタッチ済み C_250719_2.jpg', thumb: 'images/C/LINE_ALBUM_レタッチ済み C_250719_2.jpg', subHtml: '<h4>Room C</h4>' }
+                            ];
+                            break;
+                        case 'd':
+                            items = [
+                                { src: 'images/D/LINE_ALBUM_レタッチ済み D_250719_サムネイル.jpg', thumb: 'images/D/LINE_ALBUM_レタッチ済み D_250719_サムネイル.jpg', subHtml: '<h4>Room D</h4>' },
+                                { src: 'images/D/LINE_ALBUM_レタッチ済み D_250719_1.jpg', thumb: 'images/D/LINE_ALBUM_レタッチ済み D_250719_1.jpg', subHtml: '<h4>Room D</h4>' }
+                            ];
+                            break;
+                    }
+
+                    const galleryContainer = document.createElement('div');
+                    
+                    const dynamicGallery = lightGallery(galleryContainer, {
+                        dynamic: true,
+                        plugins: [lgZoom, lgThumbnail],
+                        dynamicEl: items,
+                        download: false,
+                        mobileSettings: {
+                            controls: true,
+                            showCloseIcon: true,
+                            download: false,
+                        }
+                    });
+                    dynamicGallery.openGallery();
+                });
+            });
+        }
+
+        // --- アプリケーションの実行 ---
+        document.addEventListener('DOMContentLoaded', initializeApp);
+        window.addEventListener('load', initializeLibraries);
+        
+
+    </script>
+</body>
 </html>
