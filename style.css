@@ -178,6 +178,33 @@ header.header-transparent .header-logo {
 .nav-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-medium); }
 .nav-cta::after { display: none; }
 
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.language-switcher .lang-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.language-switcher .lang-link.active {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.language-switcher .lang-link:hover {
+    color: var(--primary-color);
+}
+
+.language-switcher span {
+    color: var(--text-secondary);
+}
+
 /* モバイルメニュー */
 /* モバイル・タブレット用メニューボタン */
 .mobile-menu-btn {
