@@ -42,3 +42,8 @@
     padding: 40px;
     color: #666;
 }
+
+.instagram-media {
+    display: block !important;
+    vertical-align: top !important;
+}

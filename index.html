@@ -1205,63 +1205,65 @@
             // LightGallery for Rooms
             try {
                 if (typeof Swiper !== 'undefined' && document.getElementById('instagram-swiper')) {
-                    const swiper = new Swiper('#instagram-swiper', {
-                        // 基本設定
-                        slidesPerView: 1,
-                        spaceBetween: 30,
-                        loop: true,
-                        
-                        // レスポンシブ設定
-                        breakpoints: {
-                            768: {
-                                slidesPerView: 2,
-                                spaceBetween: 20
-                            },
-                            1024: {
-                                slidesPerView: 3,
-                                spaceBetween: 30
-                            }
-                        },
-                        
-                        // ナビゲーション
-                        navigation: {
-                            nextEl: '.swiper-button-next',
-                            prevEl: '.swiper-button-prev',
-                        },
-                        
-                        // ページネーション
-                        pagination: {
-                            el: '.swiper-pagination',
-                            clickable: true,
-                        },
-                        
-                        // その他の設定
-                        autoplay: {
-                            delay: 5000,
-                            disableOnInteraction: false,
+                    // Instagram埋め込みスクリプトのロードを待つ関数
+                    const waitForInstagramEmbed = (callback) => {
+                        if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === 'function') {
+                            callback();
+                        } else {
+                            setTimeout(() => waitForInstagramEmbed(callback), 100);
                         }
-                    });
-                    
-                    // Instagramの埋め込みを再読み込み
-                    // Swiperの初期化後にInstagramの埋め込みを処理
-                    swiper.on('init', function() {
-                        setTimeout(() => {
-                            if (window.instgrm) {
-                                window.instgrm.Embeds.process();
-                            }
-                        }, 1000);
-                    });
-                    swiper.on('slideChange', function() {
-                        setTimeout(() => {
-                            if (window.instgrm) {
-                                window.instgrm.Embeds.process();
-                            }
-                        }, 500);
-                    });
+                    };
 
-                    // エラーハンドリング
-                    window.addEventListener('error', function(e) {
-                        console.log('エラーが発生しました:', e.message);
+                    waitForInstagramEmbed(() => {
+                        const swiper = new Swiper('#instagram-swiper', {
+                            // 基本設定
+                            slidesPerView: 1,
+                            spaceBetween: 30,
+                            loop: true,
+                            
+                            // レスポンシブ設定
+                            breakpoints: {
+                                768: {
+                                    slidesPerView: 2,
+                                    spaceBetween: 20
+                                },
+                                1024: {
+                                    slidesPerView: 3,
+                                    spaceBetween: 30
+                                }
+                            },
+                            
+                            // ナビゲーション
+                            navigation: {
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev',
+                            },
+                            
+                            // ページネーション
+                            pagination: {
+                                el: '.swiper-pagination',
+                                clickable: true,
+                            },
+                            
+                            // その他の設定
+                            autoplay: {
+                                delay: 5000,
+                                disableOnInteraction: false,
+                            }
+                        });
+                        
+                        // Swiperの初期化後にInstagramの埋め込みを処理
+                        swiper.on('init', function() {
+                            window.instgrm.Embeds.process();
+                        });
+                        swiper.on('slideChange', function() {
+                            window.instgrm.Embeds.process();
+                        });
+
+                        // エラーハンドリング
+                        window.addEventListener('error', function(e) {
+                            console.log('エラーが発生しました:', e.message);
+                        });
                     });
                 }
             } catch (e) { console.error("Instagram Swiper failed to initialize:", e); }

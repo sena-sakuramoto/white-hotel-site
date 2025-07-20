@@ -1,5 +1,4 @@
-fix: Instagramリール表示の修正 (Swiper初期化とCSSの再修正)
+fix: Instagramリール表示の修正 (最終調整)
 
-- Instagram関連のスタイルをstyle.cssに移動
-- Swiperの初期化ロジックを最適化し、Instagram埋め込みの再処理をSwiperのイベントに紐付け
-- paginationのelを修正
+- Instagram埋め込みスクリプトのロードを待ってSwiperを初期化
+- Instagram埋め込み要素のCSSを調整し、上端を揃える
