@@ -1,4 +1,3 @@
-fix: Instagramリール表示の修正 (最終調整)
+revert: Instagramリール表示のCSS変更を元に戻す
 
-- Instagram埋め込みスクリプトのロードを待ってSwiperを初期化
-- Instagram埋め込み要素のCSSを調整し、上端を揃える
+- デザイン崩れが発生したため、style.cssへのInstagram関連CSSの追加を元に戻す
