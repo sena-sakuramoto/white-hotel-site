@@ -1,3 +1,5 @@
-revert: style.cssをInstagram修正前の状態に復元
+feat: Instagramリール表示のCSS調整 (再々試行)
 
-- デザイン崩れが発生したため、Instagramリール修正前のstyle.cssに復元
+- Instagramリールセクションに特化したCSSを追加
+- スライド内の要素を上端に揃える
+- 中央寄せを維持
