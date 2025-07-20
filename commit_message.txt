@@ -1,1 +1,5 @@
-backup: Backup index.html before modification
+fix: Instagramリール表示の修正 (Swiper初期化の修正)
+
+- Swiperの二重初期化を解消
+- CSSの重複を削除
+- スクリプトの配置を最適化

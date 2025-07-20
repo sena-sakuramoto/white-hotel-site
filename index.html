@@ -66,54 +66,7 @@
         color: #666;
     }
     </style>
-<!-- Swiperのスタイル -->
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css">
-          <style>
-          .video-gallery-container {
-              width: 100%;
-              max-width: 1200px;
-              margin: 0 auto;
-              padding: 20px;
-          }
-          
-          .swiper-slide {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: auto;
-          }
-          
-          .instagram-media {
-              margin: 10px !important;
-              max-width: 540px !important;
-              width: 100% !important;
-          }
-          
-          .swiper-button-next,
-          .swiper-button-prev {
-              color: #333 !important;
-          }
-          
-          .swiper-pagination-bullet-active {
-              background: #333 !important;
-          }
-          
-          .swipe-indicator {
-              text-align: center;
-              margin-top: 20px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 10px;
-          }
-          
-          .loading-message {
-              text-align: center;
-              padding: 40px;
-              color: #666;
-          }
-          </style>
-          </head>
+</head>
 <body>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="icon-search" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></symbol>
@@ -1293,25 +1246,16 @@
                 }
             } catch (e) { console.error("Reviews Swiper failed to initialize:", e); }
 
-            // Swiper Carousel (Video Gallery)
+            // LightGallery for Rooms
             try {
                 if (typeof Swiper !== 'undefined' && document.getElementById('instagram-swiper')) {
-                    new Swiper('#instagram-swiper', {
+                    const swiper = new Swiper('#instagram-swiper', {
+                        // 基本設定
                         slidesPerView: 1,
                         spaceBetween: 30,
                         loop: true,
-                        autoplay: {
-                            delay: 8000,
-                            disableOnInteraction: false,
-                        },
-                        pagination: {
-                            el: '#instagram-swiper .swiper-pagination',
-                            clickable: true,
-                        },
-                        navigation: {
-                            nextEl: '#instagram-swiper .swiper-button-next',
-                            prevEl: '#instagram-swiper .swiper-button-prev',
-                        },
+                        
+                        // レスポンシブ設定
                         breakpoints: {
                             768: {
                                 slidesPerView: 2,
@@ -1322,22 +1266,43 @@
                                 spaceBetween: 30
                             }
                         },
-                        on: {
-                            init: function() {
-                                setTimeout(() => {
-                                    if (window.instgrm) {
-                                        window.instgrm.Embeds.process();
-                                    }
-                                }, 1000);
-                            },
-                            slideChange: function() {
-                                setTimeout(() => {
-                                    if (window.instgrm) {
-                                        window.instgrm.Embeds.process();
-                                    }
-                                }, 500);
-                            }
+                        
+                        // ナビゲーション
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        
+                        // ページネーション
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                        
+                        // その他の設定
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: false,
                         }
+                    });
+                    
+                    // Instagramの埋め込みを再読み込み
+                    function reinitializeInstagram() {
+                        if (window.instgrm) {
+                            window.instgrm.Embeds.process();
+                        } else {
+                            setTimeout(reinitializeInstagram, 1000);
+                        }
+                    }
+                    
+                    // ページ読み込み完了後にInstagramを初期化
+                    document.addEventListener('DOMContentLoaded', function() {
+                        setTimeout(reinitializeInstagram, 2000);
+                    });
+                    
+                    // エラーハンドリング
+                    window.addEventListener('error', function(e) {
+                        console.log('エラーが発生しました:', e.message);
                     });
                 }
             } catch (e) { console.error("Instagram Swiper failed to initialize:", e); }
@@ -1408,69 +1373,5 @@
         
 
     </script>
-<!-- Swiperライブラリ -->
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
-          
-          <!-- Instagramの埋め込みスクリプト -->
-          <script async src="https://www.instagram.com/embed.js"></script>
-          
-          <script>
-          // Swiperの初期化
-          const swiper = new Swiper('#instagram-swiper', {
-              // 基本設定
-              slidesPerView: 1,
-              spaceBetween: 30,
-              loop: true,
-              
-              // レスポンシブ設定
-              breakpoints: {
-                  768: {
-                      slidesPerView: 2,
-                      spaceBetween: 20
-                  },
-                  1024: {
-                      slidesPerView: 3,
-                      spaceBetween: 30
-                  }
-              },
-              
-              // ナビゲーション
-              navigation: {
-                  nextEl: '.swiper-button-next',
-                  prevEl: '.swiper-button-prev',
-              },
-              
-              // ページネーション
-              pagination: {
-                  el: '.swiper-pagination',
-                  clickable: true,
-              },
-              
-              // その他の設定
-              autoplay: {
-                  delay: 5000,
-                  disableOnInteraction: false,
-              }
-          });
-          
-          // Instagramの埋め込みを再読み込み
-          function reinitializeInstagram() {
-              if (window.instgrm) {
-                  window.instgrm.Embeds.process();
-              } else {
-                  setTimeout(reinitializeInstagram, 1000);
-              }
-          }
-          
-          // ページ読み込み完了後にInstagramを初期化
-          document.addEventListener('DOMContentLoaded', function() {
-              setTimeout(reinitializeInstagram, 2000);
-          });
-          
-          // エラーハンドリング
-          window.addEventListener('error', function(e) {
-              console.log('エラーが発生しました:', e.message);
-          });
-          </script>
-          </body>
+</body>
 </html>
