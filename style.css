@@ -75,13 +75,13 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: center;
     z-index: 9999;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.2s ease;
 }
 .loader-content { text-align: center; color: var(--white); }
 .loader-logo { font-size: 2.5rem; font-weight: 700; margin-bottom: 2rem; display: none; } /* Hide text logo */
 .loader-logo-image { height: 80px; margin-bottom: 2rem; } /* Style for image logo */
 .loader-bar { width: 200px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden; margin: 0 auto; }
-.loader-progress { height: 100%; background: var(--white); border-radius: 4px; width: 0%; animation: loading 3s ease-in-out forwards; }
+.loader-progress { height: 100%; background: var(--white); border-radius: 4px; width: 0%; animation: loading 1.5s ease-in-out forwards; }
 @keyframes loading {
     0% { width: 0%; }
     100% { width: 100%; }
@@ -718,7 +718,6 @@ select.form-input {
 .video-gallery-container .instagram-media iframe {
     width: 100% !important;
     height: auto !important; /* Instagram handles aspect ratio internally */
-    min-height: 300px; /* 最小の高さを設定して、コンテンツが見えるようにする */
 }
 
 .swipe-indicator {
@@ -875,17 +874,6 @@ footer p a:hover {
 }
 
 @media (max-width: 768px) {
-    .video-gallery-container {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 1.5rem;
-        padding-bottom: 1.5rem; /* for scrollbar */
-    }
-    .video-card {
-        flex: 0 0 80%;
-        scroll-snap-align: center;
-    }
     .swipe-indicator {
         display: block;
     }
