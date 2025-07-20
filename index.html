@@ -21,50 +21,6 @@
     
     <link rel="stylesheet" href="style.css">
     
-    <style>
-    .video-gallery-container {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-    
-    .swiper-slide {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: auto;
-    }
-    
-    .instagram-media {
-        margin: 10px !important;
-        max-width: 540px !important;
-        width: 100% !important;
-    }
-    
-    .swiper-button-next,
-    .swiper-button-prev {
-        color: #333 !important;
-    }
-    
-    .swiper-pagination-bullet-active {
-        background: #333 !important;
-    }
-    
-    .swipe-indicator {
-        text-align: center;
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-    }
-    
-    .loading-message {
-        text-align: center;
-        padding: 40px;
-        color: #666;
-    }
     </style>
 </head>
 <body>
@@ -1287,19 +1243,22 @@
                     });
                     
                     // Instagramの埋め込みを再読み込み
-                    function reinitializeInstagram() {
-                        if (window.instgrm) {
-                            window.instgrm.Embeds.process();
-                        } else {
-                            setTimeout(reinitializeInstagram, 1000);
-                        }
-                    }
-                    
-                    // ページ読み込み完了後にInstagramを初期化
-                    document.addEventListener('DOMContentLoaded', function() {
-                        setTimeout(reinitializeInstagram, 2000);
+                    // Swiperの初期化後にInstagramの埋め込みを処理
+                    swiper.on('init', function() {
+                        setTimeout(() => {
+                            if (window.instgrm) {
+                                window.instgrm.Embeds.process();
+                            }
+                        }, 1000);
                     });
-                    
+                    swiper.on('slideChange', function() {
+                        setTimeout(() => {
+                            if (window.instgrm) {
+                                window.instgrm.Embeds.process();
+                            }
+                        }, 500);
+                    });
+
                     // エラーハンドリング
                     window.addEventListener('error', function(e) {
                         console.log('エラーが発生しました:', e.message);
@@ -1307,7 +1266,7 @@
                 }
             } catch (e) { console.error("Instagram Swiper failed to initialize:", e); }
 
-            // Re-process Instagram embeds after Swiper initialization
+            // Re-process Instagram embeds after Swiper initialization (fallback)
             if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === 'function') {
                 window.instgrm.Embeds.process();
             }
