@@ -1260,6 +1260,9 @@
                             window.instgrm.Embeds.process();
                         });
 
+                        // Swiper初期化後、初回表示時にInstagram埋め込みを処理
+                        window.instgrm.Embeds.process();
+
                         // エラーハンドリング
                         window.addEventListener('error', function(e) {
                             console.log('エラーが発生しました:', e.message);
