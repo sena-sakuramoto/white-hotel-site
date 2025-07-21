@@ -152,11 +152,11 @@
                     <div class="form-group">
                         <label for="roomType" class="form-label">お部屋タイプ</label>
                         <select class="form-input" id="roomType">
-                            <option value="any">お部屋タイプを選ばない</option>
-                            <option value="single">シングル (定員1名)</option>
-                            <option value="twin">ツイン (定員2名)</option>
-                            <option value="semi-twin">セミツイン (定員2名)</option>
-                            <option value="triple">トリプル (定員3名)</option>
+                            <option value="any">指定しない</option>
+                            <option value="room-A">Room A (定員3名)</option>
+                            <option value="room-B">Room B (定員2名)</option>
+                            <option value="room-C">Room C (定員2名)</option>
+                            <option value="room-D">Room D (定員1名)</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -793,10 +793,10 @@
 
         // --- 料金計算ロジック ---
         const ROOM_DETAILS = {
-            'single': { name: 'シングルルーム', capacity: 1, type: 'single' },
-            'twin': { name: 'ツインルーム', capacity: 2, type: 'twin' },
-            'semi-twin': { name: 'セミツインルーム', capacity: 2, type: 'semi-twin' },
-            'triple': { name: 'トリプルルーム', capacity: 3, type: 'triple' }
+            'room-A': { name: 'Room A', capacity: 3, type: 'triple' },
+            'room-B': { name: 'Room B', capacity: 2, type: 'twin' },
+            'room-C': { name: 'Room C', capacity: 2, type: 'semi-twin' },
+            'room-D': { name: 'Room D', capacity: 1, type: 'single' }
         };
 
         function calculatePrice(roomId, guests, checkinDateStr) { // checkinDateStr を追加
@@ -928,15 +928,14 @@
 
                 // 見つかった部屋から最初の1つを選択
                 const foundRoom = data.rooms[0];
-                const roomType = foundRoom.type;
                 
-                // 部屋タイプに対応する詳細情報を取得
-                const selectedRoomDetails = ROOM_DETAILS[roomType];
+                // 部屋IDに対応する詳細情報を取得
+                const selectedRoomDetails = ROOM_DETAILS[foundRoom.id];
                 if (!selectedRoomDetails) {
-                    throw new Error('選択された部屋タイプが見つかりません。');
+                    throw new Error('選択された部屋が見つかりません。');
                 }
 
-                const perNightPrice = calculatePrice(roomType, guests, cin);
+                const perNightPrice = calculatePrice(foundRoom.id, guests, cin);
 
                 const checkinDate = new Date(cin);
                 const checkoutDate = new Date(cout);
@@ -945,9 +944,9 @@
 
                 const html = `
                     <b>空室が見つかりました!</b><br>
-                    お部屋: ${foundRoom.name} (${selectedRoomDetails.name})<br>
+                    お部屋: ${foundRoom.name}<br>
                     定員: ${foundRoom.capacity} 名様まで<br>
-                    ${roomType === 'twin' ? 'セミダブルベッド1つを2名で共用いただく形になります。<br>' : ''}
+                    ${foundRoom.type === 'twin' ? 'セミダブルベッド1つを2名で共用いただく形になります。<br>' : ''}
                     ご宿泊料金: <b>¥${totalPrice.toLocaleString()}</b> (${guests}名様ご利用 / ${nights}泊)<br><br>
                     <p>このお部屋で予約手続きに進みますか？</p>
                 `;

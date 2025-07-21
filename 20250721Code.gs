@@ -114,6 +114,21 @@ function searchAvailableRooms(data) {
       };
     }
 
+    // 部屋IDを部屋タイプに変換するマッピング
+    const roomIdToTypeMap = {
+      'room-A': 'triple',
+      'room-B': 'twin', 
+      'room-C': 'semi-twin',
+      'room-D': 'single'
+    };
+    
+    // フロントエンドから部屋IDが送信された場合は部屋タイプに変換
+    let searchType = data.type;
+    if (searchType && searchType !== 'any' && roomIdToTypeMap[searchType]) {
+      searchType = roomIdToTypeMap[searchType];
+      console.log('部屋ID→部屋タイプ変換:', data.type, '→', searchType);
+    }
+
     // 日付の変換と検証
     const checkinDate = new Date(data.cin);
     const checkoutDate = new Date(data.cout);
@@ -123,7 +138,8 @@ function searchAvailableRooms(data) {
       checkin: checkinDate,
       checkout: checkoutDate,
       guests: guestCount,
-      type: data.type
+      originalType: data.type,
+      searchType: searchType
     });
 
     // 日付の妥当性チェック
@@ -203,15 +219,15 @@ function searchAvailableRooms(data) {
       }
 
       // 部屋タイプフィルタ（指定がある場合）
-      if (data.type && data.type !== 'any') {
+      if (searchType && searchType !== 'any') {
         let typeMatch = false;
-        if (data.type === 'single' && roomType === 'single') typeMatch = true;
-        if (data.type === 'twin' && roomType === 'twin') typeMatch = true;
-        if (data.type === 'semi-twin' && roomType === 'semi-twin') typeMatch = true;
-        if (data.type === 'triple' && roomType === 'triple') typeMatch = true;
+        if (searchType === 'single' && roomType === 'single') typeMatch = true;
+        if (searchType === 'twin' && roomType === 'twin') typeMatch = true;
+        if (searchType === 'semi-twin' && roomType === 'semi-twin') typeMatch = true;
+        if (searchType === 'triple' && roomType === 'triple') typeMatch = true;
         
         if (!typeMatch) {
-          console.log(`${roomId}: 部屋タイプ不一致 (${roomType} != ${data.type})`);
+          console.log(`${roomId}: 部屋タイプ不一致 (${roomType} != ${searchType})`);
           continue;
         }
       }
@@ -300,7 +316,8 @@ function searchAvailableRooms(data) {
       debug: {
         searchDate: data.cin + ' - ' + data.cout,
         guestCount: guestCount,
-        roomType: data.type,
+        originalType: data.type,
+        searchType: searchType,
         totalRoomsChecked: rooms.length,
         totalReservationsChecked: reservations.length,
         availableCount: availableRooms.length
@@ -487,6 +504,18 @@ function generateReservationId() {
   return prefix + timestamp + random;
 }
 
+// === 部屋IDを表示名に変換する関数 ===
+function getRoomDisplayName(roomId) {
+  const roomDisplayMap = {
+    'room-A': 'Room A',
+    'room-B': 'Room B', 
+    'room-C': 'Room C',
+    'room-D': 'Room D'
+  };
+  
+  return roomDisplayMap[roomId] || roomId;
+}
+
 // ========================================
 // === メール送信機能 ===
 // ========================================
@@ -494,6 +523,9 @@ function generateReservationId() {
 // === 通常の確認メール送信 ===
 function sendConfirmationEmail(email, name, reservationId, reservationData) {
   const subject = `【ホワイトホテル鎌倉】ご予約確認 - ${reservationId}`;
+  
+  // 部屋IDを表示名に変換
+  const roomDisplayName = getRoomDisplayName(reservationData.roomId);
   
   const body = `
 ${name} 様
@@ -507,7 +539,7 @@ ${name} 様
 チェックイン: ${reservationData.cin}
 チェックアウト: ${reservationData.cout}
 宿泊人数: ${reservationData.guests}名
-お部屋: ${reservationData.roomId}
+お部屋: ${roomDisplayName}
 ご宿泊料金: ¥${parseInt(reservationData.price).toLocaleString()}
 
 【重要なご案内】
@@ -539,6 +571,9 @@ Email: white-hotel@archi-prisma.co.jp
 function sendAllMinorConsentEmail(email, name, reservationId, reservationData) {
   const subject = `【ご予約確認】未成年者宿泊同意書のご準備について - 予約番号${reservationId}`;
   
+  // 部屋IDを表示名に変換
+  const roomDisplayName = getRoomDisplayName(reservationData.roomId);
+  
   const body = `
 ${name} 様
 
@@ -551,7 +586,7 @@ ${name} 様
 チェックイン: ${reservationData.cin}
 チェックアウト: ${reservationData.cout}
 宿泊人数: ${reservationData.guests}名
-お部屋: ${reservationData.roomId}
+お部屋: ${roomDisplayName}
 ご宿泊料金: ¥${parseInt(reservationData.price).toLocaleString()}
 
 【重要】未成年者宿泊同意書について
