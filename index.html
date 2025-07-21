@@ -143,19 +143,20 @@
                     <div class="form-group">
                         <label for="guestCount" class="form-label">人数</label>
                         <select class="form-input" id="guestCount" required>
+                            <option value="">人数を選択してください</option>
                             <option value="1">1名</option>
-                            <option value="2" selected>2名</option>
+                            <option value="2">2名</option>
                             <option value="3">3名</option>
-                            <option value="4">4名</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="roomType" class="form-label">お部屋タイプ</label>
-                        <select class="form-input" id="roomType">
-                            <option value="room-A">Room A (定員3名)</option>
-                            <option value="room-B">Room B (定員2名)</option>
-                            <option value="room-C">Room C (定員2名)</option>
-                            <option value="room-D">Room D (定員1名)</option>
+                        <select class="form-input" id="roomType" required>
+                            <option value="">お部屋タイプを選択してください</option>
+                            <option value="room-A" data-capacity="3">Room A (定員3名)</option>
+                            <option value="room-B" data-capacity="2">Room B (定員2名)</option>
+                            <option value="room-C" data-capacity="2">Room C (定員2名)</option>
+                            <option value="room-D" data-capacity="1">Room D (定員1名)</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -887,6 +888,20 @@
             const guests = document.getElementById('guestCount').value;
             const type = document.getElementById('roomType').value; // ユーザーが選択した部屋タイプ
 
+            // バリデーション
+            if (!guests) {
+                showModal('入力エラー', '人数を選択してください。');
+                btn.disabled = false;
+                btn.innerHTML = '<svg><use xlink:href="#icon-search"/></svg> 検索する';
+                return;
+            }
+            if (!type) {
+                showModal('入力エラー', 'お部屋タイプを選択してください。');
+                btn.disabled = false;
+                btn.innerHTML = '<svg><use xlink:href="#icon-search"/></svg> 検索する';
+                return;
+            }
+
             try {
                 // URLSearchParams を使用（CORSエラーを回避）
                 const formData = new URLSearchParams();
@@ -1051,6 +1066,65 @@
             };
             window.addEventListener('scroll', handleScroll, { passive: true });
             handleScroll();
+
+            // 人数と部屋タイプの連動ロジック
+            const guestCountSelect = document.getElementById('guestCount');
+            const roomTypeSelect = document.getElementById('roomType');
+
+            // 人数変更時：選択可能な部屋タイプを制限
+            guestCountSelect.addEventListener('change', function() {
+                const selectedGuests = parseInt(this.value) || 0;
+                const roomOptions = roomTypeSelect.querySelectorAll('option[data-capacity]');
+                
+                roomOptions.forEach(option => {
+                    const roomCapacity = parseInt(option.getAttribute('data-capacity'));
+                    if (selectedGuests > roomCapacity) {
+                        option.disabled = true;
+                        option.style.color = '#ccc';
+                    } else {
+                        option.disabled = false;
+                        option.style.color = '';
+                    }
+                });
+
+                // 現在選択されている部屋が定員不足の場合はリセット
+                const currentRoom = roomTypeSelect.value;
+                if (currentRoom) {
+                    const currentOption = roomTypeSelect.querySelector(`option[value="${currentRoom}"]`);
+                    const currentCapacity = parseInt(currentOption?.getAttribute('data-capacity') || 0);
+                    if (selectedGuests > currentCapacity) {
+                        roomTypeSelect.value = '';
+                    }
+                }
+            });
+
+            // 部屋タイプ変更時：人数の最大値を制限
+            roomTypeSelect.addEventListener('change', function() {
+                const selectedRoom = this.value;
+                if (selectedRoom) {
+                    const selectedOption = this.querySelector(`option[value="${selectedRoom}"]`);
+                    const maxCapacity = parseInt(selectedOption?.getAttribute('data-capacity') || 3);
+                    
+                    // 人数選択肢を更新
+                    const guestOptions = guestCountSelect.querySelectorAll('option[value]');
+                    guestOptions.forEach(option => {
+                        const guestValue = parseInt(option.value);
+                        if (guestValue && guestValue > maxCapacity) {
+                            option.disabled = true;
+                            option.style.color = '#ccc';
+                        } else {
+                            option.disabled = false;
+                            option.style.color = '';
+                        }
+                    });
+
+                    // 現在選択されている人数が部屋の定員を超えている場合はリセット
+                    const currentGuests = parseInt(guestCountSelect.value) || 0;
+                    if (currentGuests > maxCapacity) {
+                        guestCountSelect.value = '';
+                    }
+                }
+            });
 
 
             // Mobile Menu

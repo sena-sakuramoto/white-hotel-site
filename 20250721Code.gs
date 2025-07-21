@@ -124,7 +124,7 @@ function searchAvailableRooms(data) {
     
     // フロントエンドから部屋IDが送信された場合は部屋タイプに変換
     let searchType = data.type;
-    if (searchType && searchType !== 'any' && roomIdToTypeMap[searchType]) {
+    if (searchType && searchType !== 'any' && searchType !== '' && roomIdToTypeMap[searchType]) {
       searchType = roomIdToTypeMap[searchType];
       console.log('部屋ID→部屋タイプ変換:', data.type, '→', searchType);
     }
@@ -219,7 +219,7 @@ function searchAvailableRooms(data) {
       }
 
       // 部屋タイプフィルタ（指定がある場合）
-      if (searchType && searchType !== 'any') {
+      if (searchType && searchType !== 'any' && searchType !== '') {
         let typeMatch = false;
         if (searchType === 'single' && roomType === 'single') typeMatch = true;
         if (searchType === 'twin' && roomType === 'twin') typeMatch = true;
