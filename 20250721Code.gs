@@ -34,6 +34,7 @@ function doGet(e) {
 function doPost(e) {
   try {
     console.log('=== 🎯 doPost 開始 ===');
+    console.log('📨 受信したリクエスト (e):', JSON.stringify(e, null, 2));
     
     let data;
     
@@ -45,6 +46,12 @@ function doPost(e) {
       data = JSON.parse(e.postData.contents);
       console.log('📨 JSON経由のデータ:', data);
     } else {
+      console.error('❌ リクエストデータ解析失敗:', {
+        hasParameter: !!e.parameter,
+        parameterKeys: e.parameter ? Object.keys(e.parameter) : [],
+        hasPostData: !!e.postData,
+        postDataKeys: e.postData ? Object.keys(e.postData) : []
+      });
       throw new Error('リクエストデータが見つかりません');
     }
 
@@ -68,6 +75,7 @@ function doPost(e) {
     }
 
     console.log('✅ 処理完了:', result.ok ? '成功' : '失敗');
+    console.log('📤 送信するレスポンス:', JSON.stringify(result, null, 2));
     
     return ContentService
       .createTextOutput(JSON.stringify(result))
@@ -163,11 +171,14 @@ function searchAvailableRooms(data) {
       const reservationsData = reservationsSheet.getDataRange().getValues();
       const allReservations = reservationsData.slice(1); // ヘッダー行除外
       
-      // 空行と無効な予約を除外
+      // 空行と無効な予約を除外（より厳密な条件）
       reservations = allReservations.filter(reservation => {
-        return reservation[0] && reservation[0] !== '' && 
-               reservation[8] && reservation[8] !== '' &&
-               reservation[10] !== 'Cancelled'; // キャンセル済み除外
+        // 予約ID、チェックイン日、チェックアウト日、部屋IDが全て存在することを確認
+        return reservation[0] && reservation[0] !== '' &&  // 予約ID
+               reservation[5] && reservation[5] !== '' &&  // チェックイン日
+               reservation[6] && reservation[6] !== '' &&  // チェックアウト日
+               reservation[8] && reservation[8] !== '' &&  // 部屋ID
+               reservation[10] !== 'Cancelled';             // キャンセル済み除外
       });
     }
 
@@ -215,12 +226,22 @@ function searchAvailableRooms(data) {
         const resCheckout = new Date(reservation[6]); // Check-out列
         const resStatus = reservation[10]; // Status列
 
+        // 日付の有効性をチェック
+        if (isNaN(resCheckin.getTime()) || isNaN(resCheckout.getTime())) {
+          console.log(`${roomId}: 無効な日付データをスキップ`, {
+            resId: reservation[0],
+            rawCheckin: reservation[5],
+            rawCheckout: reservation[6]
+          });
+          continue;
+        }
+
         // 同じ部屋の予約のみチェック
         if (resRoomId === roomId) {
           console.log(`${roomId}: 既存予約チェック`, {
             resId: reservation[0],
-            resCheckin: resCheckin,
-            resCheckout: resCheckout,
+            resCheckin: resCheckin.toDateString(),
+            resCheckout: resCheckout.toDateString(),
             resStatus: resStatus
           });
 
@@ -230,8 +251,10 @@ function searchAvailableRooms(data) {
             continue;
           }
 
-          // 日程重複チェック（正確な論理）
-          const overlap = !(checkoutDate <= resCheckin || checkinDate >= resCheckout);
+          // 日程重複チェック（改良版）
+          // チェックイン日がその日の予約のチェックアウト日と同じでも予約可能
+          // チェックアウト日がその日の予約のチェックイン日と同じでも予約可能
+          const overlap = (checkinDate < resCheckout && checkoutDate > resCheckin);
           
           if (overlap) {
             console.log(`${roomId}: 日程重複発見!`, {
@@ -629,6 +652,68 @@ function testSearch() {
   const result = searchAvailableRooms(testData);
   console.log('結果:', JSON.stringify(result, null, 2));
   return result;
+}
+
+// 修正確認用のテスト関数
+function testSearchDebug() {
+  console.log('=== 修正版空室検索デバッグテスト ===');
+  
+  // 様々な条件でテスト
+  const tests = [
+    { cin: '2025-07-22', cout: '2025-07-23', guests: '1', type: 'any', desc: '1名・全部屋タイプ' },
+    { cin: '2025-07-22', cout: '2025-07-23', guests: '2', type: 'twin', desc: '2名・ツイン' },
+    { cin: '2025-07-22', cout: '2025-07-23', guests: '3', type: 'triple', desc: '3名・トリプル' },
+  ];
+  
+  for (const test of tests) {
+    console.log(`\n--- ${test.desc} のテスト ---`);
+    const result = searchAvailableRooms(test);
+    console.log('結果:', {
+      ok: result.ok,
+      roomCount: result.rooms ? result.rooms.length : 0,
+      rooms: result.rooms ? result.rooms.map(r => `${r.id}(${r.type})`) : [],
+      error: result.msg || null
+    });
+  }
+  
+  return '全テスト完了';
+}
+
+// フロントエンドのリクエスト形式をシミュレート
+function testFrontendRequest() {
+  console.log('=== フロントエンドリクエストシミュレーション ===');
+  
+  // フロントエンドが送信する形式と同じデータを作成
+  const mockEvent = {
+    parameter: {
+      data: JSON.stringify({
+        action: 'search',
+        cin: '2025-07-22',
+        cout: '2025-07-23', 
+        guests: '2',
+        type: 'twin',
+        allMinors: 'false'
+      })
+    }
+  };
+  
+  console.log('模擬リクエスト:', mockEvent);
+  const result = doPost(mockEvent);
+  console.log('doPost結果:', result);
+  
+  // レスポンステキストを解析
+  const responseText = result.getContent();
+  console.log('レスポンステキスト:', responseText);
+  
+  try {
+    const parsedResult = JSON.parse(responseText);
+    console.log('解析済みレスポンス:', parsedResult);
+    console.log('rooms配列の長さ:', parsedResult.rooms ? parsedResult.rooms.length : 'undefined');
+  } catch (e) {
+    console.error('JSON解析エラー:', e);
+  }
+  
+  return '完了';
 }
 
 function testReservation() {
