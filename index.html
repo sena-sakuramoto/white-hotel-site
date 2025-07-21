@@ -1100,27 +1100,36 @@
             // 部屋タイプ変更時：人数の最大値を制限
             roomTypeSelect.addEventListener('change', function() {
                 const selectedRoom = this.value;
+                
+                // まず全ての人数選択肢を有効にリセット
+                const allGuestOptions = guestCountSelect.querySelectorAll('option');
+                allGuestOptions.forEach(option => {
+                    if (option.value) {
+                        option.disabled = false;
+                        option.style.color = '';
+                        option.style.backgroundColor = '';
+                    }
+                });
+                
                 if (selectedRoom) {
                     const selectedOption = this.querySelector(`option[value="${selectedRoom}"]`);
                     const maxCapacity = parseInt(selectedOption?.getAttribute('data-capacity') || 3);
                     
                     // 人数選択肢を更新
-                    const guestOptions = guestCountSelect.querySelectorAll('option[value]');
+                    const guestOptions = guestCountSelect.querySelectorAll('option');
                     guestOptions.forEach(option => {
                         const guestValue = parseInt(option.value);
                         if (guestValue && guestValue > maxCapacity) {
                             option.disabled = true;
                             option.style.color = '#ccc';
-                        } else {
-                            option.disabled = false;
-                            option.style.color = '';
+                            option.style.backgroundColor = '#f5f5f5';
                         }
                     });
 
                     // 現在選択されている人数が部屋の定員を超えている場合はリセット
                     const currentGuests = parseInt(guestCountSelect.value) || 0;
                     if (currentGuests > maxCapacity) {
-                        guestCountSelect.value = '';
+                        guestCountSelect.value = '1'; // デフォルトの1名に戻す
                     }
                 }
             });
