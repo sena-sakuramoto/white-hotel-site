@@ -153,10 +153,10 @@
                         <label for="roomType" class="form-label">お部屋タイプ</label>
                         <select class="form-input" id="roomType">
                             
-                            <option value="triple">Room A (定員3名)</option>
-                            <option value="twin">Room B (定員2名)</option>
-                            <option value="semi-twin">Room C (定員2名)</option>
-                            <option value="single">Room D (定員1名)</option>
+                            <option value="room-A">Room A (定員3名)</option>
+                            <option value="room-B">Room B (定員2名)</option>
+                            <option value="room-C">Room C (定員2名)</option>
+                            <option value="room-D">Room D (定員1名)</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -793,13 +793,17 @@
 
         // --- 料金計算ロジック ---
         const ROOM_DETAILS = {
-            'triple': { name: 'Room A', capacity: 3 },
-            'twin': { name: 'Room B', capacity: 2 },
-            'semi-twin': { name: 'Room C', capacity: 2 },
-            'single': { name: 'Room D', capacity: 1 }
+            'room-A': { name: 'Room A', capacity: 3, type: 'triple' },
+            'room-B': { name: 'Room B', capacity: 2, type: 'twin' },
+            'room-C': { name: 'Room C', capacity: 2, type: 'semi-twin' },
+            'room-D': { name: 'Room D', capacity: 1, type: 'single' }
         };
 
-        function calculatePrice(roomType, guests, checkinDateStr) { // checkinDateStr を追加
+        function calculatePrice(roomId, guests, checkinDateStr) { // checkinDateStr を追加
+            const roomDetails = ROOM_DETAILS[roomId];
+            if (!roomDetails) return 0;
+
+            const roomType = roomDetails.type;
             const numGuests = parseInt(guests, 10);
             let basePrice = 0;
 
@@ -1004,7 +1008,7 @@
 
         function selectRoomType(index) {
             const roomTypeEl = document.getElementById('roomType');
-            const roomValues = ['triple', 'twin', 'semi-twin', 'single']; // 部屋のvalue値の配列
+            const roomValues = ['room-A', 'room-B', 'room-C', 'room-D']; // 部屋のvalue値の配列
             if (index >= 0 && index < roomValues.length) {
                 roomTypeEl.value = roomValues[index];
                 // 人数選択肢も更新

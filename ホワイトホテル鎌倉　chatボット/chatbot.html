@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <title>宿チャットボット</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden; /* スクロールはchat-window内で行う */
+    }
+    #chat-window {
+      flex-grow: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    .message-container {
+      display: flex;
+      margin-bottom: 10px;
+    }
+    .message-container.user {
+      justify-content: flex-end;
+    }
+    .message-container.bot {
+      justify-content: flex-start;
+    }
+    .message {
+      max-width: 80%;
+      padding: 8px 12px;
+      border-radius: 18px;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .message.user {
+      background-color: #007bff;
+      color: white;
+      border-bottom-right-radius: 2px;
+    }
+    .message.bot {
+      background-color: #e2e6ea;
+      color: #333;
+      border-bottom-left-radius: 2px;
+    }
+    #input-area {
+      display: flex;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-top: 1px solid #ddd;
+    }
+    #user-input {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 20px;
+      font-size: 14px;
+      outline: none;
+    }
+    #send-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 15px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.2s ease;
+    }
+    #send-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-window">
+    <div class="message-container bot">
+      <div class="message">こんにちは！何かご質問はありますか？</div>
+    </div>
+  </div>
+  <div id="input-area">
+    <input type="text" id="user-input" placeholder="質問を入力してください..." />
+    <button id="send-button">送信</button>
+  </div>
+
+  <script>
+    const chatWindow = document.getElementById('chat-window');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+
+    function addMessage(text, type) {
+      const messageContainer = document.createElement('div');
+      messageContainer.classList.add('message-container', type);
+      const message = document.createElement('div');
+      message.classList.add('message', type);
+      message.textContent = text;
+      messageContainer.appendChild(message);
+      chatWindow.appendChild(messageContainer);
+      chatWindow.scrollTop = chatWindow.scrollHeight; // スクロールを一番下へ
+    }
+
+    async function sendMessage() {
+      const messageText = userInput.value.trim();
+      if (messageText === '') return;
+
+      addMessage(messageText, 'user');
+      userInput.value = ''; // 入力欄をクリア
+
+      // 送信ボタンと入力欄を一時的に無効化
+      sendButton.disabled = true;
+      userInput.disabled = true;
+      userInput.placeholder = '回答を待っています...';
+
+      try {
+        // Google Apps Scriptのバックエンド関数を呼び出し
+        const botResponse = await google.script.run
+          .withFailureHandler(function(error) {
+            addMessage('エラーが発生しました: ' + error.message, 'bot');
+          })
+          .processMessage(messageText);
+
+        addMessage(botResponse, 'bot');
+      } finally {
+        // 送信ボタンと入力欄を有効化
+        sendButton.disabled = false;
+        userInput.disabled = false;
+        userInput.placeholder = '質問を入力してください...';
+        userInput.focus(); // 入力欄にフォーカス
+      }
+    }
+
+    sendButton.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+  </script>
+</body>
+</html>

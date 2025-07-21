@@ -1,3 +1,4 @@
-revert: style.cssをInstagram修正前の状態に復元
+feat: 予約フォームの部屋タイプ選択と料金計算ロジックを改善
 
-- デザイン崩れが発生したため、Instagramリール修正前のstyle.cssに復元
+- 部屋タイプのvalue値をより明確なID形式に変更 (例: 'triple' -> 'room-A')
+- 料金計算ロジックを更新し、新しい部屋タイプIDに対応
