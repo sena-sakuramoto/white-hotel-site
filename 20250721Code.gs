@@ -168,10 +168,10 @@ function searchAvailableRooms(data) {
     }
 
     // 宿泊人数チェック
-    if (isNaN(guestCount) || guestCount < 1 || guestCount > 10) {
+    if (isNaN(guestCount) || guestCount < 1 || guestCount > 3) {
       return {
         ok: false,
-        msg: '宿泊人数は1〜10名で入力してください'
+        msg: '宿泊人数は1〜3名で入力してください'
       };
     }
 
