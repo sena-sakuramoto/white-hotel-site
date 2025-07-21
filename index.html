@@ -143,8 +143,7 @@
                     <div class="form-group">
                         <label for="guestCount" class="form-label">人数</label>
                         <select class="form-input" id="guestCount" required>
-                            <option value="">人数を選択してください</option>
-                            <option value="1">1名</option>
+                            <option value="1" selected>1名</option>
                             <option value="2">2名</option>
                             <option value="3">3名</option>
                         </select>
@@ -889,7 +888,7 @@
             const type = document.getElementById('roomType').value; // ユーザーが選択した部屋タイプ
 
             // バリデーション
-            if (!guests) {
+            if (!guests || guests === '') {
                 showModal('入力エラー', '人数を選択してください。');
                 btn.disabled = false;
                 btn.innerHTML = '<svg><use xlink:href="#icon-search"/></svg> 検索する';
