@@ -473,6 +473,16 @@ function createReservation(data) {
       // メール送信失敗しても予約は成功として扱う
     }
 
+    // === 空室カレンダー更新 ===
+    try {
+      console.log('📅 空室カレンダー更新開始');
+      updateAvailabilityCalendar();
+      console.log('📅 空室カレンダー更新完了');
+    } catch (calendarError) {
+      console.error('❌ 空室カレンダー更新エラー:', calendarError);
+      // カレンダー更新失敗しても予約は成功として扱う
+    }
+
     console.log('🎉 予約作成完了:', reservationId);
 
     return {
@@ -514,6 +524,118 @@ function getRoomDisplayName(roomId) {
   };
   
   return roomDisplayMap[roomId] || roomId;
+}
+
+// ========================================
+// === お盆料金設定機能 ===
+// ========================================
+
+// === お盆期間かどうかをチェックする関数 ===
+function isObonPeriod(checkinDateStr) {
+  const checkinDate = new Date(checkinDateStr);
+  const year = checkinDate.getFullYear();
+  
+  // お盆期間: 8/12-16 (チェックイン日ベース)
+  const obonStart = new Date(year, 7, 12); // 8月は7 (0ベース)
+  const obonEnd = new Date(year, 7, 16);
+  
+  return checkinDate >= obonStart && checkinDate <= obonEnd;
+}
+
+// === お盆料金適用の基本料金計算 ===
+function calculateObonPrice(basePrice, checkinDateStr) {
+  if (isObonPeriod(checkinDateStr)) {
+    console.log('🎋 お盆料金適用: 基本料金 ×1.5');
+    return Math.round(basePrice * 1.5);
+  }
+  return basePrice;
+}
+
+// ========================================
+// === 空室カレンダー機能 ===
+// ========================================
+
+// === 空室カレンダーを更新する関数 ===
+function updateAvailabilityCalendar() {
+  try {
+    console.log('📅 空室カレンダー更新開始');
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const resSheet = ss.getSheetByName('Reservations');
+    const availName = 'Availability';
+
+    // 1. 予約データ取得
+    const data = resSheet.getDataRange().getValues().slice(1); // ヘッダー行除外
+    if (data.length === 0) {
+      console.log('📅 予約データが空のため、カレンダー更新をスキップ');
+      return;
+    }
+
+    // 2. 期間算出（有効な予約のみ）
+    const validReservations = data.filter(r => 
+      r[0] && r[5] && r[6] && r[8] && r[10] !== 'Cancelled'
+    );
+    
+    if (validReservations.length === 0) {
+      console.log('📅 有効な予約がないため、カレンダー更新をスキップ');
+      return;
+    }
+
+    const checkIns = validReservations.map(r => new Date(r[5])); // F列 (Check-in)
+    const checkOuts = validReservations.map(r => new Date(r[6])); // G列 (Check-out)
+    const firstDate = new Date(Math.min(...checkIns));
+    const lastDate = new Date(Math.max(...checkOuts));
+
+    // 3. 部屋ID一覧
+    const rooms = [...new Set(validReservations.map(r => r[8]))].sort(); // I列 (Room ID)
+    console.log('📅 対象部屋:', rooms);
+
+    // 4. Availabilityシートを再生成（毎回削除→作成）
+    let avail = ss.getSheetByName(availName);
+    if (avail) ss.deleteSheet(avail);
+    avail = ss.insertSheet(availName);
+
+    // 5. 見出し行
+    avail.getRange(1, 1).setValue('Date');
+    avail.getRange(1, 2, 1, rooms.length).setValues([rooms]);
+
+    // 6. 日付列生成
+    const dates = [];
+    for (let d = new Date(firstDate); d <= lastDate; d.setDate(d.getDate() + 1)) {
+      dates.push([new Date(d)]);
+    }
+    avail.getRange(2, 1, dates.length, 1).setValues(dates);
+
+    // 7. 空室/満室判定マトリクス
+    const matrix = dates.map(([d]) =>
+      rooms.map(room => {
+        const booked = validReservations.some(r =>
+          r[8] === room &&               // Room ID一致
+          r[5] <= d && d < r[6] &&       // Check-in ≤ d < Check-out
+          r[10] !== 'Cancelled'          // キャンセル済み除外
+        );
+        return booked ? 'Booked' : 'Free';
+      })
+    );
+    avail.getRange(2, 2, matrix.length, matrix[0].length).setValues(matrix);
+
+    // 8. 条件付き書式
+    const rules = [
+      SpreadsheetApp.newConditionalFormatRule()
+        .whenTextEqualTo('Booked').setBackground('#ffcccc')
+        .setRanges([avail.getDataRange()]).build(),
+      SpreadsheetApp.newConditionalFormatRule()
+        .whenTextEqualTo('Free').setBackground('#ccffcc')
+        .setRanges([avail.getDataRange()]).build()
+    ];
+    avail.setConditionalFormatRules(rules);
+
+    console.log('📅 空室カレンダー更新完了:', avail.getLastRow(), '行');
+
+  } catch (error) {
+    console.error('❌ 空室カレンダー更新エラー:', error);
+    // エラーが発生してもメイン処理には影響しない
+  }
 }
 
 // ========================================
@@ -749,6 +871,77 @@ function testFrontendRequest() {
   }
   
   return '完了';
+}
+
+// 空室カレンダー更新テスト
+function testCalendarUpdate() {
+  console.log('=== 空室カレンダー更新テスト ===');
+  
+  try {
+    updateAvailabilityCalendar();
+    console.log('✅ 空室カレンダー更新成功');
+    return '✅ テスト成功';
+  } catch (error) {
+    console.error('❌ 空室カレンダー更新失敗:', error);
+    return '❌ テスト失敗: ' + error.message;
+  }
+}
+
+// 手動でカレンダーを更新する関数
+function manualUpdateCalendar() {
+  console.log('=== 手動カレンダー更新 ===');
+  updateAvailabilityCalendar();
+  return 'カレンダー更新完了';
+}
+
+// お盆料金テスト
+function testObonPricing() {
+  console.log('=== お盆料金テスト ===');
+  
+  const testCases = [
+    { date: '2025-08-11', desc: 'お盆前日' },
+    { date: '2025-08-12', desc: 'お盆開始日' },
+    { date: '2025-08-14', desc: 'お盆期間中' },
+    { date: '2025-08-16', desc: 'お盆最終日' },
+    { date: '2025-08-17', desc: 'お盆終了翌日' }
+  ];
+  
+  testCases.forEach(testCase => {
+    const isObon = isObonPeriod(testCase.date);
+    const basePrice = 10000;
+    const finalPrice = calculateObonPrice(basePrice, testCase.date);
+    
+    console.log(`${testCase.desc} (${testCase.date}):`, {
+      isObonPeriod: isObon,
+      basePrice: basePrice,
+      finalPrice: finalPrice,
+      multiplier: isObon ? '×1.5' : '×1.0'
+    });
+  });
+  
+  return 'お盆料金テスト完了';
+}
+
+// お盆期間の予約テスト
+function testObonReservation() {
+  console.log('=== お盆期間予約テスト ===');
+  
+  const testData = {
+    action: 'book',
+    name: 'お盆テスト太郎',
+    email: 'obon@test.com',
+    phone: '090-0000-0000',
+    roomId: 'room-A',
+    cin: '2025-08-14',
+    cout: '2025-08-16',
+    guests: '3',
+    price: '22500', // 基本15000 × 1.5 = 22500
+    allMinors: 'false'
+  };
+  
+  const result = createReservation(testData);
+  console.log('結果:', JSON.stringify(result, null, 2));
+  return result;
 }
 
 function testReservation() {

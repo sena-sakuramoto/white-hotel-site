@@ -827,13 +827,23 @@
                 return 0; // 不明な部屋タイプの場合
             }
 
-            // 週末・祝日料金の計算
+            // お盆料金の計算 (8/12-16 チェックイン)
             const checkinDate = new Date(checkinDateStr);
-            const dayOfWeek = checkinDate.getDay(); // 0 = Sunday, 6 = Saturday
-
-            // 金曜日 (5), 土曜日 (6), または祝前日 (isPreHoliday) にチェックインした場合に1.2倍
-            if (dayOfWeek === 5 || dayOfWeek === 6 || isPreHoliday(checkinDate)) {
-                basePrice *= 1.20; // 20% UP
+            const year = checkinDate.getFullYear();
+            const obonStart = new Date(year, 7, 12); // 8月は7 (0ベース)
+            const obonEnd = new Date(year, 7, 16);
+            
+            if (checkinDate >= obonStart && checkinDate <= obonEnd) {
+                console.log('🎋 お盆料金適用: 基本料金 ×1.5');
+                basePrice *= 1.5; // 50% UP
+            } else {
+                // 週末・祝日料金の計算 (お盆期間外のみ)
+                const dayOfWeek = checkinDate.getDay(); // 0 = Sunday, 6 = Saturday
+                
+                // 金曜日 (5), 土曜日 (6), または祝前日 (isPreHoliday) にチェックインした場合に1.2倍
+                if (dayOfWeek === 5 || dayOfWeek === 6 || isPreHoliday(checkinDate)) {
+                    basePrice *= 1.20; // 20% UP
+                }
             }
 
             return Math.round(basePrice); // 端数処理
