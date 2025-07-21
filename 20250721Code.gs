@@ -1,0 +1,711 @@
+// ========================================
+// WHITE HOTEL KAMAKURA 予約システム 
+// Google Apps Script (Code.gs) - パターンB: シンプル版
+// 未成年者同意書はダウンロード + チェックイン時持参方式
+// 修正版: 全員が18歳未満の場合のみ同意書必要
+// ========================================
+
+// === 設定 ===
+const SPREADSHEET_ID = '1RyPveNY8TuGrdUF4v1awNyEfAKMMcTMmO9755lg2qrI';
+const ADMIN_EMAIL = 'white-hotel@archi-prisma.co.jp'; // 管理者用メールアドレス
+
+// === メインエントリーポイント ===
+function doGet(e) {
+  try {
+    return ContentService
+      .createTextOutput(JSON.stringify({ 
+        status: 'OK', 
+        message: 'WHITE HOTEL KAMAKURA Booking System is running',
+        timestamp: new Date().toISOString(),
+        version: '2.0-simple'
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    console.error('doGet エラー:', error);
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        status: 'ERROR',
+        message: error.message
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doPost(e) {
+  try {
+    console.log('=== 🎯 doPost 開始 ===');
+    
+    let data;
+    
+    // URLSearchParams形式とJSON形式の両方に対応
+    if (e.parameter && e.parameter.data) {
+      data = JSON.parse(e.parameter.data);
+      console.log('📨 URLSearchParams経由のデータ:', data);
+    } else if (e.postData && e.postData.contents) {
+      data = JSON.parse(e.postData.contents);
+      console.log('📨 JSON経由のデータ:', data);
+    } else {
+      throw new Error('リクエストデータが見つかりません');
+    }
+
+    let result;
+    
+    // === アクション別処理 ===
+    switch (data.action) {
+      case 'search':
+        result = searchAvailableRooms(data);
+        break;
+        
+      case 'book':
+        result = createReservation(data);
+        break;
+        
+      default:
+        result = {
+          ok: false,
+          msg: `不明なアクション: ${data.action}`
+        };
+    }
+
+    console.log('✅ 処理完了:', result.ok ? '成功' : '失敗');
+    
+    return ContentService
+      .createTextOutput(JSON.stringify(result))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    console.error('❌ doPost エラー:', error);
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        ok: false,
+        msg: 'サーバーエラーが発生しました: ' + error.message,
+        error: error.toString(),
+        timestamp: new Date().toISOString()
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// ========================================
+// === 空室検索機能 ===
+// ========================================
+
+function searchAvailableRooms(data) {
+  try {
+    console.log('🔍 空室検索開始:', data);
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const roomsSheet = ss.getSheetByName('Rooms');
+    const reservationsSheet = ss.getSheetByName('Reservations');
+
+    // 入力データの検証
+    if (!data.cin || !data.cout || !data.guests) {
+      return {
+        ok: false,
+        msg: 'チェックイン日、チェックアウト日、宿泊人数を入力してください'
+      };
+    }
+
+    // 日付の変換と検証
+    const checkinDate = new Date(data.cin);
+    const checkoutDate = new Date(data.cout);
+    const guestCount = parseInt(data.guests);
+
+    console.log('検索条件:', {
+      checkin: checkinDate,
+      checkout: checkoutDate,
+      guests: guestCount,
+      type: data.type
+    });
+
+    // 日付の妥当性チェック
+    if (isNaN(checkinDate.getTime()) || isNaN(checkoutDate.getTime())) {
+      return {
+        ok: false,
+        msg: '有効な日付を入力してください'
+      };
+    }
+
+    if (checkinDate >= checkoutDate) {
+      return {
+        ok: false,
+        msg: 'チェックアウト日はチェックイン日より後の日付を選択してください'
+      };
+    }
+
+    // 過去の日付チェック
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (checkinDate < today) {
+      return {
+        ok: false,
+        msg: '過去の日付は選択できません'
+      };
+    }
+
+    // 宿泊人数チェック
+    if (isNaN(guestCount) || guestCount < 1 || guestCount > 10) {
+      return {
+        ok: false,
+        msg: '宿泊人数は1〜10名で入力してください'
+      };
+    }
+
+    // 全部屋情報を取得
+    const roomsData = roomsSheet.getDataRange().getValues();
+    const rooms = roomsData.slice(1); // ヘッダー行除外
+
+    console.log('全部屋データ:', rooms);
+
+    // 予約データを取得（有効な予約のみ）
+    let reservations = [];
+    if (reservationsSheet.getLastRow() > 1) {
+      const reservationsData = reservationsSheet.getDataRange().getValues();
+      const allReservations = reservationsData.slice(1); // ヘッダー行除外
+      
+      // 空行と無効な予約を除外
+      reservations = allReservations.filter(reservation => {
+        return reservation[0] && reservation[0] !== '' && 
+               reservation[8] && reservation[8] !== '' &&
+               reservation[10] !== 'Cancelled'; // キャンセル済み除外
+      });
+    }
+
+    console.log('有効な予約データ:', reservations);
+
+    // 空室検索
+    const availableRooms = [];
+
+    for (const room of rooms) {
+      const roomId = room[0];
+      const roomName = room[1];
+      const capacity = parseInt(room[2]);
+      const roomType = room[3];
+
+      console.log(`\n=== ${roomId} の検証開始 ===`);
+      console.log('部屋情報:', { roomId, roomName, capacity, roomType });
+
+      // 宿泊人数チェック
+      if (capacity < guestCount) {
+        console.log(`${roomId}: 定員不足 (定員${capacity} < 希望${guestCount})`);
+        continue;
+      }
+
+      // 部屋タイプフィルタ（指定がある場合）
+      if (data.type && data.type !== 'any') {
+        let typeMatch = false;
+        if (data.type === 'single' && roomType === 'single') typeMatch = true;
+        if (data.type === 'twin' && roomType === 'twin') typeMatch = true;
+        if (data.type === 'semi-twin' && roomType === 'semi-twin') typeMatch = true;
+        if (data.type === 'triple' && roomType === 'triple') typeMatch = true;
+        
+        if (!typeMatch) {
+          console.log(`${roomId}: 部屋タイプ不一致 (${roomType} != ${data.type})`);
+          continue;
+        }
+      }
+
+      // 指定期間での予約重複チェック
+      let isAvailable = true;
+      let conflictDetails = [];
+
+      for (const reservation of reservations) {
+        const resRoomId = reservation[8]; // Room ID列
+        const resCheckin = new Date(reservation[5]); // Check-in列
+        const resCheckout = new Date(reservation[6]); // Check-out列
+        const resStatus = reservation[10]; // Status列
+
+        // 同じ部屋の予約のみチェック
+        if (resRoomId === roomId) {
+          console.log(`${roomId}: 既存予約チェック`, {
+            resId: reservation[0],
+            resCheckin: resCheckin,
+            resCheckout: resCheckout,
+            resStatus: resStatus
+          });
+
+          // キャンセル済みの予約は除外
+          if (resStatus === 'Cancelled') {
+            console.log(`${roomId}: キャンセル済み予約をスキップ`);
+            continue;
+          }
+
+          // 日程重複チェック（正確な論理）
+          const overlap = !(checkoutDate <= resCheckin || checkinDate >= resCheckout);
+          
+          if (overlap) {
+            console.log(`${roomId}: 日程重複発見!`, {
+              希望: `${checkinDate.toDateString()} - ${checkoutDate.toDateString()}`,
+              既存: `${resCheckin.toDateString()} - ${resCheckout.toDateString()}`
+            });
+            isAvailable = false;
+            conflictDetails.push({
+              reservationId: reservation[0],
+              checkin: resCheckin,
+              checkout: resCheckout
+            });
+            break;
+          } else {
+            console.log(`${roomId}: 日程重複なし`, {
+              希望: `${checkinDate.toDateString()} - ${checkoutDate.toDateString()}`,
+              既存: `${resCheckin.toDateString()} - ${resCheckout.toDateString()}`
+            });
+          }
+        }
+      }
+
+      // 空室の場合、リストに追加
+      if (isAvailable) {
+        console.log(`${roomId}: ✅ 空室として追加`);
+        availableRooms.push({
+          id: roomId,
+          name: roomName,
+          capacity: capacity,
+          type: roomType
+        });
+      } else {
+        console.log(`${roomId}: ❌ 予約済み`, conflictDetails);
+      }
+    }
+
+    console.log('\n=== 最終結果 ===');
+    console.log('空室リスト:', availableRooms);
+
+    return {
+      ok: true,
+      rooms: availableRooms,
+      debug: {
+        searchDate: data.cin + ' - ' + data.cout,
+        guestCount: guestCount,
+        roomType: data.type,
+        totalRoomsChecked: rooms.length,
+        totalReservationsChecked: reservations.length,
+        availableCount: availableRooms.length
+      }
+    };
+
+  } catch (error) {
+    console.error('❌ 空室検索エラー:', error);
+    return {
+      ok: false,
+      msg: '空室検索中にエラーが発生しました: ' + error.message,
+      error: error.toString()
+    };
+  }
+}
+
+// ========================================
+// === 予約作成機能 ===
+// ========================================
+
+function createReservation(data) {
+  try {
+    console.log('🎯 予約作成開始:', data);
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    console.log('📊 スプレッドシート取得完了');
+    
+    const reservationsSheet = ss.getSheetByName('Reservations');
+    console.log('📋 Reservationsシート取得完了');
+
+    // === 入力データの検証 ===
+    if (!data.name || !data.email || !data.roomId || !data.cin || !data.cout) {
+      console.error('❌ 必須項目不足:', {
+        name: !!data.name,
+        email: !!data.email,
+        roomId: !!data.roomId,
+        cin: !!data.cin,
+        cout: !!data.cout
+      });
+      return {
+        ok: false,
+        msg: '必須項目が入力されていません'
+      };
+    }
+
+    // メールアドレス形式チェック
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      return {
+        ok: false,
+        msg: '有効なメールアドレスを入力してください'
+      };
+    }
+
+    // === 予約IDを生成 ===
+    const reservationId = generateReservationId();
+    console.log('🆔 予約ID生成完了:', reservationId);
+
+    // === 宿泊日数を計算 ===
+    const checkinDate = new Date(data.cin);
+    const checkoutDate = new Date(data.cout);
+    const nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+    console.log('📅 宿泊日数計算:', nights);
+
+    // === 現在の日時 ===
+    const bookingDate = new Date();
+    const bookingDateStr = Utilities.formatDate(bookingDate, 'Asia/Tokyo', 'yyyy/MM/dd HH:mm:ss');
+    console.log('⏰ 予約日時:', bookingDateStr);
+
+    // === 全員未成年フラグ処理（強化版） ===
+    // 様々な形式に対応 + 下位互換性
+    let allMinors = false;
+    const checkValue = data.allMinors || data.hasMinors;  // 下位互換性
+    
+    if (checkValue === 'true' || checkValue === true || 
+        checkValue === 'yes' || checkValue === '1' || 
+        checkValue === 1) {
+      allMinors = true;
+    }
+    
+    console.log('👶 受信データ allMinors:', data.allMinors);
+    console.log('👶 受信データ hasMinors:', data.hasMinors);
+    console.log('👶 判定対象値:', checkValue);
+    console.log('👶 判定結果 allMinors:', allMinors);
+    console.log('👶 データ型:', typeof checkValue);
+    
+    // 念のため、受信データ全体もログ出力
+    console.log('📦 受信データ全体:', JSON.stringify(data, null, 2));
+
+    // === 予約データを準備 ===
+    const reservationData = [
+      reservationId,           // A: Reservation ID
+      data.name,              // B: Name
+      data.email,             // C: Email
+      data.phone || '',       // D: Phone
+      parseInt(data.guests),  // E: Guests
+      data.cin,              // F: Check-in
+      data.cout,             // G: Check-out
+      nights,                // H: Nights
+      data.roomId,           // I: Room ID
+      parseFloat(data.price), // J: Price
+      'Confirmed',           // K: Status
+      bookingDateStr,        // L: Booking Date
+      'Website',             // M: Source
+      allMinors ? 'Yes' : 'No' // N: All Minors ★修正済み★
+    ];
+
+    console.log('📝 予約データ準備完了:', reservationData);
+
+    // === 実際にデータがある最後の行を特定 ===
+    const allData = reservationsSheet.getDataRange().getValues();
+    console.log('📊 全データ行数:', allData.length);
+    
+    // ヘッダー行を除いて、実際にデータがある行を特定
+    let actualLastRow = 1; // ヘッダー行
+    for (let i = 1; i < allData.length; i++) {
+      const row = allData[i];
+      // 予約IDがある行を実際のデータ行とみなす
+      if (row[0] && row[0] !== '') {
+        actualLastRow = i + 1; // 1-indexed
+      }
+    }
+    
+    const nextRow = actualLastRow + 1;
+    console.log('📍 実際の最終データ行:', actualLastRow);
+    console.log('📍 書き込み先行:', nextRow);
+
+    // === スプレッドシートの特定の行に書き込み ===
+    try {
+      const range = reservationsSheet.getRange(nextRow, 1, 1, reservationData.length);
+      range.setValues([reservationData]);
+      console.log('✅ スプレッドシート書き込み成功 (行:', nextRow, ')');
+      
+    } catch (writeError) {
+      console.error('❌ setValues エラー:', writeError);
+      throw new Error('スプレッドシートへの書き込みに失敗しました: ' + writeError.message);
+    }
+
+    // === 確認メール送信 ===
+    try {
+      console.log('📧 メール送信開始');
+      
+      if (allMinors) {
+        sendAllMinorConsentEmail(data.email, data.name, reservationId, data);
+        console.log('📄 全員未成年用メール送信完了');
+      } else {
+        sendConfirmationEmail(data.email, data.name, reservationId, data);
+        console.log('📬 通常メール送信完了');
+      }
+      
+    } catch (emailError) {
+      console.error('❌ メール送信エラー:', emailError);
+      // メール送信失敗しても予約は成功として扱う
+    }
+
+    console.log('🎉 予約作成完了:', reservationId);
+
+    return {
+      ok: true,
+      id: reservationId,
+      msg: '予約が完了しました',
+      consentRequired: allMinors
+    };
+
+  } catch (error) {
+    console.error('❌ 予約作成エラー:', error);
+    return {
+      ok: false,
+      msg: '予約作成中にエラーが発生しました: ' + error.message,
+      error: error.toString()
+    };
+  }
+}
+
+// ========================================
+// === ユーティリティ関数 ===
+// ========================================
+
+// === 予約ID生成関数 ===
+function generateReservationId() {
+  const prefix = 'WHK-';
+  const timestamp = Date.now().toString(36).toUpperCase();
+  const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return prefix + timestamp + random;
+}
+
+// ========================================
+// === メール送信機能 ===
+// ========================================
+
+// === 通常の確認メール送信 ===
+function sendConfirmationEmail(email, name, reservationId, reservationData) {
+  const subject = `【ホワイトホテル鎌倉】ご予約確認 - ${reservationId}`;
+  
+  const body = `
+${name} 様
+
+ホワイトホテル鎌倉をご利用いただき、誠にありがとうございます。
+ご予約が完了いたしましたので、詳細をご確認ください。
+
+【ご予約内容】
+予約番号: ${reservationId}
+お名前: ${name}
+チェックイン: ${reservationData.cin}
+チェックアウト: ${reservationData.cout}
+宿泊人数: ${reservationData.guests}名
+お部屋: ${reservationData.roomId}
+ご宿泊料金: ¥${parseInt(reservationData.price).toLocaleString()}
+
+【重要なご案内】
+・チェックイン時間: 15:00〜21:00
+・チェックアウト時間: 10:00
+・お支払い: 現地にて現金でお支払いください
+
+何かご不明な点がございましたら、お気軽にお問い合わせください。
+
+ホワイトホテル鎌倉
+〒248-0012 神奈川県鎌倉市御成町2-20
+TEL: 080-8851-5250
+Email: white-hotel@archi-prisma.co.jp
+`;
+
+  try {
+    MailApp.sendEmail(email, subject, body, { 
+      bcc: ADMIN_EMAIL,
+      from: ADMIN_EMAIL
+    });
+    console.log('通常確認メール送信完了:', email);
+  } catch (error) {
+    console.error('メール送信失敗:', error);
+    throw error;
+  }
+}
+
+// === 全員未成年者用確認メール送信 ===
+function sendAllMinorConsentEmail(email, name, reservationId, reservationData) {
+  const subject = `【ご予約確認】未成年者宿泊同意書のご準備について - 予約番号${reservationId}`;
+  
+  const body = `
+${name} 様
+
+ホワイトホテル鎌倉をご利用いただき、誠にありがとうございます。
+未成年の方のみでのご予約を承りました。
+
+【ご予約内容】
+予約番号: ${reservationId}
+お名前: ${name}
+チェックイン: ${reservationData.cin}
+チェックアウト: ${reservationData.cout}
+宿泊人数: ${reservationData.guests}名
+お部屋: ${reservationData.roomId}
+ご宿泊料金: ¥${parseInt(reservationData.price).toLocaleString()}
+
+【重要】未成年者宿泊同意書について
+未成年の方のみでのご宿泊には、同意書が必要です。
+チェックイン時に必ず下記をご持参ください：
+
+📄 同意書ダウンロード：
+https://white-hotel.archi-prisma.co.jp/documents/minor_consent_form.pdf
+
+【必須手順】
+1. 上記URLから同意書をダウンロード・印刷
+2. 保護者様が手書きで必要事項を記入・署名・押印
+3. チェックイン時に記入済みの原本をご持参
+
+【記入必須項目】
+・保護者氏名・フリガナ・住所
+・電話番号・メールアドレス・続柄
+・宿泊者名・宿泊日程
+・署名・印鑑・記入日
+
+⚠️ 重要なお願い ⚠️
+未成年者宿泊同意書の記入済み原本をお持ちでない場合は、
+申し訳ございませんがご宿泊をお断りいたします。
+必ず手書きで記入・署名した原本をご持参ください。
+
+【チェックイン情報】
+・チェックイン時間: 15:00〜21:00
+・チェックアウト時間: 10:00
+・お支払い: 現地にて現金でお支払いください
+
+ご不明な点がございましたら、お気軽にお問い合わせください。
+
+ホワイトホテル鎌倉
+〒248-0012 神奈川県鎌倉市御成町2-20
+TEL: 080-8851-5250
+Email: white-hotel@archi-prisma.co.jp
+`;
+
+  try {
+    MailApp.sendEmail(email, subject, body, { 
+      bcc: ADMIN_EMAIL,
+      from: ADMIN_EMAIL
+    });
+    console.log('全員未成年用確認メール送信完了:', email);
+  } catch (error) {
+    console.error('未成年者メール送信失敗:', error);
+    throw error;
+  }
+}
+
+// ========================================
+// === 管理・デバッグ機能 ===
+// ========================================
+
+// === 予約情報取得（全員未成年確認用） ===
+function getReservationInfo(reservationId) {
+  try {
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName('Reservations');
+    const data = sheet.getDataRange().getValues();
+    
+    for (let i = 1; i < data.length; i++) {
+      if (data[i][0] === reservationId) { // 予約ID照合
+        return {
+          found: true,
+          reservationId: data[i][0],
+          name: data[i][1],
+          email: data[i][2],
+          guests: data[i][4],
+          checkin: data[i][5],
+          checkout: data[i][6],
+          roomId: data[i][8],
+          status: data[i][10],
+          allMinors: data[i][13] === 'Yes' // N列: All Minors
+        };
+      }
+    }
+    
+    return { found: false, message: '予約が見つかりません' };
+    
+  } catch (error) {
+    console.error('予約情報取得エラー:', error);
+    return { found: false, error: error.message };
+  }
+}
+
+// === テスト・デバッグ関数 ===
+function testSearch() {
+  const testData = {
+    action: 'search',
+    cin: '2025-07-25',
+    cout: '2025-07-26',
+    guests: '2',
+    type: 'twin'
+  };
+  
+  console.log('=== 空室検索テスト ===');
+  const result = searchAvailableRooms(testData);
+  console.log('結果:', JSON.stringify(result, null, 2));
+  return result;
+}
+
+function testReservation() {
+  const testData = {
+    action: 'book',
+    name: 'テスト太郎',
+    email: 'test@example.com',
+    phone: '090-1234-5678',
+    roomId: 'room-B',
+    cin: '2025-07-25',
+    cout: '2025-07-26',
+    guests: '2',
+    price: '8000',
+    allMinors: 'false'
+  };
+  
+  console.log('=== 通常予約テスト ===');
+  const result = createReservation(testData);
+  console.log('結果:', JSON.stringify(result, null, 2));
+  return result;
+}
+
+function testAllMinorReservation() {
+  const testData = {
+    action: 'book',
+    name: 'テスト花子（全員未成年）',
+    email: 'test@example.com',
+    phone: '090-1234-5678',
+    roomId: 'room-A',
+    cin: '2025-07-25',
+    cout: '2025-07-26',
+    guests: '2',
+    price: '8000',
+    allMinors: 'true'  // 文字列のtrue
+  };
+  
+  console.log('=== 全員未成年予約テスト ===');
+  console.log('テストデータ:', testData);
+  const result = createReservation(testData);
+  console.log('結果:', JSON.stringify(result, null, 2));
+  return result;
+}
+
+// デバッグ用：フロントエンドからのデータ形式テスト
+function testAllMinorReservationYesNo() {
+  const testData = {
+    action: 'book',
+    name: 'テスト太郎（yes/no形式）',
+    email: 'test@example.com',
+    phone: '090-1234-5678',
+    roomId: 'room-A',
+    cin: '2025-07-25',
+    cout: '2025-07-26',
+    guests: '2',
+    price: '8000',
+    allMinors: 'yes'  // yes/no形式
+  };
+  
+  console.log('=== yes/no形式テスト ===');
+  console.log('テストデータ:', testData);
+  const result = createReservation(testData);
+  console.log('結果:', JSON.stringify(result, null, 2));
+  return result;
+}
+
+// === システム情報取得 ===
+function getSystemInfo() {
+  return {
+    spreadsheetId: SPREADSHEET_ID,
+    version: '2.0-simple',
+    features: [
+      'room_search',
+      'reservation', 
+      'all_minor_consent_notification',
+      'download_link_guidance'
+    ],
+    consentMethod: 'download_and_checkin',
+    timestamp: new Date().toISOString()
+  };
+}
