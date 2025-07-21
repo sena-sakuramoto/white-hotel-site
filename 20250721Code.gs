@@ -473,6 +473,16 @@ function createReservation(data) {
       // メール送信失敗しても予約は成功として扱う
     }
 
+    // === 空室カレンダー更新 ===
+    try {
+      console.log('📅 空室カレンダー更新開始');
+      updateAvailabilityCalendar();
+      console.log('📅 空室カレンダー更新完了');
+    } catch (calendarError) {
+      console.error('❌ 空室カレンダー更新エラー:', calendarError);
+      // カレンダー更新失敗しても予約は成功として扱う
+    }
+
     console.log('🎉 予約作成完了:', reservationId);
 
     return {
@@ -514,6 +524,93 @@ function getRoomDisplayName(roomId) {
   };
   
   return roomDisplayMap[roomId] || roomId;
+}
+
+// ========================================
+// === 空室カレンダー機能 ===
+// ========================================
+
+// === 空室カレンダーを更新する関数 ===
+function updateAvailabilityCalendar() {
+  try {
+    console.log('📅 空室カレンダー更新開始');
+    
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const resSheet = ss.getSheetByName('Reservations');
+    const availName = 'Availability';
+
+    // 1. 予約データ取得
+    const data = resSheet.getDataRange().getValues().slice(1); // ヘッダー行除外
+    if (data.length === 0) {
+      console.log('📅 予約データが空のため、カレンダー更新をスキップ');
+      return;
+    }
+
+    // 2. 期間算出（有効な予約のみ）
+    const validReservations = data.filter(r => 
+      r[0] && r[5] && r[6] && r[8] && r[10] !== 'Cancelled'
+    );
+    
+    if (validReservations.length === 0) {
+      console.log('📅 有効な予約がないため、カレンダー更新をスキップ');
+      return;
+    }
+
+    const checkIns = validReservations.map(r => new Date(r[5])); // F列 (Check-in)
+    const checkOuts = validReservations.map(r => new Date(r[6])); // G列 (Check-out)
+    const firstDate = new Date(Math.min(...checkIns));
+    const lastDate = new Date(Math.max(...checkOuts));
+
+    // 3. 部屋ID一覧
+    const rooms = [...new Set(validReservations.map(r => r[8]))].sort(); // I列 (Room ID)
+    console.log('📅 対象部屋:', rooms);
+
+    // 4. Availabilityシートを再生成（毎回削除→作成）
+    let avail = ss.getSheetByName(availName);
+    if (avail) ss.deleteSheet(avail);
+    avail = ss.insertSheet(availName);
+
+    // 5. 見出し行
+    avail.getRange(1, 1).setValue('Date');
+    avail.getRange(1, 2, 1, rooms.length).setValues([rooms]);
+
+    // 6. 日付列生成
+    const dates = [];
+    for (let d = new Date(firstDate); d <= lastDate; d.setDate(d.getDate() + 1)) {
+      dates.push([new Date(d)]);
+    }
+    avail.getRange(2, 1, dates.length, 1).setValues(dates);
+
+    // 7. 空室/満室判定マトリクス
+    const matrix = dates.map(([d]) =>
+      rooms.map(room => {
+        const booked = validReservations.some(r =>
+          r[8] === room &&               // Room ID一致
+          r[5] <= d && d < r[6] &&       // Check-in ≤ d < Check-out
+          r[10] !== 'Cancelled'          // キャンセル済み除外
+        );
+        return booked ? 'Booked' : 'Free';
+      })
+    );
+    avail.getRange(2, 2, matrix.length, matrix[0].length).setValues(matrix);
+
+    // 8. 条件付き書式
+    const rules = [
+      SpreadsheetApp.newConditionalFormatRule()
+        .whenTextEqualTo('Booked').setBackground('#ffcccc')
+        .setRanges([avail.getDataRange()]).build(),
+      SpreadsheetApp.newConditionalFormatRule()
+        .whenTextEqualTo('Free').setBackground('#ccffcc')
+        .setRanges([avail.getDataRange()]).build()
+    ];
+    avail.setConditionalFormatRules(rules);
+
+    console.log('📅 空室カレンダー更新完了:', avail.getLastRow(), '行');
+
+  } catch (error) {
+    console.error('❌ 空室カレンダー更新エラー:', error);
+    // エラーが発生してもメイン処理には影響しない
+  }
 }
 
 // ========================================
@@ -749,6 +846,27 @@ function testFrontendRequest() {
   }
   
   return '完了';
+}
+
+// 空室カレンダー更新テスト
+function testCalendarUpdate() {
+  console.log('=== 空室カレンダー更新テスト ===');
+  
+  try {
+    updateAvailabilityCalendar();
+    console.log('✅ 空室カレンダー更新成功');
+    return '✅ テスト成功';
+  } catch (error) {
+    console.error('❌ 空室カレンダー更新失敗:', error);
+    return '❌ テスト失敗: ' + error.message;
+  }
+}
+
+// 手動でカレンダーを更新する関数
+function manualUpdateCalendar() {
+  console.log('=== 手動カレンダー更新 ===');
+  updateAvailabilityCalendar();
+  return 'カレンダー更新完了';
 }
 
 function testReservation() {
