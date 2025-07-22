@@ -1191,10 +1191,12 @@
             // 初期ロード時に日付を設定
             if (checkinDateEl) {
                 checkinDateEl.min = formatDate(today);
+                checkinDateEl.max = '2025-10-14';
                 checkinDateEl.value = formatDate(today);
             }
             if (checkoutDateEl) {
                 checkoutDateEl.min = formatDate(tomorrow);
+                checkoutDateEl.max = '2025-10-15';
                 checkoutDateEl.value = formatDate(tomorrow);
             }
 
