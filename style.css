@@ -868,14 +868,12 @@ footer p a:hover {
     .nav-menu { display: none; }
     .mobile-menu-btn { display: flex; }
     .hero {
-        .hero {
-        padding-bottom: 2rem; /* Adjusted for mobile clearance */
-        height: auto; /* Change */
+        padding-bottom: 2rem;
+        height: auto;
         min-height: auto;
-        align-items: center; /* Change */
-        justify-content: center; /* Change */
-        padding-top: 120px; /* Keep existing value */
-    }
+        align-items: center;
+        justify-content: center;
+        padding-top: 120px;
     }
     .hero h1 { font-size: clamp(2.2rem, 10vw, 3rem); }
     .hero-subtitle { font-size: clamp(1rem, 4vw, 1.2rem); }
