@@ -2,91 +2,395 @@
 <html>
 <head>
   <base target="_top">
-  <title>宿チャットボット</title>
+  <title>ホワイトホテル鎌倉 チャットボット</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+    
+    :root {
+      --primary-color: #DD9946;
+      --secondary-color: #4A5568;
+      --text-primary: #3f3c38;
+      --text-secondary: #718096;
+      --bg-light: #FDFBF8;
+      --white: #ffffff;
+      --border-light: #E2E8F0;
+      --shadow-soft: 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-medium: 0 6px 20px rgba(0,0,0,0.08);
+      --gradient-gold: linear-gradient(135deg, #E6B88A, #DD9946);
+      --transition-smooth: all 0.3s ease-in-out;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f0f2f5;
+      background: var(--bg-light);
       display: flex;
       flex-direction: column;
       height: 100vh;
-      overflow: hidden; /* スクロールはchat-window内で行う */
+      overflow: hidden;
+      color: var(--text-primary);
+      font-size: 14px;
     }
+    
+    .chat-header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      box-shadow: var(--shadow-soft);
+      flex-shrink: 0;
+    }
+    
+    .hotel-avatar {
+      width: 36px;
+      height: 36px;
+      background: var(--gradient-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      color: var(--white);
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: var(--shadow-soft);
+    }
+    
+    .header-text {
+      flex: 1;
+    }
+    
+    .header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: 0;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+    }
+    
+    .header-subtitle {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin: 2px 0 0 0;
+    }
+    
     #chat-window {
-      flex-grow: 1;
-      padding: 10px;
+      flex: 1;
+      padding: 12px 16px;
       overflow-y: auto;
-      background-color: #fff;
-      border-bottom: 1px solid #ddd;
+      background: transparent;
+      min-height: 0;
     }
+    
     .message-container {
       display: flex;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
+      animation: messageSlide 0.3s ease-out;
     }
+    
+    @keyframes messageSlide {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
     .message-container.user {
       justify-content: flex-end;
     }
+    
     .message-container.bot {
       justify-content: flex-start;
     }
+    
     .message {
-      max-width: 80%;
-      padding: 8px 12px;
+      max-width: 75%;
+      padding: 12px 16px;
       border-radius: 18px;
-      line-height: 1.4;
+      line-height: 1.5;
       word-wrap: break-word;
+      font-size: 14px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
     }
+    
     .message.user {
-      background-color: #007bff;
-      color: white;
-      border-bottom-right-radius: 2px;
+      background: var(--gradient-gold);
+      color: var(--white);
+      border-bottom-right-radius: 4px;
+      margin-left: 12px;
     }
+    
     .message.bot {
-      background-color: #e2e6ea;
-      color: #333;
-      border-bottom-left-radius: 2px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      color: var(--text-primary);
+      border-bottom-left-radius: 4px;
+      margin-right: 12px;
+      border: 1px solid var(--border-light);
     }
-    #input-area {
+    
+    .typing-indicator {
       display: flex;
-      padding: 10px;
-      background-color: #f8f9fa;
-      border-top: 1px solid #ddd;
+      align-items: center;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      border-bottom-left-radius: 4px;
+      margin-right: 12px;
+      max-width: 75%;
+      border: 1px solid var(--border-light);
     }
+    
+    .typing-dots {
+      display: flex;
+      gap: 4px;
+    }
+    
+    .typing-dots span {
+      width: 6px;
+      height: 6px;
+      background: var(--text-secondary);
+      border-radius: 50%;
+      animation: typing 1.4s infinite;
+    }
+    
+    .typing-dots span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .typing-dots span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    
+    @keyframes typing {
+      0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+      30% {
+        transform: translateY(-10px);
+        opacity: 1;
+      }
+    }
+    
+    #input-area {
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+    
     #user-input {
-      flex-grow: 1;
-      padding: 10px;
-      border: 1px solid #ced4da;
-      border-radius: 20px;
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid var(--border-light);
+      border-radius: 25px;
       font-size: 14px;
       outline: none;
+      background: var(--white);
+      transition: var(--transition-smooth);
+      font-family: inherit;
+      resize: none;
+      max-height: 120px;
+      overflow-y: auto;
+      line-height: 1.4;
     }
+    
+    #user-input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(221, 153, 70, 0.1);
+    }
+    
+    #user-input:disabled {
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--text-secondary);
+    }
+    
     #send-button {
-      background-color: #007bff;
-      color: white;
+      background: var(--gradient-gold);
+      color: var(--white);
       border: none;
-      border-radius: 20px;
-      padding: 10px 15px;
-      margin-left: 10px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
       cursor: pointer;
-      font-size: 14px;
-      transition: background-color 0.2s ease;
+      transition: var(--transition-smooth);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-soft);
+      flex-shrink: 0;
     }
-    #send-button:hover {
-      background-color: #0056b3;
+    
+    #send-button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
+    }
+    
+    #send-button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .send-icon {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+    
+    /* スクロールバーのカスタマイズ */
+    #chat-window::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    #chat-window::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+    
+    #chat-window::-webkit-scrollbar-thumb {
+      background: rgba(221, 153, 70, 0.3);
+      border-radius: 3px;
+    }
+    
+    #chat-window::-webkit-scrollbar-thumb:hover {
+      background: rgba(221, 153, 70, 0.5);
+    }
+    
+    /* レスポンシブデザイン */
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px; /* iOS ズーム防止 */
+      }
+      
+      .chat-header {
+        padding: 10px 12px;
+      }
+      
+      .hotel-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+      }
+      
+      .header-title {
+        font-size: 13px;
+      }
+      
+      .header-subtitle {
+        font-size: 10px;
+      }
+      
+      #chat-window {
+        padding: 10px 12px;
+      }
+      
+      .message {
+        max-width: 85%;
+        font-size: 14px;
+        padding: 10px 14px;
+      }
+      
+      .message.user {
+        margin-left: 8px;
+      }
+      
+      .message.bot {
+        margin-right: 8px;
+      }
+      
+      #input-area {
+        padding: 10px 12px;
+        gap: 8px;
+      }
+      
+      #user-input {
+        font-size: 16px; /* iOS ズーム防止 */
+        padding: 10px 14px;
+        min-height: 40px;
+      }
+      
+      #send-button {
+        width: 36px;
+        height: 36px;
+      }
+      
+      .send-icon {
+        width: 14px;
+        height: 14px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .message {
+        max-width: 90%;
+        font-size: 13px;
+        padding: 8px 12px;
+      }
+      
+      #input-area {
+        padding: 8px 10px;
+      }
+      
+      #user-input {
+        padding: 8px 12px;
+      }
+      
+      #send-button {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .send-icon {
+        width: 12px;
+        height: 12px;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="chat-window">
-    <div class="message-container bot">
-      <div class="message">こんにちは！何かご質問はありますか？</div>
+  <div class="chat-header">
+    <div class="hotel-avatar">白</div>
+    <div class="header-text">
+      <h3 class="header-title">ホワイトホテル鎌倉</h3>
+      <p class="header-subtitle">何でもお気軽にご質問ください</p>
     </div>
   </div>
+  
+  <div id="chat-window">
+    <div class="message-container bot">
+      <div class="message">こんにちは！ホワイトホテル鎌倉へようこそ。🏨<br><br>ご宿泊に関するご質問、周辺観光地のご案内、お部屋の設備について等、何でもお気軽にお聞かせください。</div>
+    </div>
+  </div>
+  
   <div id="input-area">
-    <input type="text" id="user-input" placeholder="質問を入力してください..." />
-    <button id="send-button">送信</button>
+    <input type="text" id="user-input" placeholder="メッセージを入力..." />
+    <button id="send-button" title="送信">
+      <svg class="send-icon" viewBox="0 0 24 24">
+        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+      </svg>
+    </button>
   </div>
 
   <script>
@@ -99,10 +403,35 @@
       messageContainer.classList.add('message-container', type);
       const message = document.createElement('div');
       message.classList.add('message', type);
-      message.textContent = text;
+      message.innerHTML = text;
       messageContainer.appendChild(message);
       chatWindow.appendChild(messageContainer);
-      chatWindow.scrollTop = chatWindow.scrollHeight; // スクロールを一番下へ
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+      const typingContainer = document.createElement('div');
+      typingContainer.classList.add('message-container', 'bot');
+      typingContainer.id = 'typing-indicator-container';
+      
+      const typingIndicator = document.createElement('div');
+      typingIndicator.classList.add('typing-indicator');
+      
+      const typingDots = document.createElement('div');
+      typingDots.classList.add('typing-dots');
+      typingDots.innerHTML = '<span></span><span></span><span></span>';
+      
+      typingIndicator.appendChild(typingDots);
+      typingContainer.appendChild(typingIndicator);
+      chatWindow.appendChild(typingContainer);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function hideTypingIndicator() {
+      const typingIndicator = document.getElementById('typing-indicator-container');
+      if (typingIndicator) {
+        typingIndicator.remove();
+      }
     }
 
     async function sendMessage() {
@@ -110,36 +439,51 @@
       if (messageText === '') return;
 
       addMessage(messageText, 'user');
-      userInput.value = ''; // 入力欄をクリア
+      userInput.value = '';
 
       // 送信ボタンと入力欄を一時的に無効化
       sendButton.disabled = true;
       userInput.disabled = true;
       userInput.placeholder = '回答を待っています...';
 
+      // タイピングインジケーターを表示
+      showTypingIndicator();
+
       try {
         // Google Apps Scriptのバックエンド関数を呼び出し
-        const botResponse = await google.script.run
-          .withFailureHandler(function(error) {
-            addMessage('エラーが発生しました: ' + error.message, 'bot');
-          })
-          .processMessage(messageText);
-
+        const botResponse = await new Promise((resolve, reject) => {
+          google.script.run
+            .withSuccessHandler(resolve)
+            .withFailureHandler(reject)
+            .processMessage(messageText);
+        });
+        
+        hideTypingIndicator();
         addMessage(botResponse, 'bot');
+      } catch (error) {
+        hideTypingIndicator();
+        addMessage('申し訳ございません。一時的にエラーが発生しました。しばらくしてからもう一度お試しください。', 'bot');
+        console.error('Chat error:', error);
       } finally {
         // 送信ボタンと入力欄を有効化
         sendButton.disabled = false;
         userInput.disabled = false;
-        userInput.placeholder = '質問を入力してください...';
-        userInput.focus(); // 入力欄にフォーカス
+        userInput.placeholder = 'メッセージを入力...';
+        userInput.focus();
       }
     }
 
     sendButton.addEventListener('click', sendMessage);
     userInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
         sendMessage();
       }
+    });
+
+    // 初期フォーカスを入力欄に設定
+    window.addEventListener('load', () => {
+      userInput.focus();
     });
   </script>
 </body>
