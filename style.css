@@ -867,18 +867,32 @@ footer p a:hover {
     .container { padding: 0 1rem; }
     .nav-menu { display: none; }
     .mobile-menu-btn { display: flex; }
+    
+    /* ヘッダーのスマホ調整 */
+    .header-content {
+        padding: 0.5rem 0;
+        min-height: 50px;
+    }
+    
+    .logo { 
+        font-size: 1.2rem; 
+    }
+    
+    .header-logo { 
+        height: 35px; 
+    }
     .hero {
         padding-bottom: 2rem;
         height: auto;
         min-height: auto;
         align-items: center;
         justify-content: center;
-        padding-top: 120px;
+        padding-top: 70px;
     }
     .hero h1 { font-size: clamp(2.2rem, 10vw, 3rem); }
     .hero-subtitle { font-size: clamp(1rem, 4vw, 1.2rem); }
     .hero-content {
-        padding-top: 60px; /* ヘッダーの高さとバッジの配置を考慮して調整 */
+        padding-top: 20px;
     }
     .booking-widget {
         margin: 0 auto; /* 中央揃え */
