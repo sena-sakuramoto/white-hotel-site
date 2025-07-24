@@ -7,7 +7,8 @@ const SHEET_NAME = 'knowledge_base'; // スプレッドシートのシート名�
  */
 function doGet(e) {
   return HtmlService.createTemplateFromFile('chatbot').evaluate()
-      .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+      .addMetaTag('viewport', 'width=device-width, initial-scale=1')
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
 /**
