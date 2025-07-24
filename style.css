@@ -853,10 +853,10 @@ footer p a:hover {
 /* カスタムモーダル */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 10000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
 .modal-overlay.active { opacity: 1; visibility: visible; }
-.modal-content { background: var(--white); padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow-heavy); width: 90%; max-width: 800px; transform: scale(0.9); transition: transform 0.3s ease; text-align: left; max-height: 80vh; overflow-y: auto; }
+.modal-content { background: var(--white); padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow-heavy); width: 90%; max-width: 800px; transform: scale(0.9); transition: transform 0.3s ease; text-align: left; max-height: 85vh; overflow-y: auto; display: flex; flex-direction: column; }
 .modal-overlay.active .modal-content { transform: scale(1); }
 .modal-header { font-size: 1.8rem; color: var(--text-primary); margin-bottom: 1rem; text-align: center; }
-.modal-body { color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.9; }
+.modal-body { color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.9; flex: 1; overflow-y: auto; }
 .modal-body h4 { color: var(--text-primary); margin-top: 1.5rem; margin-bottom: 0.5rem; font-weight: 700; }
 .modal-body ul { list-style-position: inside; padding-left: 1rem; }
 .modal-body li { margin-bottom: 0.5rem; }
