@@ -1016,30 +1016,20 @@
             // ここにあなたのデプロイしたGASウェブアプリのURLを貼り付けてください
             const chatBotUrl = "https://script.google.com/macros/s/AKfycbwpSb-B6RHsNy9pbW1c147M4whrQlaGWwFhXDaDLBN-KVSNuE7-Lx-zHKMuXiKcJtDU/exec"; 
 
-            // スマホかどうかを判定
-            const isMobile = window.innerWidth <= 768;
-            
-            const iframeStyle = isMobile 
-                ? "border: none; border-radius: 8px; min-height: 400px; max-height: 60vh;"
-                : "border: none; border-radius: 8px; min-height: 500px; max-height: 70vh;";
-            
-            const iframeHeight = isMobile ? "500px" : "600px";
-            const modalTitle = isMobile ? "チャット<br>お問い合わせ" : "チャットでお問い合わせ";
-
             const iframeHtml = `
                 <iframe 
                     src="${chatBotUrl}" 
                     width="100%" 
-                    height="${iframeHeight}"
+                    height="100%"
                     frameborder="0" 
-                    style="${iframeStyle}">
+                    style="border: none; border-radius: 8px; height: 100%; min-height: 70vh;">
                 </iframe>
                 <p style="font-size: 0.8rem; color: #666; margin-top: 10px; text-align: center;">
                     上記チャットで解決しない場合は、直接お電話またはメールでお問い合わせください。<br>
                     <a href="tel:08088515250">080-8851-5250</a> または <a href="mailto:white-hotel@archi-prisma.co.jp">white-hotel@archi-prisma.co.jp</a>
                 </p>
             `;
-            showModal(modalTitle, iframeHtml, '<button class="btn modal-close-btn" onclick="closeModal()">閉じる</button>');
+            showModal('', iframeHtml, '<button class="btn modal-close-btn" onclick="closeModal()">閉じる</button>');
         }
 
         function selectRoomType(index) {
