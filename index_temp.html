@@ -508,14 +508,9 @@
                 if (numGuests <= 1) basePrice = 7000;
                 else basePrice = 10000;
             } else if (roomType === 'triple') {
-                const soloPrice = 10000;
-                const maxPrice = 15000;
-                if (numGuests <= 1) basePrice = soloPrice;
-                else if (numGuests >= 3) basePrice = maxPrice;
-                else {
-                    const increment = (maxPrice - soloPrice) / 2;
-                    basePrice = soloPrice + (increment * (numGuests - 1));
-                }
+                if (numGuests === 1) basePrice = 10000;
+                else if (numGuests === 2) basePrice = 10000;
+                else if (numGuests >= 3) basePrice = 15000;
             } else if (roomType === 'family') {
                 const soloPrice = 14000;
                 const maxPrice = 20000;
