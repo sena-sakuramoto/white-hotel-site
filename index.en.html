@@ -262,7 +262,7 @@
 }
 
 .tiktok-video-card {
-    flex: 0 0 350px;
+    flex: 0 0 280px;
     background: white;
     border-radius: 15px;
     overflow: hidden;
@@ -301,14 +301,19 @@
 
 .video-embed {
     width: 100%;
-    height: 600px;
+    aspect-ratio: 9 / 16;
     position: relative;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    max-height: 600px;
 }
 
 .video-embed iframe {
     width: 100%;
     height: 100%;
     border: none;
+    border-radius: 12px;
 }
 
 .video-info {
@@ -402,11 +407,11 @@
     }
     
     .tiktok-video-card {
-        flex: 0 0 280px;
+        flex: 0 0 250px;
     }
     
     .video-embed {
-        height: 480px;
+        max-height: 420px;
     }
     
     .slider-btn {
@@ -426,11 +431,11 @@
 
 @media (max-width: 480px) {
     .tiktok-video-card {
-        flex: 0 0 250px;
+        flex: 0 0 220px;
     }
     
     .video-embed {
-        height: 400px;
+        max-height: 370px;
     }
     
     .tiktok-slider-container {
@@ -1738,7 +1743,7 @@
                 currentSlideIndex = maxIndex;
             }
             
-            const cardWidth = 350 + 20; // カード幅 + gap
+            const cardWidth = window.innerWidth <= 480 ? 240 : window.innerWidth <= 768 ? 270 : 300; // レスポンシブ対応
             const scrollAmount = currentSlideIndex * cardWidth;
             
             slider.scrollTo({
@@ -1757,7 +1762,7 @@
             
             currentSlideIndex = Math.min(n - 1, maxIndex);
             
-            const cardWidth = 350 + 20;
+            const cardWidth = window.innerWidth <= 480 ? 240 : window.innerWidth <= 768 ? 270 : 300;
             const scrollAmount = currentSlideIndex * cardWidth;
             
             slider.scrollTo({
