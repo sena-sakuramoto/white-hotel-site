@@ -251,10 +251,16 @@
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
     gap: 20px;
-    padding: 20px 0;
+    padding: 20px 10px;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    /* パフォーマンス最適化 */
+    will-change: scroll-position, transform;
+    transform: translateZ(0);
+    -webkit-overflow-scrolling: touch;
+    contain: layout style paint;
 }
 
 .tiktok-slider::-webkit-scrollbar {
@@ -268,6 +274,12 @@
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    scroll-snap-align: center;
+    /* パフォーマンス最適化 */
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    contain: layout style paint;
 }
 
 .tiktok-video-card:hover {
@@ -307,6 +319,98 @@
     border-radius: 12px;
     overflow: hidden;
     max-height: 600px;
+    margin: 8px;
+}
+
+.video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff0050, #ff4081);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    padding: 20px;
+}
+
+.video-placeholder:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(255,0,80,0.3);
+}
+
+.video-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.video-thumbnail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    transition: opacity 0.3s ease;
+}
+
+.video-thumbnail:hover::before {
+    opacity: 0.2;
+}
+
+.play-button {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #ff0050;
+    z-index: 1;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.play-button:hover {
+    transform: scale(1.1);
+    background: white;
+}
+
+.video-placeholder.loading {
+    background: linear-gradient(135deg, #ff0050, #ff4081, #ff0050);
+    background-size: 200% 200%;
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
 }
 
 .video-embed iframe {
@@ -314,6 +418,25 @@
     height: 100%;
     border: none;
     border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    /* パフォーマンス最適化 */
+    will-change: opacity, transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    -webkit-perspective: 1000;
+    /* スムージング最適化 */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimizeQuality;
+    /* GPU加速 */
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+.video-embed iframe.loaded {
+    opacity: 1;
 }
 
 .video-info {
@@ -407,7 +530,9 @@
     }
     
     .tiktok-video-card {
-        flex: 0 0 250px;
+        flex: 0 0 calc(100vw - 80px);
+        max-width: 250px;
+        scroll-snap-align: center;
     }
     
     .video-embed {
@@ -431,7 +556,9 @@
 
 @media (max-width: 480px) {
     .tiktok-video-card {
-        flex: 0 0 220px;
+        flex: 0 0 calc(100vw - 60px);
+        max-width: 220px;
+        scroll-snap-align: center;
     }
     
     .video-embed {
@@ -439,7 +566,11 @@
     }
     
     .tiktok-slider-container {
-        padding: 0 10px;
+        padding: 0 5px;
+    }
+    
+    .tiktok-slider {
+        padding: 20px 5px;
     }
 }
 </style>
@@ -480,8 +611,13 @@
                         <!-- Most viral video first -->
                         <div class="tiktok-video-card featured">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7526877420364958994" 
-                                        frameborder="0" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(135deg, #ff0050, #ff4081);">
+                                    <div class="play-button">▶️</div>
+                                    <div style="position: absolute; bottom: 10px; left: 10px; right: 10px; color: white; font-size: 14px; text-align: center; background: rgba(0,0,0,0.5); padding: 8px; border-radius: 8px;">
+                                        🔥 Going Viral! Inn Construction
+                                    </div>
+                                </div>
+                                <iframe frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
                             </div>
@@ -494,7 +630,35 @@
                         <!-- Other videos -->
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7525082268935687431" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #667eea, #764ba2);">
+                                    <div class="play-button">▶️</div>
+                                    <div style="position: absolute; bottom: 10px; left: 10px; right: 10px; color: white; font-size: 14px; text-align: center; background: rgba(0,0,0,0.5); padding: 8px; border-radius: 8px;">
+                                        🏗️ Construction Site Views
+                                    </div>
+                                </div>
+                                <iframe frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="tiktok-video-card">
+                            <div class="video-embed">
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #f093fb, #f5576c);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="tiktok-video-card">
+                            <div class="video-embed">
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #4facfe, #00f2fe);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe data-src="https://www.tiktok.com/embed/7525393693780544775" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
@@ -503,7 +667,21 @@
                         
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7525393693780544775" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #f093fb, #f5576c);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="tiktok-video-card">
+                            <div class="video-embed">
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #4facfe, #00f2fe);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe data-src="https://www.tiktok.com/embed/7525801024620072200" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
@@ -512,7 +690,21 @@
                         
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7525801024620072200" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #f093fb, #f5576c);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="tiktok-video-card">
+                            <div class="video-embed">
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #4facfe, #00f2fe);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe data-src="https://www.tiktok.com/embed/7526151171837414664" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
@@ -521,7 +713,21 @@
                         
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7526151171837414664" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #f093fb, #f5576c);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="tiktok-video-card">
+                            <div class="video-embed">
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #4facfe, #00f2fe);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe data-src="https://www.tiktok.com/embed/7526531604164939015" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
@@ -530,7 +736,21 @@
                         
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7526531604164939015" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #f093fb, #f5576c);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="tiktok-video-card">
+                            <div class="video-embed">
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #4facfe, #00f2fe);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe data-src="https://www.tiktok.com/embed/7527253219790146823" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
@@ -539,7 +759,21 @@
                         
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7527253219790146823" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #f093fb, #f5576c);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="tiktok-video-card">
+                            <div class="video-embed">
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #4facfe, #00f2fe);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe data-src="https://www.tiktok.com/embed/7527617694695263506" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
@@ -548,7 +782,21 @@
                         
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7527617694695263506" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #f093fb, #f5576c);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="tiktok-video-card">
+                            <div class="video-embed">
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #4facfe, #00f2fe);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe data-src="https://www.tiktok.com/embed/7527994560195136786" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
@@ -557,7 +805,21 @@
                         
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7527994560195136786" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #f093fb, #f5576c);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="tiktok-video-card">
+                            <div class="video-embed">
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #4facfe, #00f2fe);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe data-src="https://www.tiktok.com/embed/7528368445256191250" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
@@ -566,7 +828,21 @@
                         
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7528368445256191250" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #f093fb, #f5576c);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="tiktok-video-card">
+                            <div class="video-embed">
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #4facfe, #00f2fe);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe data-src="https://www.tiktok.com/embed/7528736437915733266" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
@@ -575,7 +851,21 @@
                         
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7528736437915733266" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #f093fb, #f5576c);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="tiktok-video-card">
+                            <div class="video-embed">
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #4facfe, #00f2fe);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe data-src="https://www.tiktok.com/embed/7529474503512984839" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
@@ -584,7 +874,21 @@
                         
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7529474503512984839" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #f093fb, #f5576c);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="tiktok-video-card">
+                            <div class="video-embed">
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #4facfe, #00f2fe);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe data-src="https://www.tiktok.com/embed/7530970064183364882" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
@@ -593,8 +897,10 @@
                         
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7530970064183364882" 
-                                        frameborder="0" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #f093fb, #f5576c);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
                             </div>
@@ -602,7 +908,10 @@
                         
                         <div class="tiktok-video-card">
                             <div class="video-embed">
-                                <iframe src="https://www.tiktok.com/embed/7531711592140983559" 
+                                <div class="video-thumbnail" style="background-image: linear-gradient(45deg, #4facfe, #00f2fe);">
+                                    <div class="play-button">▶️</div>
+                                </div>
+                                <iframe data-src="https://www.tiktok.com/embed/7531711592140983559" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen></iframe>
@@ -1722,62 +2031,172 @@
         }
 
         // --- Application execution ---
-        document.addEventListener('DOMContentLoaded', initializeApp);
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeApp();
+            setupVideoLoading();
+            loadInitialVideos();
+            setupIntersectionObserver();
+        });
         window.addEventListener('load', initializeLibraries);
         
         // TikTokスライダー機能
         let currentSlideIndex = 0;
-        const slidesPerView = window.innerWidth <= 768 ? 1 : 3;
+        
+        // 動画データ（英語版）
+        const videoData = [
+            { id: '7526877420364958994', title: 'Going Viral! Inn Construction', featured: true },
+            { id: '7525082268935687431', title: 'Construction Site Views' },
+            { id: '7525393693780544775', title: 'Interior Work' },
+            { id: '7525801024620072200', title: 'Design Secrets' },
+            { id: '7526151171837414664', title: 'Teamwork' },
+            { id: '7526531604164939015', title: 'Towards Completion' },
+            { id: '7527253219790146823', title: 'Detailed Work' },
+            { id: '7527617694695263506', title: 'Quality Check' },
+            { id: '7527994560195136786', title: 'Final Adjustments' },
+            { id: '7528368445256191250', title: 'Almost Complete' },
+            { id: '7528736437915733266', title: 'Interior Setup' },
+            { id: '7529474503512984839', title: 'Final Touches' },
+            { id: '7530970064183364882', title: 'Grand Opening Prep' },
+            { id: '7531711592140983559', title: 'Finally Complete!' }
+        ];
+
+        // 軽量な動画読み込み機能
+        function loadVideo(container, videoId) {
+            const iframe = container.querySelector('iframe');
+            const placeholder = container.querySelector('.video-placeholder, .video-thumbnail');
+            
+            if (iframe && !iframe.getAttribute('src')) {
+                if (placeholder) {
+                    placeholder.style.opacity = '0.5';
+                    placeholder.innerHTML = '<div style="font-size: 16px;">🔄 Loading...</div>';
+                }
+                
+                const src = `https://www.tiktok.com/embed/${videoId}`;
+                iframe.setAttribute('src', src);
+                iframe.setAttribute('loading', 'eager');
+                iframe.setAttribute('importance', 'high');
+                
+                iframe.onload = () => {
+                    iframe.classList.add('loaded');
+                    if (placeholder) {
+                        placeholder.style.opacity = '0';
+                        setTimeout(() => placeholder.remove(), 300);
+                    }
+                };
+                
+                iframe.onerror = () => {
+                    if (placeholder) {
+                        placeholder.innerHTML = '<div style="font-size: 14px;">❌ Loading Error<br>Tap to Retry</div>';
+                        placeholder.style.opacity = '1';
+                    }
+                };
+            }
+        }
+        
+        // プレースホルダークリックで読み込み
+        function setupVideoLoading() {
+            document.querySelectorAll('.tiktok-video-card').forEach((card, index) => {
+                const placeholder = card.querySelector('.video-placeholder, .video-thumbnail');
+                if (placeholder) {
+                    placeholder.addEventListener('click', () => {
+                        const videoId = videoData[index]?.id;
+                        if (videoId) {
+                            loadVideo(card.querySelector('.video-embed'), videoId);
+                        }
+                    });
+                }
+            });
+        }
+        
+        // 最初の1つの動画のみ自動読み込み（高速化）
+        function loadInitialVideos() {
+            const firstCard = document.querySelector('.tiktok-video-card.featured .video-embed');
+            if (firstCard && videoData[0]) {
+                setTimeout(() => loadVideo(firstCard, videoData[0].id), 1000); // 1秒後に読み込み
+            }
+        }
+        
+        // Intersection Observer は無効化（手動読み込みのみにして高速化）
+        function setupIntersectionObserver() {
+            // 自動読み込みを無効化してページ速度を最適化
+            // ユーザーがクリックした時のみ読み込み
+        }
         
         function moveSlider(direction) {
             const slider = document.querySelector('.tiktok-slider');
             const cards = document.querySelectorAll('.tiktok-video-card');
             const totalCards = cards.length;
-            const maxIndex = Math.max(0, totalCards - slidesPerView);
             
             currentSlideIndex += direction;
             
             if (currentSlideIndex < 0) {
                 currentSlideIndex = 0;
-            } else if (currentSlideIndex > maxIndex) {
-                currentSlideIndex = maxIndex;
+            } else if (currentSlideIndex >= totalCards) {
+                currentSlideIndex = totalCards - 1;
             }
             
-            const cardWidth = window.innerWidth <= 480 ? 240 : window.innerWidth <= 768 ? 270 : 300; // レスポンシブ対応
-            const scrollAmount = currentSlideIndex * cardWidth;
-            
-            slider.scrollTo({
-                left: scrollAmount,
-                behavior: 'smooth'
-            });
+            // 指定したカードまでスクロール
+            const slider = document.querySelector('.tiktok-slider');
+            const targetCard = cards[currentSlideIndex];
+            if (targetCard) {
+                if (window.innerWidth <= 768) {
+                    // モバイル: ピクセル完璧なスクロール
+                    slider.scrollTo({
+                        left: currentSlideIndex * window.innerWidth,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // デスクトップ: 従来の方法
+                    targetCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                }
+            }
             
             updateDots();
         }
         
         function currentSlide(n) {
-            const slider = document.querySelector('.tiktok-slider');
             const cards = document.querySelectorAll('.tiktok-video-card');
             const totalCards = cards.length;
-            const maxIndex = Math.max(0, totalCards - slidesPerView);
             
-            currentSlideIndex = Math.min(n - 1, maxIndex);
+            currentSlideIndex = Math.min(n - 1, totalCards - 1);
             
-            const cardWidth = window.innerWidth <= 480 ? 240 : window.innerWidth <= 768 ? 270 : 300;
-            const scrollAmount = currentSlideIndex * cardWidth;
-            
-            slider.scrollTo({
-                left: scrollAmount,
-                behavior: 'smooth'
-            });
+            const slider = document.querySelector('.tiktok-slider');
+            const targetCard = cards[currentSlideIndex];
+            if (targetCard) {
+                if (window.innerWidth <= 768) {
+                    // モバイル: ピクセル完璧なスクロール
+                    slider.scrollTo({
+                        left: currentSlideIndex * window.innerWidth,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // デスクトップ: 従来の方法
+                    targetCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                }
+            }
             
             updateDots();
         }
         
         function updateDots() {
             const dots = document.querySelectorAll('.dot');
+            const totalCards = document.querySelectorAll('.tiktok-video-card').length;
+            const dotsPerCard = Math.ceil(totalCards / dots.length);
+            
             dots.forEach((dot, index) => {
                 dot.classList.remove('active');
-                if (index === Math.floor(currentSlideIndex / slidesPerView)) {
+                const startRange = index * dotsPerCard;
+                const endRange = (index + 1) * dotsPerCard - 1;
+                
+                if (currentSlideIndex >= startRange && currentSlideIndex <= endRange) {
                     dot.classList.add('active');
                 }
             });
@@ -1823,11 +2242,8 @@
         
         // レスポンシブ対応
         window.addEventListener('resize', () => {
-            const newSlidesPerView = window.innerWidth <= 768 ? 1 : 3;
-            if (newSlidesPerView !== slidesPerView) {
-                currentSlideIndex = 0;
-                updateDots();
-            }
+            // リサイズ時は現在位置を維持
+            updateDots();
         });
 
     </script>
