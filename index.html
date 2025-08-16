@@ -108,7 +108,11 @@
 
     <main>
         <section id="home" class="hero">
-            <video class="hero-video" src="movies/IMG_3587.MOV" autoplay loop muted playsinline></video>
+            <video class="hero-video" autoplay loop muted playsinline>
+                <source src="movies/IMG_3587.MOV" type="video/quicktime">
+                <!-- フォールバック: 動画が再生できない場合 -->
+                お使いのブラウザは動画の再生に対応していません。
+            </video>
             <div class="hero-bg"></div>
             <div class="container">
                 <div class="hero-content">
