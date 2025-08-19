@@ -891,32 +891,67 @@
         </section>
 
         <section id="reviews" class="reviews-section">
-            <div class="container">
-                <div class="section-header" data-aos="fade-up">
-                    <h2 class="section-title">泊まってくれた、みんなの声</h2>
-                    <p class="section-subtitle">
-                        実際にご宿泊いただいたみなさんから、あたたかいお便りが届いています。
-                    </p>
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">泊まってくれた、みんなの声</h2>
+            <p class="section-subtitle">
+                実際にご宿泊いただいたみなさんから、あたたかいお便りが届いています。
+            </p>
+        </div>
+
+        <div class="reviews-container" data-aos="fade-up" data-aos-delay="200">
+            <div class="reviews-tabs">
+                <button class="review-tab-btn active" data-tab="notebook">公式サイトの声</button>
+                <button class="review-tab-btn" data-tab="booking">Booking.comの声</button>
+            </div>
+
+            <div class="reviews-content">
+                <!-- 公式サイトの声 (ノート) -->
+                <div class="review-tab-pane active" id="notebook-reviews">
+                    <div class="reviews-carousel swiper">
+                        <div class="swiper-wrapper" id="notebook-gallery">
+                            <!-- ノートに書かれたレビュー画像 -->
+                            <div class="swiper-slide">
+                                <a href="images/みんなの声/IMG_3622.JPG" class="review-image-link">
+                                    <img src="images/みんなの声/IMG_3622.JPG" alt="お客様の声" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+                                </a>
+                            </div>
+                            <!-- 他のノートレビュー画像をここに追加 -->
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
                 </div>
 
-                <div class="reviews-carousel swiper" data-aos="fade-up" data-aos-delay="200">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="review-slide" style="min-height: auto; padding: 3rem;">
-                                <div class="review-content" style="font-style: normal; color: var(--text-primary); font-size: 1.1rem; margin-bottom: 0;">
-                                    <p>当ホテルは、2025年7月15日より期間限定でオープンいたします。</p>
-                                    <p>オープン後、実際にご宿泊いただいたお客様からの感想を、こちらに掲載する予定です。</p>
-                                    <p>皆様からの貴重なご意見を心よりお待ちしております。</p>
+                <!-- Booking.comの声 -->
+                <div class="review-tab-pane" id="booking-reviews">
+                    <div class="reviews-carousel swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="review-slide">
+                                    <div class="review-rating">★★★★★ 10/10</div>
+                                    <div class="review-content">
+                                        <p>スタッフさんがとても親切で良かった</p>
+                                    </div>
+                                    <div class="review-author">
+                                        <div class="author-info">
+                                            <h4>S様</h4>
+                                            <p>Booking.comより</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
                     </div>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
         <section id="gallery" class="gallery-section">
             <div class="container">
@@ -1662,12 +1697,58 @@
                         if (query.startsWith('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2716.9052598693493!2d139.54928662500606!3d35.31785059969351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601845c24760efcd%3A0x57b591a8af3a433!2z44Os44OH44Kj44O844K544Kk44OzIOODm-ODr-OCpOODiOODm-ODhuODqw!5e1!3m2!1sja!2sjp!4v1752052923352!5m2!1sja!2sjp')) {
                             newSrc = query; // 埋め込みURLならそのまま使用
                         } else {
-                            newSrc = `https://maps.google.com/maps?q=$${encodeURIComponent(query)}&t=&z=16&ie=UTF8&iwloc=&output=embed`; // それ以外はクエリをエンコード
+                            newSrc = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&t=&z=16&ie=UTF8&iwloc=&output=embed`; // それ以外はクエリをエンコード
                         }
                         mapIframe.src = newSrc;
                     }
                 });
             }
+
+            // Reviews Tabs
+            const reviewTabs = document.querySelectorAll('.review-tab-btn');
+            const reviewPanes = document.querySelectorAll('.review-tab-pane');
+            const swipers = {};
+
+            function initializeSwiper(selector) {
+                if (document.querySelector(selector) && !swipers[selector]) {
+                    swipers[selector] = new Swiper(selector, {
+                        slidesPerView: 1,
+                        spaceBetween: 30,
+                        loop: true,
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: false,
+                        },
+                        pagination: {
+                            el: selector + ' .swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: selector + ' .swiper-button-next',
+                            prevEl: selector + ' .swiper-button-prev',
+                        },
+                    });
+                }
+            }
+
+            reviewTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.dataset.tab;
+
+                    reviewTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    reviewPanes.forEach(pane => {
+                        pane.classList.toggle('active', pane.id === `${tabId}-reviews`);
+                    });
+                    
+                    // Initialize swiper for the active tab
+                    initializeSwiper(`#${tabId}-reviews .reviews-carousel`);
+                });
+            });
+
+            // Initialize swiper for the initially active tab
+            initializeSwiper('#notebook-reviews .reviews-carousel');
         }
 
         function initializeLibraries() {
@@ -1825,6 +1906,15 @@
                     dynamicGallery.openGallery();
                 });
             });
+
+            // LightGallery for Notebook Reviews
+            const notebookGallery = document.getElementById('notebook-gallery');
+            if (notebookGallery) {
+                lightGallery(notebookGallery, {
+                    selector: '.review-image-link',
+                    download: false
+                });
+            }
             
         }
 

@@ -1722,3 +1722,63 @@ footer p a:hover {
         padding: 1.5rem 1rem;
     }
 }
+
+/* Reviews Section Tabs */
+.reviews-container {
+    margin-top: 3rem;
+}
+
+.reviews-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.review-tab-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border: 2px solid var(--border-light);
+    background: var(--white);
+    color: var(--text-secondary);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.review-tab-btn:hover {
+    background: var(--bg-light);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.review-tab-btn.active {
+    background: var(--primary-color);
+    color: var(--white);
+    border-color: var(--primary-color);
+}
+
+.review-tab-pane {
+    display: none;
+}
+
+.review-tab-pane.active {
+    display: block;
+}
+
+/* Review Card Additions */
+.review-slide .review-rating {
+    color: var(--primary-color);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.review-slide .review-content h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-style: normal;
+}
