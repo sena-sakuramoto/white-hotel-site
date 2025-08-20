@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://white-hotel.archi-prisma.co.jp/</loc>
-    <lastmod>2025-07-07T00:00:00+00:00</lastmod>
+    <loc>https://whitehotel-kamakura.jp/</loc>
+    <lastmod>2025-08-19T00:00:00+00:00</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://white-hotel.archi-prisma.co.jp/story.html</loc>
-    <lastmod>2025-07-07T00:00:00+00:00</lastmod>
+    <loc>https://whitehotel-kamakura.jp/story.html</loc>
+    <lastmod>2025-08-19T00:00:00+00:00</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whitehotel-kamakura.jp/blog.html</loc>
+    <lastmod>2025-08-19T00:00:00+00:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whitehotel-kamakura.jp/blog/kamakura-hidden-spots.html</loc>
+    <lastmod>2025-07-07T00:00:00+00:00</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://whitehotel-kamakura.jp/blog/renovation-story.html</loc>
+    <lastmod>2025-06-20T00:00:00+00:00</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://whitehotel-kamakura.jp/blog/enoshima-view.html</loc>
+    <lastmod>2025-06-01T00:00:00+00:00</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://whitehotel-kamakura.jp/sponsor.html</loc>
+    <lastmod>2025-08-19T00:00:00+00:00</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://whitehotel-kamakura.jp/index.en.html</loc>
+    <lastmod>2025-08-19T00:00:00+00:00</lastmod>
+    <priority>0.9</priority>
   </url>
 </urlset>
