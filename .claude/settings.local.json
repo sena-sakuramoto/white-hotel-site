@@ -12,8 +12,14 @@
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(mkdir:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebFetch(domain:docs.github.com)",
+      "Bash(gh repo view:*)",
+      "Bash(rm:*)"
     ],
-    "deny": []
+    "deny": [],
+    "additionalDirectories": [
+      "C:\\d C:\\Users\\senaa"
+    ]
   }
 }
