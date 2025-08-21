@@ -15,7 +15,8 @@
       "Bash(git push:*)",
       "WebFetch(domain:docs.github.com)",
       "Bash(gh repo view:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(true)"
     ],
     "deny": [],
     "additionalDirectories": [
