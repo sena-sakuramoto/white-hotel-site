@@ -23,14 +23,15 @@
     <link rel="canonical" href="https://whitehotel-kamakura.jp/index.en.html">
     <link rel="alternate" hreflang="ja" href="https://whitehotel-kamakura.jp/index.html">
     <link rel="alternate" hreflang="en" href="https://whitehotel-kamakura.jp/index.en.html">
+    <link rel="preload" href="./images/logo_white hotel kamakura.png" as="image">
     <link rel="icon" type="image/png" href="./images/logo_white hotel kamakura.png">
     <link rel="apple-touch-icon" href="./images/logo_white hotel kamakura.png">
+    <link rel="preload" href="movies/hero-video_.mp4" as="video" type="video/mp4">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery-bundle.min.css">
-    
-    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     
     </style>
 </head>
@@ -86,7 +87,7 @@
                     <a href="#reviews" class="nav-link">Reviews</a>
                     <a href="#faq" class="nav-link">FAQ</a>
                     <a href="story.html" class="nav-link">Story</a>
-                    <a href="blog.html" class="nav-link">Blog</a>
+                    <a href="blog.en.html" class="nav-link">Blog</a>
                     <a href="sponsor.en.html" class="nav-link">Sponsors</a>
                     <a href="#bookingWidget" class="nav-cta">Find a Room</a>
                     <div class="language-switcher">
@@ -112,14 +113,18 @@
         <a href="#reviews" class="mobile-nav-link">Reviews</a>
         <a href="#faq" class="mobile-nav-link">FAQ</a>
         <a href="story.html" class="mobile-nav-link">Story</a>
-        <a href="blog.html" class="mobile-nav-link">Blog</a>
+        <a href="blog.en.html" class="mobile-nav-link">Blog</a>
         <a href="sponsor.en.html" class="mobile-nav-link">Sponsors</a>
         <a href="#bookingWidget" class="mobile-nav-link">Find a Room</a>
     </div>
 
     <main>
         <section id="home" class="hero">
-            <video class="hero-video" src="videos/hero-video.mp4" autoplay loop muted playsinline></video>
+            <video class="hero-video" autoplay loop muted playsinline preload="metadata" loading="eager">
+                <source src="movies/hero-video_.mp4" type="video/mp4">
+                <source src="movies/IMG_3587.MOV" type="video/quicktime">
+                Your browser does not support the video tag.
+            </video>
             <div class="hero-bg"></div>
             <div class="container">
                 <div class="hero-content">
@@ -886,21 +891,97 @@
                     </p>
                 </div>
 
-                <div class="reviews-carousel swiper" data-aos="fade-up" data-aos-delay="200">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="review-slide" style="min-height: auto; padding: 3rem;">
-                                <div class="review-content" style="font-style: normal; color: var(--text-primary); font-size: 1.1rem; margin-bottom: 0;">
-                                    <p>Our hotel will be open for a limited time from July 15, 2025.</p>
-                                    <p>After opening, we plan to post reviews from guests who have actually stayed with us here.</p>
-                                    <p>We sincerely look forward to your valuable feedback.</p>
+                <div class="reviews-container" data-aos="fade-up" data-aos-delay="200">
+                    <div class="reviews-tabs">
+                        <button class="review-tab-btn active" data-tab="notebook">Official Site Reviews</button>
+                        <button class="review-tab-btn" data-tab="booking">Booking.com Reviews</button>
+                    </div>
+
+                    <div class="reviews-content">
+                        <!-- Official Site Reviews (Handwritten Notes) -->
+                        <div class="review-tab-pane active" id="notebook-reviews">
+                            <div class="reviews-scroll-container" id="reviewsContainer">
+                                <div class="reviews-gallery" id="reviewsGallery">
+                                    <!-- Handwritten review images -->
+                                    <div class="review-image-slide">
+                                        <img src="images/みんなの声/IMG_3622.JPG" alt="Guest Review" onclick="openReviewLightbox(this.src)">
+                                    </div>
+                                    <div class="review-image-slide">
+                                        <img src="images/みんなの声/この健物の良いところ_ページ_01.png" alt="Guest Review" onclick="openReviewLightbox(this.src)">
+                                    </div>
+                                    <div class="review-image-slide">
+                                        <img src="images/みんなの声/この健物の良いところ_ページ_02.png" alt="Guest Review" onclick="openReviewLightbox(this.src)">
+                                    </div>
+                                    <div class="review-image-slide">
+                                        <img src="images/みんなの声/この健物の良いところ_ページ_03.png" alt="Guest Review" onclick="openReviewLightbox(this.src)">
+                                    </div>
+                                    <div class="review-image-slide">
+                                        <img src="images/みんなの声/この健物の良いところ_ページ_04.png" alt="Guest Review" onclick="openReviewLightbox(this.src)">
+                                    </div>
+                                    <div class="review-image-slide">
+                                        <img src="images/みんなの声/この健物の良いところ_ページ_05.png" alt="Guest Review" onclick="openReviewLightbox(this.src)">
+                                    </div>
+                                    <div class="review-image-slide">
+                                        <img src="images/みんなの声/この健物の良いところ_ページ_06.png" alt="Guest Review" onclick="openReviewLightbox(this.src)">
+                                    </div>
+                                    <div class="review-image-slide">
+                                        <img src="images/みんなの声/この健物の良いところ_ページ_07.png" alt="Guest Review" onclick="openReviewLightbox(this.src)">
+                                    </div>
+                                    <div class="review-image-slide">
+                                        <img src="images/みんなの声/この健物の良いところ_ページ_08.png" alt="Guest Review" onclick="openReviewLightbox(this.src)">
+                                    </div>
+                                    <div class="review-image-slide">
+                                        <img src="images/みんなの声/この健物の良いところ_ページ_09.png" alt="Guest Review" onclick="openReviewLightbox(this.src)">
+                                    </div>
+                                    <div class="review-image-slide">
+                                        <img src="images/みんなの声/この健物の良いところ_ページ_10.png" alt="Guest Review" onclick="openReviewLightbox(this.src)">
+                                    </div>
+                                    <div class="review-image-slide">
+                                        <img src="images/みんなの声/この健物の良いところ_ページ_11.png" alt="Guest Review" onclick="openReviewLightbox(this.src)">
+                                    </div>
                                 </div>
+                            </div>
+                            
+                            <!-- Custom Navigation -->
+                            <div class="reviews-navigation">
+                                <button class="review-nav-btn" id="prevBtn" onclick="scrollReviews('prev')">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                                    </svg>
+                                </button>
+                                <button class="review-nav-btn" id="nextBtn" onclick="scrollReviews('next')">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Booking.com Reviews -->
+                        <div class="review-tab-pane" id="booking-reviews">
+                            <div class="reviews-carousel swiper">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="review-slide">
+                                            <div class="review-rating">★★★★★ 10/10</div>
+                                            <div class="review-content">
+                                                <p>The staff was very kind and helpful</p>
+                                            </div>
+                                            <div class="review-author">
+                                                <div class="author-info">
+                                                    <h4>Mr. S</h4>
+                                                    <p>From Booking.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-pagination"></div>
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
                 </div>
             </div>
         </section>
@@ -1077,6 +1158,24 @@
         </section>
     </main>
 
+    <!-- Review Lightbox -->
+    <div class="review-lightbox" id="reviewLightbox" onclick="closeReviewLightbox()">
+        <span class="review-lightbox-close" onclick="closeReviewLightbox()">&times;</span>
+        <img id="lightboxImage" src="" alt="Guest Review">
+        
+        <!-- Lightbox Navigation -->
+        <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox('prev')" id="lightboxPrev">
+            <svg viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+        </button>
+        <button class="lightbox-nav lightbox-next" onclick="navigateLightbox('next')" id="lightboxNext">
+            <svg viewBox="0 0 24 24">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+            </svg>
+        </button>
+    </div>
+
     <!-- Sponsor CTA Section -->
     <section class="sponsor-cta-section">
         <div class="container">
@@ -1146,11 +1245,191 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+
+    <script>
+        // Apple-like smooth scroll navigation for reviews
+        function scrollReviews(direction) {
+            const container = document.getElementById('reviewsContainer');
+            const slides = document.querySelectorAll('.review-image-slide');
+            
+            if (slides.length === 0) return;
+            
+            const slideWidth = slides[0].offsetWidth;
+            const gap = 24; // 1.5rem gap
+            const scrollAmount = slideWidth + gap;
+            
+            // Calculate current slide index
+            const currentScroll = container.scrollLeft;
+            const currentIndex = Math.round(currentScroll / scrollAmount);
+            
+            let targetIndex;
+            if (direction === 'next') {
+                targetIndex = Math.min(currentIndex + 1, slides.length - Math.floor(container.clientWidth / scrollAmount));
+            } else {
+                targetIndex = Math.max(currentIndex - 1, 0);
+            }
+            
+            const targetScroll = targetIndex * scrollAmount;
+            
+            // Smooth scroll with easing
+            container.scrollTo({
+                left: targetScroll,
+                behavior: 'smooth'
+            });
+            
+            // Update button states after animation
+            setTimeout(() => {
+                updateNavigationButtons();
+            }, 400);
+        }
+        
+        function updateNavigationButtons() {
+            const container = document.getElementById('reviewsContainer');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (container && prevBtn && nextBtn) {
+                const slides = document.querySelectorAll('.review-image-slide');
+                const slideWidth = slides.length > 0 ? slides[0].offsetWidth : 520;
+                const gap = 24;
+                const scrollAmount = slideWidth + gap;
+                
+                const currentIndex = Math.round(container.scrollLeft / scrollAmount);
+                const maxVisibleSlides = Math.floor(container.clientWidth / scrollAmount);
+                const maxIndex = slides.length - maxVisibleSlides;
+                
+                const isAtStart = currentIndex <= 0;
+                const isAtEnd = currentIndex >= Math.max(0, maxIndex);
+                
+                prevBtn.disabled = isAtStart;
+                nextBtn.disabled = isAtEnd;
+            }
+        }
+
+        // Review images array for navigation
+        const reviewImages = [
+            'images/みんなの声/IMG_3622.JPG',
+            'images/みんなの声/この健物の良いところ_ページ_01.png',
+            'images/みんなの声/この健物の良いところ_ページ_02.png',
+            'images/みんなの声/この健物の良いところ_ページ_03.png',
+            'images/みんなの声/この健物の良いところ_ページ_04.png',
+            'images/みんなの声/この健物の良いところ_ページ_05.png',
+            'images/みんなの声/この健物の良いところ_ページ_06.png',
+            'images/みんなの声/この健物の良いところ_ページ_07.png',
+            'images/みんなの声/この健物の良いところ_ページ_08.png',
+            'images/みんなの声/この健物の良いところ_ページ_09.png',
+            'images/みんなの声/この健物の良いところ_ページ_10.png',
+            'images/みんなの声/この健物の良いところ_ページ_11.png'
+        ];
+        let currentImageIndex = 0;
+
+        // Review lightbox functions
+        function openReviewLightbox(imageSrc) {
+            if (event) event.stopPropagation();
+            const lightbox = document.getElementById('reviewLightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            
+            if (lightbox && lightboxImage) {
+                // Find current image index
+                currentImageIndex = reviewImages.indexOf(imageSrc);
+                
+                lightboxImage.src = imageSrc;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                updateLightboxButtons();
+            }
+        }
+
+        function closeReviewLightbox() {
+            const lightbox = document.getElementById('reviewLightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function navigateLightbox(direction) {
+            if (event) event.stopPropagation();
+            
+            if (direction === 'next' && currentImageIndex < reviewImages.length - 1) {
+                currentImageIndex++;
+            } else if (direction === 'prev' && currentImageIndex > 0) {
+                currentImageIndex--;
+            }
+            
+            const lightboxImage = document.getElementById('lightboxImage');
+            if (lightboxImage) {
+                lightboxImage.src = reviewImages[currentImageIndex];
+                updateLightboxButtons();
+            }
+        }
+
+        function updateLightboxButtons() {
+            const prevBtn = document.getElementById('lightboxPrev');
+            const nextBtn = document.getElementById('lightboxNext');
+            
+            if (prevBtn && nextBtn) {
+                prevBtn.style.display = currentImageIndex > 0 ? 'flex' : 'none';
+                nextBtn.style.display = currentImageIndex < reviewImages.length - 1 ? 'flex' : 'none';
+            }
+        }
+
+        // Add keyboard navigation for lightbox
+        document.addEventListener('keydown', function(e) {
+            const lightbox = document.getElementById('reviewLightbox');
+            if (lightbox && lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    closeReviewLightbox();
+                } else if (e.key === 'ArrowRight') {
+                    navigateLightbox('next');
+                } else if (e.key === 'ArrowLeft') {
+                    navigateLightbox('prev');
+                }
+            }
+        });
+        
+        // Initialize navigation buttons on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                updateNavigationButtons();
+            }, 500); // Wait for images to load
+            
+            // Update buttons on scroll
+            const container = document.getElementById('reviewsContainer');
+            if (container) {
+                container.addEventListener('scroll', updateNavigationButtons);
+            }
+        });
+        
+        // Also initialize when window loads (after all images)
+        window.addEventListener('load', function() {
+            updateNavigationButtons();
+        });
+
+        // Review tabs functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const reviewTabs = document.querySelectorAll('.review-tab-btn');
+            const reviewPanes = document.querySelectorAll('.review-tab-pane');
+            
+            reviewTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.dataset.tab;
+                    
+                    // Update tab buttons
+                    reviewTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Update tab panes
+                    reviewPanes.forEach(pane => {
+                        pane.classList.toggle('active', pane.id === `${tabId}-reviews`);
+                    });
+                });
+            });
+        });
+    </script>
 
     
     
@@ -1406,7 +1685,7 @@
             if (loader) {
                 // Hide immediately on DOMContentLoaded
                 loader.style.opacity = '0';
-                setTimeout(() => { loader.style.display = 'none'; }, 500); // Slight delay for animation
+                setTimeout(() => { loader.style.display = 'none'; }, 100); // Faster loading
             }
 
             // Header Scroll
