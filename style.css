@@ -625,7 +625,89 @@ select.form-input {
 
 /* レビューカルーセル */
 .reviews-section { padding: 6rem 0; background: var(--bg-offwhite); }
-.reviews-carousel { margin-top: 3rem; padding: 0 40px; }
+.reviews-carousel { 
+    margin-top: 3rem; 
+    padding: 0 40px; 
+    overflow: hidden;
+}
+
+.reviews-carousel .swiper-wrapper {
+    display: flex;
+    transition-timing-function: linear;
+}
+
+.reviews-carousel .swiper-button-next,
+.reviews-carousel .swiper-button-prev {
+    background: rgba(255, 255, 255, 0.9);
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.reviews-carousel .swiper-button-next:after,
+.reviews-carousel .swiper-button-prev:after {
+    font-size: 16px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Review image gallery styles */
+.review-image-slide {
+    height: 225px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.review-image-slide:hover {
+    transform: scale(1.05);
+}
+
+.review-image-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Lightbox for review images */
+.review-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    cursor: pointer;
+}
+
+.review-lightbox.active {
+    display: flex;
+}
+
+.review-lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.review-lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    z-index: 10001;
+}
 .review-slide { background: var(--white); padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow-soft); text-align: center; margin: 0; display: flex; flex-direction: column; justify-content: space-between; min-height: 350px; }
 .review-content { font-size: 1.05rem; font-style: italic; color: var(--text-secondary); line-height: 1.8; margin-bottom: 2rem; position: relative; }
 .review-content::before { content: '“'; font-size: 4rem; color: rgba(221, 153, 70, 0.1); font-family: sans-serif; position: absolute; top: -20px; left: -10px; z-index: 1; }
@@ -1765,6 +1847,43 @@ footer p a:hover {
 
 .review-tab-pane.active {
     display: block;
+}
+
+/* Optimize swiper for review images */
+#notebook-reviews .swiper-slide {
+    width: auto;
+    flex-shrink: 0;
+}
+
+#notebook-reviews .swiper-wrapper {
+    display: flex;
+}
+
+#notebook-reviews .swiper-container {
+    overflow: hidden;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .review-image-slide {
+        height: 180px;
+    }
+}
+
+.review-image-slide {
+    min-width: 300px;
+}
+
+@media (max-width: 768px) {
+    .review-image-slide {
+        min-width: 240px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .review-image-slide {
+        min-width: 330px;
+    }
 }
 
 /* Review Card Additions */

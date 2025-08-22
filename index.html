@@ -920,10 +920,41 @@
                     <div class="reviews-carousel swiper">
                         <div class="swiper-wrapper" id="notebook-gallery">
                             <!-- ノートに書かれたレビュー画像 -->
-                            <div class="swiper-slide">
-                                <a href="images/みんなの声/IMG_3622.JPG" class="review-image-link">
-                                    <img src="images/みんなの声/IMG_3622.JPG" alt="お客様の声" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
-                                </a>
+                            <div class="swiper-slide review-image-slide">
+                                <img src="images/みんなの声/IMG_3622.JPG" alt="お客様の声" ondblclick="openReviewLightbox(this.src)">
+                            </div>
+                            <div class="swiper-slide review-image-slide">
+                                <img src="images/みんなの声/この健物の良いところ_ページ_01.png" alt="お客様の声" ondblclick="openReviewLightbox(this.src)">
+                            </div>
+                            <div class="swiper-slide review-image-slide">
+                                <img src="images/みんなの声/この健物の良いところ_ページ_02.png" alt="お客様の声" ondblclick="openReviewLightbox(this.src)">
+                            </div>
+                            <div class="swiper-slide review-image-slide">
+                                <img src="images/みんなの声/この健物の良いところ_ページ_03.png" alt="お客様の声" ondblclick="openReviewLightbox(this.src)">
+                            </div>
+                            <div class="swiper-slide review-image-slide">
+                                <img src="images/みんなの声/この健物の良いところ_ページ_04.png" alt="お客様の声" ondblclick="openReviewLightbox(this.src)">
+                            </div>
+                            <div class="swiper-slide review-image-slide">
+                                <img src="images/みんなの声/この健物の良いところ_ページ_05.png" alt="お客様の声" ondblclick="openReviewLightbox(this.src)">
+                            </div>
+                            <div class="swiper-slide review-image-slide">
+                                <img src="images/みんなの声/この健物の良いところ_ページ_06.png" alt="お客様の声" ondblclick="openReviewLightbox(this.src)">
+                            </div>
+                            <div class="swiper-slide review-image-slide">
+                                <img src="images/みんなの声/この健物の良いところ_ページ_07.png" alt="お客様の声" ondblclick="openReviewLightbox(this.src)">
+                            </div>
+                            <div class="swiper-slide review-image-slide">
+                                <img src="images/みんなの声/この健物の良いところ_ページ_08.png" alt="お客様の声" ondblclick="openReviewLightbox(this.src)">
+                            </div>
+                            <div class="swiper-slide review-image-slide">
+                                <img src="images/みんなの声/この健物の良いところ_ページ_09.png" alt="お客様の声" ondblclick="openReviewLightbox(this.src)">
+                            </div>
+                            <div class="swiper-slide review-image-slide">
+                                <img src="images/みんなの声/この健物の良いところ_ページ_10.png" alt="お客様の声" ondblclick="openReviewLightbox(this.src)">
+                            </div>
+                            <div class="swiper-slide review-image-slide">
+                                <img src="images/みんなの声/この健物の良いところ_ページ_11.png" alt="お客様の声" ondblclick="openReviewLightbox(this.src)">
                             </div>
                             <!-- 他のノートレビュー画像をここに追加 -->
                         </div>
@@ -1133,6 +1164,12 @@
             </div>
         </section>
     </main>
+
+    <!-- Review Lightbox -->
+    <div class="review-lightbox" id="reviewLightbox" onclick="closeReviewLightbox()">
+        <span class="review-lightbox-close" onclick="closeReviewLightbox()">&times;</span>
+        <img id="lightboxImage" src="" alt="お客様の声">
+    </div>
 
     <!-- スポンサー募集セクション -->
     <section class="sponsor-cta-section">
@@ -1720,23 +1757,87 @@
 
             function initializeSwiper(selector) {
                 if (document.querySelector(selector) && !swipers[selector]) {
-                    swipers[selector] = new Swiper(selector, {
-                        slidesPerView: 1,
-                        spaceBetween: 30,
-                        loop: true,
-                        autoplay: {
-                            delay: 5000,
-                            disableOnInteraction: false,
-                        },
-                        pagination: {
-                            el: selector + ' .swiper-pagination',
-                            clickable: true,
-                        },
-                        navigation: {
-                            nextEl: selector + ' .swiper-button-next',
-                            prevEl: selector + ' .swiper-button-prev',
-                        },
-                    });
+                    if (selector.includes('notebook-reviews')) {
+                        // Special configuration for review images
+                        swipers[selector] = new Swiper(selector, {
+                            slidesPerView: 3,
+                            spaceBetween: 20,
+                            centeredSlides: false,
+                            loop: false,
+                            grabCursor: true,
+                            touchRatio: 1,
+                            allowTouchMove: true,
+                            slidesPerGroup: 1,
+                            speed: 400,
+                            freeMode: false,
+                            pagination: {
+                                el: selector + ' .swiper-pagination',
+                                clickable: true,
+                                dynamicBullets: true,
+                            },
+                            navigation: {
+                                nextEl: selector + ' .swiper-button-next',
+                                prevEl: selector + ' .swiper-button-prev',
+                            },
+                            breakpoints: {
+                                320: {
+                                    slidesPerView: 1.2,
+                                    spaceBetween: 15,
+                                },
+                                640: {
+                                    slidesPerView: 2,
+                                    spaceBetween: 20,
+                                },
+                                1024: {
+                                    slidesPerView: 3,
+                                    spaceBetween: 25,
+                                }
+                            },
+                            on: {
+                                init: function() {
+                                    console.log('Swiper initialized for reviews');
+                                    // Add click handlers to images
+                                    const slides = this.slides;
+                                    slides.forEach((slide, index) => {
+                                        const img = slide.querySelector('img');
+                                        if (img) {
+                                            img.addEventListener('click', (e) => {
+                                                e.preventDefault();
+                                                const clickX = e.clientX;
+                                                const slideRect = slide.getBoundingClientRect();
+                                                const slideCenter = slideRect.left + slideRect.width / 2;
+                                                
+                                                if (clickX > slideCenter) {
+                                                    this.slideNext();
+                                                } else {
+                                                    this.slidePrev();
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        // Default configuration for other swipers
+                        swipers[selector] = new Swiper(selector, {
+                            slidesPerView: 1,
+                            spaceBetween: 30,
+                            loop: true,
+                            autoplay: {
+                                delay: 5000,
+                                disableOnInteraction: false,
+                            },
+                            pagination: {
+                                el: selector + ' .swiper-pagination',
+                                clickable: true,
+                            },
+                            navigation: {
+                                nextEl: selector + ' .swiper-button-next',
+                                prevEl: selector + ' .swiper-button-prev',
+                            },
+                        });
+                    }
                 }
             }
 
@@ -1759,6 +1860,29 @@
             // Initialize swiper for the initially active tab
             initializeSwiper('#notebook-reviews .reviews-carousel');
         }
+
+        // Review lightbox functions
+        function openReviewLightbox(imageSrc) {
+            event.stopPropagation();
+            const lightbox = document.getElementById('reviewLightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            lightboxImage.src = imageSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeReviewLightbox() {
+            const lightbox = document.getElementById('reviewLightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Add keyboard navigation for lightbox
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeReviewLightbox();
+            }
+        });
 
         function initializeLibraries() {
             // AOS

@@ -16,7 +16,8 @@
       "WebFetch(domain:docs.github.com)",
       "Bash(gh repo view:*)",
       "Bash(rm:*)",
-      "Bash(true)"
+      "Bash(true)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "additionalDirectories": [
