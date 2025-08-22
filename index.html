@@ -768,6 +768,23 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Floor Guide -->
+                <div class="floor-guide-section" data-aos="fade-up">
+                    <div class="floor-guide-container">
+                        <h3 class="floor-guide-title">館内フロアガイド</h3>
+                        <p class="floor-guide-subtitle">各お部屋の位置と共用設備のご案内</p>
+                        <div class="floor-guide-wrapper">
+                            <img src="images/floor guide.png" alt="ホワイトホテル鎌倉 館内フロアガイド" class="floor-guide-image" onclick="openFloorGuide()">
+                            <div class="floor-guide-overlay">
+                                <svg class="expand-icon" viewBox="0 0 24 24">
+                                    <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                                </svg>
+                                <span>クリックで拡大表示</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1177,6 +1194,14 @@
     </main>
 
     <!-- Review Lightbox -->
+    <!-- Floor Guide Lightbox -->
+    <div class="floor-guide-lightbox" id="floorGuideLightbox" onclick="closeFloorGuide()">
+        <div class="floor-guide-lightbox-content">
+            <button class="floor-guide-close" onclick="closeFloorGuide()">&times;</button>
+            <img src="images/floor guide.png" alt="ホワイトホテル鎌倉 館内フロアガイド">
+        </div>
+    </div>
+
     <div class="review-lightbox" id="reviewLightbox" onclick="closeReviewLightbox()">
         <span class="review-lightbox-close" onclick="closeReviewLightbox()">&times;</span>
         <img id="lightboxImage" src="" alt="お客様の声">
@@ -1564,12 +1589,14 @@
                 const isScrolled = currentScrollY > 50;
                 if (header) {
                     header.classList.toggle('header-transparent', !isScrolled && window.scrollY < 50);
-                     if (window.innerWidth > 768) {
+                    if (window.innerWidth > 768) {
                         if (currentScrollY > lastScrollY && isScrolled) {
                             header.style.transform = 'translateY(-100%)';
                         } else {
                             header.style.transform = 'translateY(0)';
                         }
+                    } else {
+                        header.style.transform = 'translateY(0)'; // Mobile always visible
                     }
                 }
                 lastScrollY = currentScrollY;
@@ -2179,6 +2206,59 @@
         // --- アプリケーションの実行 ---
         document.addEventListener('DOMContentLoaded', initializeApp);
         window.addEventListener('load', initializeLibraries);
+
+        // Mobile touch support for review images
+        function initializeMobileImageClicks() {
+            const reviewImages = document.querySelectorAll('.review-image-slide img');
+            reviewImages.forEach(img => {
+                // Add touch support for mobile devices
+                img.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openReviewLightbox(this.src);
+                });
+                
+                // Also add click support for desktop
+                img.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openReviewLightbox(this.src);
+                });
+                
+                // Make images more touch-friendly
+                img.style.cursor = 'pointer';
+                img.style.touchAction = 'manipulation';
+            });
+        }
+
+        // Initialize mobile touches after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initializeMobileImageClicks, 100);
+        });
+
+        // Floor Guide Functions
+        function openFloorGuide() {
+            const lightbox = document.getElementById('floorGuideLightbox');
+            if (lightbox) {
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeFloorGuide() {
+            const lightbox = document.getElementById('floorGuideLightbox');
+            if (lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Keyboard support for floor guide
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeFloorGuide();
+            }
+        });
         
         // TikTokスライダー機能
         let currentSlideIndex = 0;
