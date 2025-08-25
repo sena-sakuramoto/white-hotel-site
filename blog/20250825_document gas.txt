@@ -1074,22 +1074,22 @@ function publishCurrentDocumentToGitHub() {
     var result = publishBlogToGitHub(doc.getId());
     
     if (result.success) {
-      var successHTML = '<div style="padding: 20px; font-family: Arial, sans-serif;">' +
-        '<h2 style="color: #4CAF50;">✅ 公開成功！</h2>' +
-        '<p>' + result.message + '</p>' +
-        '<p><strong>ファイル:</strong> ' + result.fileName + '</p>' +
-        '<p><strong>URL:</strong> <a href="' + result.url + '" target="_blank">' + result.url + '</a></p>' +
-        '<p><strong>画像数:</strong> ' + result.imagesCount + '枚</p>' +
-        '<button onclick="google.script.host.close()">閉じる</button>' +
+      var successHTML = '<div style="padding: 20px; font-family: Arial, sans-serif;">' + 
+        '<h2 style="color: #4CAF50;">✅ 公開成功！</h2>' + 
+        '<p>' + result.message + '</p>' + 
+        '<p><strong>ファイル:</strong> ' + result.fileName + '</p>' + 
+        '<p><strong>URL:</strong> <a href="' + result.url + '" target="_blank">' + result.url + '</a></p>' + 
+        '<p><strong>画像数:</strong> ' + result.imagesCount + '枚</p>' + 
+        '<button onclick="google.script.host.close()">閉じる</button>' + 
         '</div>';
       
       var htmlOutput = HtmlService.createHtmlOutput(successHTML).setWidth(500).setHeight(350);
       DocumentApp.getUi().showModalDialog(htmlOutput, 'ブログ公開完了（画像対応修正版）');
     } else {
-      var errorHTML = '<div style="padding: 20px; font-family: Arial, sans-serif;">' +
-        '<h2 style="color: #f44336;">❌ エラー</h2>' +
-        '<p>' + result.message + '</p>' +
-        '<button onclick="google.script.host.close()">閉じる</button>' +
+      var errorHTML = '<div style="padding: 20px; font-family: Arial, sans-serif;">' + 
+        '<h2 style="color: #f44336;">❌ エラー</h2>' + 
+        '<p>' + result.message + '</p>' + 
+        '<button onclick="google.script.host.close()">閉じる</button>' + 
         '</div>';
       
       var htmlOutput = HtmlService.createHtmlOutput(errorHTML).setWidth(400).setHeight(200);
@@ -1129,10 +1129,10 @@ function testImageDetection() {
       console.log('画像 ' + (i + 1) + ': ' + images[i].filename);
     }
     
-    var testHTML = '<div style="padding: 20px; font-family: Arial, sans-serif;">' +
-      '<h2>画像検出テスト結果</h2>' +
-      '<p>検出された画像数: <strong>' + images.length + '</strong></p>' +
-      '<button onclick="google.script.host.close()">閉じる</button>' +
+    var testHTML = '<div style="padding: 20px; font-family: Arial, sans-serif;">' + 
+      '<h2>画像検出テスト結果</h2>' + 
+      '<p>検出された画像数: <strong>' + images.length + '</strong></p>' + 
+      '<button onclick="google.script.host.close()">閉じる</button>' + 
       '</div>';
     
     var htmlOutput = HtmlService.createHtmlOutput(testHTML).setWidth(400).setHeight(200);
