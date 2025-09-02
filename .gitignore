@@ -1,1 +1,47 @@
+# Movie files
 movies/hero-video_.mp4
+
+# Google Apps Script files (development only)
+*.gs
+
+# Temporary and backup files
+*.backup
+*.bak
+*.bak2
+*_temp.html
+temp_replacement.txt
+testSearchDebug.txt
+修正指示*.txt
+commit_message.txt
+
+# Development documentation files
+Blog-*.md
+blog-setup-guide.md
+github-blog-setup-guide.md
+git-workflow.md
+GEMINI.md
+
+# Claude settings
+.claude/
+
+# Images (if not needed for web)
+images/main_image.png
+
+# Japanese directories (move content elsewhere if needed)
+ホワイトホテル鎌倉*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Node modules (if using Node.js)
+node_modules/
+npm-debug.log*
+
+# Build files
+dist/
+build/

@@ -1,0 +1,1170 @@
+// =========================================================================
+// WHITE HOTEL Kamakura ブログ自動更新システム（GitHub版）- Google Apps Script
+// =========================================================================
+
+// === GitHub設定 ===
+const GITHUB_CONFIG = {
+  owner: 'sena-sakuramoto',                    // GitHubユーザー名
+  repo: 'white-hotel-site',                  // リポジトリ名
+  token: PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN'), // GitHubトークン
+  branch: 'master'                             // ブランチ名（mainまたはmaster）
+};
+
+/**
+ * メイン関数：Googleドキュメントをブログ記事として公開（画像対応修正版）
+ */
+function publishBlogToGitHub(documentId) {
+  try {
+    console.log('ブログ公開開始（画像対応修正版）');
+    
+    var doc = DocumentApp.openById(documentId);
+    var title = doc.getName();
+    
+    // まず画像を検出
+    console.log('画像検出を開始...');
+    var images = extractAllImages(doc);
+    console.log('検出された画像数: ' + images.length);
+    
+    // HTMLに変換
+    var htmlData = convertDocToHTMLWithImages(doc, images);
+    console.log('HTML変換完了。目次項目数: ' + htmlData.toc.length);
+    
+    var fileName = createSlug(title) + '.html';
+    
+    // 画像をアップロード
+    var uploadedImages = 0;
+    var imageUrlMap = {};
+    
+    for (var i = 0; i < images.length; i++) {
+      try {
+        console.log('画像 ' + (i + 1) + ' をアップロード中...');
+        var imageResult = uploadImageToGitHub(images[i]);
+        if (imageResult.success) {
+          uploadedImages++;
+          imageUrlMap[images[i].placeholder] = imageResult.url;
+          console.log('画像アップロード成功: ' + images[i].filename);
+        } else {
+          console.error('画像アップロード失敗: ' + imageResult.error);
+        }
+      } catch (imageError) {
+        console.error('画像アップロードエラー:', imageError);
+      }
+    }
+    
+    console.log('アップロード完了画像数: ' + uploadedImages);
+    
+    // HTMLの画像パスを置換
+    var fullHTML = createEnhancedBlogHTML(htmlData.content, title, htmlData.toc);
+    for (var placeholder in imageUrlMap) {
+      fullHTML = fullHTML.replace(new RegExp(placeholder, 'g'), imageUrlMap[placeholder]);
+    }
+    
+    // 記事をGitHubにアップロード
+    createOrUpdateFile('blog/' + fileName, fullHTML, 'Add blog post: ' + title);
+    
+    // ブログ一覧を更新
+    updateBlogIndexOnGitHub(title, fileName);
+    
+    console.log('ブログ公開完了（画像: ' + uploadedImages + '枚）');
+    return { 
+      success: true, 
+      message: 'ブログ記事「' + title + '」が公開されました。画像' + uploadedImages + '枚を含みます。5-10分後にサイトに反映されます。', 
+      fileName: fileName,
+      url: 'https://white-hotel.archi-prisma.co.jp/blog/' + fileName,
+      imagesCount: uploadedImages
+    };
+    
+  } catch (error) {
+    console.error('エラー:', error);
+    return { success: false, message: 'エラー: ' + error.toString() };
+  }
+}
+
+/**
+ * ドキュメントから全ての画像を抽出
+ */
+function extractAllImages(doc) {
+  var images = [];
+  var body = doc.getBody();
+  
+  // ボディ内の全ての要素を再帰的に検索
+  function searchForImages(element) {
+    var type = element.getType();
+    
+    if (type === DocumentApp.ElementType.INLINE_IMAGE) {
+      var inlineImage = element.asInlineImage();
+      var blob = inlineImage.getBlob();
+      var imageData = {
+        blob: blob,
+        filename: 'image_' + Date.now() + '_' + images.length + '.png',
+        placeholder: '{{IMAGE_PLACEHOLDER_' + images.length + '}}'
+      };
+      images.push(imageData);
+      console.log('画像を発見: ' + imageData.filename);
+      return imageData.placeholder;
+    }
+    
+    // 子要素がある場合は再帰的に検索
+    if (type === DocumentApp.ElementType.PARAGRAPH) {
+      var paragraph = element.asParagraph();
+      var numChildren = paragraph.getNumChildren();
+      for (var i = 0; i < numChildren; i++) {
+        var child = paragraph.getChild(i);
+        searchForImages(child);
+      }
+    } else if (type === DocumentApp.ElementType.TABLE) {
+      var table = element.asTable();
+      var numRows = table.getNumRows();
+      for (var i = 0; i < numRows; i++) {
+        var row = table.getRow(i);
+        var numCells = row.getNumCells();
+        for (var j = 0; j < numCells; j++) {
+          var cell = row.getCell(j);
+          var numCellChildren = cell.getNumChildren();
+          for (var k = 0; k < numCellChildren; k++) {
+            searchForImages(cell.getChild(k));
+          }
+        }
+      }
+    } else if (type === DocumentApp.ElementType.LIST_ITEM) {
+      var listItem = element.asListItem();
+      var numChildren = listItem.getNumChildren();
+      for (var i = 0; i < numChildren; i++) {
+        searchForImages(listItem.getChild(i));
+      }
+    }
+  }
+  
+  // ボディの全子要素を検索
+  var numChildren = body.getNumChildren();
+  for (var i = 0; i < numChildren; i++) {
+    searchForImages(body.getChild(i));
+  }
+  
+  console.log('画像検索完了。合計: ' + images.length + '枚');
+  return images;
+}
+
+/**
+ * GoogleドキュメントをHTMLに変換するメイン関数（書式対応版）
+ */
+function convertDocToHTMLWithImages(doc, images) {
+  var body = doc.getBody();
+  var numChildren = body.getNumChildren();
+  var html = '';
+  var toc = [];
+  var inList = false;
+  var imageIndex = 0;
+
+  for (var i = 0; i < numChildren; i++) {
+    var element = body.getChild(i);
+    var type = element.getType();
+
+    // 現在の要素がリストアイテムでない場合、リストを閉じる
+    if (type !== DocumentApp.ElementType.LIST_ITEM && inList) {
+      html += '</ul>\n';
+      inList = false;
+    }
+
+    if (type === DocumentApp.ElementType.PARAGRAPH) {
+      var paragraph = element.asParagraph();
+      
+      // 画像を含む段落の処理
+      if (paragraph.findElement(DocumentApp.ElementType.INLINE_IMAGE)) {
+        var imgPlaceholder = images[imageIndex] ? images[imageIndex].placeholder : '';
+        var captionText = processParagraph(paragraph, true); // 画像のキャプションを取得
+        html += '<div class="image-container">\n';
+        html += '  <img src="' + imgPlaceholder + '" alt="' + captionText.replace(/"/g, '&quot;') + '" class="blog-image" />\n';
+        if (captionText) {
+          html += '  <p class="image-caption">' + captionText + '</p>\n';
+        }
+        html += '</div>\n';
+        imageIndex++;
+        continue; // 画像処理後は次の要素へ
+      }
+
+      // テキストのみの段落の処理
+      var heading = paragraph.getHeading();
+      var paragraphText = paragraph.getText().trim();
+
+      if (paragraphText === '') continue; // 空の段落はスキップ
+
+      if (heading !== DocumentApp.ParagraphHeading.NORMAL) {
+        // 見出しの処理
+        var level;
+        switch (heading) {
+          case DocumentApp.ParagraphHeading.HEADING1: level = 2; break; // H1はタイトルなのでH2から
+          case DocumentApp.ParagraphHeading.HEADING2: level = 3; break;
+          case DocumentApp.ParagraphHeading.HEADING3: level = 4; break;
+          case DocumentApp.ParagraphHeading.HEADING4: level = 5; break;
+          case DocumentApp.ParagraphHeading.HEADING5: level = 6; break;
+          case DocumentApp.ParagraphHeading.HEADING6: level = 6; break;
+          default: level = 3; // 不明な場合はH3
+        }
+        var headingId = 'heading-' + toc.length;
+        var formattedText = processParagraph(paragraph);
+        html += '<h' + level + ' id="' + headingId + '">' + formattedText + '</h' + level + '>\n';
+        toc.push({ text: paragraph.getText(), level: level, id: headingId });
+      } else {
+        // 通常の段落
+        html += '<p>' + processParagraph(paragraph) + '</p>\n';
+      }
+
+    } else if (type === DocumentApp.ElementType.LIST_ITEM) {
+      // リストアイテムの処理
+      if (!inList) {
+        html += '<ul>\n';
+        inList = true;
+      }
+      var listItem = element.asListItem();
+      html += '  <li>' + processParagraph(listItem) + '</li>\n';
+    }
+  }
+
+  // ループの最後にリストが開いたままなら閉じる
+  if (inList) {
+    html += '</ul>\n';
+  }
+
+  return { content: html, toc: toc };
+}
+
+/**
+ * 段落またはリストアイテム内のテキスト書式を処理してHTMLを生成
+ * @param {ContainerElement} element - ParagraphまたはListItemオブジェクト
+ * @param {boolean} ignoreImages - 画像を無視するかどうか
+ * @returns {string} - 書式設定されたHTML文字列
+ */
+function processParagraph(element, ignoreImages) {
+  if (ignoreImages === undefined) {
+    ignoreImages = false;
+  }
+  var html = '';
+  if (!element.getNumChildren) return '';
+
+  for (var i = 0; i < element.getNumChildren(); i++) {
+    var child = element.getChild(i);
+    var type = child.getType();
+
+    if (type === DocumentApp.ElementType.TEXT) {
+      var textElement = child.asText();
+      var text = textElement.getText();
+      if (text.trim() === '') continue;
+
+      var attributes = textElement.getAttributes();
+      var linkUrl = attributes[DocumentApp.Attribute.LINK_URL];
+      var isBold = attributes[DocumentApp.Attribute.BOLD];
+      var isItalic = attributes[DocumentApp.Attribute.ITALIC];
+      var isUnderline = attributes[DocumentApp.Attribute.UNDERLINE];
+
+      var partialHtml = text.replace(/\n/g, '<br>');
+
+      if (isUnderline) partialHtml = '<u>' + partialHtml + '</u>';
+      if (isItalic) partialHtml = '<em>' + partialHtml + '</em>';
+      if (isBold) partialHtml = '<strong>' + partialHtml + '</strong>';
+      if (linkUrl) {
+        partialHtml = '<a href="' + linkUrl + '" target="_blank" rel="noopener noreferrer">' + partialHtml + '</a>';
+      }
+      
+      html += partialHtml;
+    } else if (type === DocumentApp.ElementType.INLINE_IMAGE && !ignoreImages) {
+      // このケースは基本的に親の `convertDocToHTMLWithImages` で処理されるが、
+      // 念のため空の文字列を返しておく
+      html += '';
+    }
+  }
+  return html;
+}
+
+/**
+ * 画像をGitHubにアップロード
+ */
+function uploadImageToGitHub(imageData) {
+  try {
+    var base64Content = Utilities.base64Encode(imageData.blob.getBytes());
+    var imagePath = 'images/blog/' + imageData.filename;
+    
+    // 既存ファイルチェック
+    var sha = null;
+    try {
+      var getUrl = 'https://api.github.com/repos/' + GITHUB_CONFIG.owner + '/' + GITHUB_CONFIG.repo + '/contents/' + imagePath;
+      var getResponse = UrlFetchApp.fetch(getUrl, {
+        headers: {
+          'Authorization': 'token ' + GITHUB_CONFIG.token,
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      });
+      
+      if (getResponse.getResponseCode() === 200) {
+        var fileData = JSON.parse(getResponse.getContentText());
+        sha = fileData.sha;
+      }
+    } catch (e) {
+      // 新規ファイル
+    }
+    
+    var payload = {
+      message: 'Add blog image: ' + imageData.filename,
+      content: base64Content,
+      branch: GITHUB_CONFIG.branch
+    };
+    
+    if (sha) {
+      payload.sha = sha;
+    }
+    
+    var url = 'https://api.github.com/repos/' + GITHUB_CONFIG.owner + '/' + GITHUB_CONFIG.repo + '/contents/' + imagePath;
+    
+    var response = UrlFetchApp.fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'token ' + GITHUB_CONFIG.token,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      payload: JSON.stringify(payload)
+    });
+    
+    if (response.getResponseCode() === 201 || response.getResponseCode() === 200) {
+      console.log('画像アップロード成功: ' + imageData.filename);
+      return {
+        success: true,
+        url: 'https://white-hotel.archi-prisma.co.jp/' + imagePath
+      };
+    } else {
+      throw new Error('画像アップロード失敗: ' + response.getResponseCode() + ' - ' + response.getContentText());
+    }
+    
+  } catch (error) {
+    console.error('画像アップロードエラー:', error);
+    return {
+      success: false,
+      error: error.toString()
+    };
+  }
+}
+
+/**
+ * GitHubにファイルを作成/更新
+ */
+function createOrUpdateFile(path, content, message) {
+  var base64Content = Utilities.base64Encode(content, Utilities.Charset.UTF_8);
+  
+  var sha = null;
+  try {
+    var getUrl = 'https://api.github.com/repos/' + GITHUB_CONFIG.owner + '/' + GITHUB_CONFIG.repo + '/contents/' + path;
+    var getResponse = UrlFetchApp.fetch(getUrl, {
+      headers: {
+        'Authorization': 'token ' + GITHUB_CONFIG.token,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    
+    if (getResponse.getResponseCode() === 200) {
+      var fileData = JSON.parse(getResponse.getContentText());
+      sha = fileData.sha;
+    }
+  } catch (e) {
+    console.log('新規ファイル作成');
+  }
+  
+  var payload = {
+    message: message,
+    content: base64Content,
+    branch: GITHUB_CONFIG.branch
+  };
+  
+  if (sha) {
+    payload.sha = sha;
+  }
+  
+  var url = 'https://api.github.com/repos/' + GITHUB_CONFIG.owner + '/' + GITHUB_CONFIG.repo + '/contents/' + path;
+  
+  var response = UrlFetchApp.fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Authorization': 'token ' + GITHUB_CONFIG.token,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    payload: JSON.stringify(payload)
+  });
+  
+  if (response.getResponseCode() !== 200 && response.getResponseCode() !== 201) {
+    throw new Error('GitHub API Error: ' + response.getResponseCode());
+  }
+  
+  console.log('ファイル更新成功: ' + path);
+}
+
+/**
+ * GitHubからファイルを取得
+ */
+function getFileFromGitHub(path) {
+  var url = 'https://api.github.com/repos/' + GITHUB_CONFIG.owner + '/' + GITHUB_CONFIG.repo + '/contents/' + path;
+  
+  var response = UrlFetchApp.fetch(url, {
+    headers: {
+      'Authorization': 'token ' + GITHUB_CONFIG.token,
+      'Accept': 'application/vnd.github.v3+json'
+    }
+  });
+  
+  if (response.getResponseCode() !== 200) {
+    throw new Error('ファイル取得エラー: ' + path);
+  }
+  
+  var fileData = JSON.parse(response.getContentText());
+  var content = Utilities.base64Decode(fileData.content, Utilities.Charset.UTF_8);
+  return { content: content, sha: fileData.sha };
+}
+
+/**
+ * ブログ一覧ページを更新
+ */
+function updateBlogIndexOnGitHub(title, fileName) {
+  try {
+    var today = new Date();
+    var dateStr = Utilities.formatDate(today, 'JST', 'yyyy年MM月dd日');
+    
+    var blogFile = getFileFromGitHub('blog.html');
+    var blogContent;
+    if (typeof blogFile.content === 'string') {
+      blogContent = blogFile.content;
+    } else {
+      blogContent = Utilities.newBlob(blogFile.content).getDataAsString('UTF-8');
+    }
+    
+    console.log('blog.html取得成功');
+    
+    var excerpt = generateExcerpt(title);
+    
+    var newBlogItem = '                <li class="blog-post-item">' + '\n' + 
+                      '                    <h2><a href="blog/' + fileName + '">' + title + '</a></h2>' + '\n' + 
+                      '                    <p class="blog-post-meta">' + dateStr + '</p>' + '\n' + 
+                      '                    <p class="blog-post-excerpt">' + excerpt + '</p>' + '\n' + 
+                      '                </li>';
+    
+    var insertPoint = blogContent.indexOf('<li class="blog-post-item">');
+    
+    if (insertPoint !== -1) {
+      console.log('既存記事の前に挿入');
+      blogContent = blogContent.substring(0, insertPoint) + newBlogItem + '\n' + blogContent.substring(insertPoint);
+    } else {
+      var listStartPattern = '<ul class="blog-post-list">';
+      var listStart = blogContent.indexOf(listStartPattern);
+      
+      if (listStart !== -1) {
+        var insertAfterTag = listStart + listStartPattern.length;
+        console.log('空のリストに挿入');
+        blogContent = blogContent.substring(0, insertAfterTag) + '\n' + newBlogItem + blogContent.substring(insertAfterTag);
+      } else {
+        console.error('リスト要素が見つかりません');
+        return;
+      }
+    }
+    
+    createOrUpdateFile('blog.html', blogContent, 'Update blog index: add ' + title);
+    console.log('ブログ一覧更新完了');
+    
+  } catch (error) {
+    console.error('ブログ一覧更新エラー:', error);
+  }
+}
+
+/**
+ * タイトルから適切な抜粋を生成
+ */
+function generateExcerpt(title) {
+  if (title.indexOf('鎌倉') !== -1) {
+    return 'ホワイトホテル鎌倉周辺の魅力的なスポットや体験をご紹介します。';
+  } else if (title.indexOf('グルメ') !== -1 || title.indexOf('カフェ') !== -1) {
+    return '鎌倉の美味しいお店やカフェ情報をお届けします。';
+  } else if (title.indexOf('ホテル') !== -1) {
+    return 'ホワイトホテル鎌倉での滞在をより特別なものにする情報です。';
+  } else if (title.indexOf('江ノ電') !== -1) {
+    return '江ノ電沿線の魅力やアクセス情報をご案内します。';
+  } else if (title.indexOf('建築') !== -1) {
+    return 'ホテルの建築やデザインにまつわるストーリーをご紹介。';
+  } else if (title.indexOf('季節') !== -1) {
+    return '季節ごとの鎌倉の楽しみ方をお伝えします。';
+  } else {
+    return title + 'についてご紹介しています。';
+  }
+}
+
+/**
+ * シンプルなファイル名生成
+ */
+function createSlug(title) {
+  var today = new Date();
+  var datePrefix = Utilities.formatDate(today, 'JST', 'yyyy-MM-dd');
+  var timeStamp = Date.now().toString().slice(-6);
+  return datePrefix + '-blog-' + timeStamp;
+}
+
+/**
+ * 強化されたHTMLページを生成（目次付き）
+ */
+function createEnhancedBlogHTML(content, title, toc) {
+  var today = new Date();
+  var dateStr = Utilities.formatDate(today, 'JST', 'yyyy年MM月dd日');
+  var isoDate = Utilities.formatDate(today, 'JST', "yyyy-MM-dd'T'HH:mm:ssXXX");
+  var slug = createSlug(title);
+  var excerpt = generateExcerpt(title);
+  
+  // 目次HTML生成
+  var tocHtml = '';
+  if (toc && toc.length > 0) {
+    tocHtml = '<div class="table-of-contents">\n';
+    tocHtml += '<h3 class="toc-title">📋 この記事の目次</h3>\n';
+    tocHtml += '<ul class="toc-list">\n';
+    for (var i = 0; i < toc.length; i++) {
+      var tocItem = toc[i];
+      tocHtml += '<li class="toc-item toc-level-' + tocItem.level + '">';
+      tocHtml += '<a href="#' + tocItem.id + '" class="toc-link">' + tocItem.text + '</a>';
+      tocHtml += '</li>\n';
+    }
+    tocHtml += '</ul>\n';
+    tocHtml += '</div>\n';
+  }
+  
+  var html = '<!DOCTYPE html>\n';
+  html += '<html lang="ja">\n';
+  html += '<head>\n';
+  html += '    <meta charset="UTF-8">\n';
+  html += '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n';
+  html += '    <title>' + title + ' | ホワイトホテル鎌倉</title>\n';
+  html += '    <meta name="description" content="' + excerpt + '">
+';
+  html += '    <meta name="keywords" content="ホワイトホテル鎌倉,鎌倉観光,江ノ電,ブログ">
+';
+  html += '    
+';
+  html += '    <!-- Open Graph -->
+';
+  html += '    <meta property="og:type" content="article">
+';
+  html += '    <meta property="og:title" content="' + title + ' | ホワイトホテル鎌倉">
+';
+  html += '    <meta property="og:description" content="' + excerpt + '">
+';
+  html += '    <meta property="og:url" content="https://white-hotel.archi-prisma.co.jp/blog/' + slug + '.html">
+';
+  html += '    <meta property="og:image" content="https://white-hotel.archi-prisma.co.jp/images/blog-og-image.jpg">
+';
+  html += '    
+';
+  html += '    <!-- Twitter -->
+';
+  html += '    <meta name="twitter:card" content="summary_large_image">
+';
+  html += '    <meta name="twitter:title" content="' + title + ' | ホワイトホテル鎌倉">
+';
+  html += '    <meta name="twitter:description" content="' + excerpt + '">
+';
+  html += '    <meta name="twitter:image" content="https://white-hotel.archi-prisma.co.jp/images/blog-og-image.jpg">
+';
+  html += '    
+';
+  html += '    <link rel="canonical" href="https://white-hotel.archi-prisma.co.jp/blog/' + slug + '.html">
+';
+  html += '    <link rel="icon" type="image/png" href="https://white-hotel.archi-prisma.co.jp/images/logo_white hotel kamakura.png">
+';
+  html += '    <link rel="stylesheet" href="https://white-hotel.archi-prisma.co.jp/style.css">
+';
+  html += '    
+';
+  html += '    <!-- Structured Data -->
+';
+  html += '    <script type="application/ld+json">
+';
+  html += '    {
+';
+  html += '      "@context": "https://schema.org",
+';
+  html += '      "@type": "BlogPosting",
+';
+  html += '      "headline": "' + title + '",
+';
+  html += '      "description": "' + excerpt + '",
+';
+  html += '      "datePublished": "' + isoDate + '",
+';
+  html += '      "dateModified": "' + isoDate + '",
+';
+  html += '      "author": {
+';
+  html += '        "@type": "Organization",
+';
+  html += '        "name": "ホワイトホテル鎌倉"
+';
+  html += '      },
+';
+  html += '      "publisher": {
+';
+  html += '        "@type": "Organization",
+';
+  html += '        "name": "ホワイトホテル鎌倉",
+';
+  html += '        "logo": {
+';
+  html += '          "@type": "ImageObject",
+';
+  html += '          "url": "https://white-hotel.archi-prisma.co.jp/images/logo_white hotel kamakura.png"
+';
+  html += '        }
+';
+  html += '      },
+';
+  html += '      "mainEntityOfPage": {
+';
+  html += '        "@type": "WebPage",
+';
+  html += '        "@id": "https://white-hotel.archi-prisma.co.jp/blog/' + slug + '.html"
+';
+  html += '      }
+';
+  html += '    }
+';
+  html += '    </script>
+';
+  html += '    
+';
+  html += '    <style>
+';
+  html += '        body {
+';
+  html += '            background-color: var(--bg-offwhite);
+';
+  html += '            padding-top: 80px;
+';
+  html += '            font-family: "Noto Sans JP", sans-serif;
+';
+  html += '            line-height: 1.8;
+';
+  html += '            color: var(--text-primary);
+';
+  html += '        }
+';
+  html += '        .article-container {
+';
+  html += '            max-width: 900px;
+';
+  html += '            margin: 2rem auto;
+';
+  html += '            padding: 0 1rem;
+';
+  html += '        }
+';
+  html += '        .article-card {
+';
+  html += '            background: var(--white);
+';
+  html += '            border-radius: 20px;
+';
+  html += '            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+';
+  html += '            overflow: hidden;
+';
+  html += '        }
+';
+  html += '        .article-header {
+';
+  html += '            background: linear-gradient(135deg, var(--primary-color) 0%, #2c5282 100%);
+';
+  html += '            color: white;
+';
+  html += '            padding: 3rem 2rem;
+';
+  html += '            text-align: center;
+';
+  html += '        }
+';
+  html += '        .article-title {
+';
+  html += '            font-size: 2.8rem;
+';
+  html += '            margin-bottom: 1rem;
+';
+  html += '            font-weight: 700;
+';
+  html += '            line-height: 1.3;
+';
+  html += '        }
+';
+  html += '        .article-meta {
+';
+  html += '            font-size: 1.1rem;
+';
+  html += '            opacity: 0.9;
+';
+  html += '        }
+';
+  html += '        .article-content {
+';
+  html += '            padding: 3rem 2rem;
+';
+  html += '        }
+';
+  html += '        
+';
+  html += '        /* 目次スタイル */
+';
+  html += '        .table-of-contents {
+';
+  html += '            background: var(--bg-offwhite);
+';
+  html += '            border-radius: 15px;
+';
+  html += '            padding: 2rem;
+';
+  html += '            margin: 2rem 0;
+';
+  html += '            border-left: 4px solid var(--primary-color);
+';
+  html += '        }
+';
+  html += '        .toc-title {
+';
+  html += '            font-size: 1.4rem;
+';
+  html += '            color: var(--primary-color);
+';
+  html += '            margin-bottom: 1rem;
+';
+  html += '            font-weight: 600;
+';
+  html += '        }
+';
+  html += '        .toc-list {
+';
+  html += '            list-style: none;
+';
+  html += '            padding: 0;
+';
+  html += '            margin: 0;
+';
+  html += '        }
+';
+  html += '        .toc-item {
+';
+  html += '            margin-bottom: 0.8rem;
+';
+  html += '        }
+';
+  html += '        .toc-level-2 { margin-left: 0; }
+';
+  html += '        .toc-level-3 { margin-left: 1.5rem; }
+';
+  html += '        .toc-level-4 { margin-left: 3rem; }
+';
+  html += '        .toc-link {
+';
+  html += '            color: var(--text-secondary);
+';
+  html += '            text-decoration: none;
+';
+  html += '            font-size: 1rem;
+';
+  html += '            transition: color 0.3s ease;
+';
+  html += '        }
+';
+  html += '        .toc-link:hover {
+';
+  html += '            color: var(--primary-color);
+';
+  html += '        }
+';
+  html += '        
+';
+  html += '        /* 本文スタイル */
+';
+  html += '        .article-content h2 {
+';
+  html += '            color: var(--primary-color);
+';
+  html += '            margin: 3rem 0 1.5rem;
+';
+  html += '            font-size: 2rem;
+';
+  html += '            border-left: 4px solid var(--primary-color);
+';
+  html += '            padding-left: 1rem;
+';
+  html += '            font-weight: 600;
+';
+  html += '        }
+';
+  html += '        .article-content h3 {
+';
+  html += '            color: var(--text-primary);
+';
+  html += '            margin: 2.5rem 0 1rem;
+';
+  html += '            font-size: 1.6rem;
+';
+  html += '            font-weight: 600;
+';
+  html += '            border-bottom: 2px solid var(--border-light);
+';
+  html += '            padding-bottom: 0.5rem;
+';
+  html += '        }
+';
+  html += '        .article-content h4 {
+';
+  html += '            color: var(--text-primary);
+';
+  html += '            margin: 2rem 0 0.8rem;
+';
+  html += '            font-size: 1.3rem;
+';
+  html += '            font-weight: 600;
+';
+  html += '        }
+';
+  html += '        .article-content p {
+';
+  html += '            margin-bottom: 1.8rem;
+';
+  html += '            font-size: 1.15rem;
+';
+  html += '            line-height: 1.9;
+';
+  html += '        }
+';
+  html += '        
+';
+  html += '        /* 画像スタイル */
+';
+  html += '        .blog-image {
+';
+  html += '            max-width: 100%;
+';
+  html += '            height: auto;
+';
+  html += '            border-radius: 12px;
+';
+  html += '            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+';
+  html += '            margin: 1rem 0;
+';
+  html += '            transition: transform 0.3s ease;
+';
+  html += '        }
+';
+  html += '        .blog-image:hover {
+';
+  html += '            transform: scale(1.02);
+';
+  html += '        }
+';
+  html += '        .image-container {
+';
+  html += '            text-align: center;
+';
+  html += '            margin: 2.5rem 0;
+';
+  html += '            background: var(--bg-offwhite);
+';
+  html += '            padding: 2rem;
+';
+  html += '            border-radius: 15px;
+';
+  html += '        }
+';
+  html += '        .image-caption {
+';
+  html += '            margin-top: 1rem;
+';
+  html += '            font-size: 0.9rem;
+';
+  html += '            color: var(--text-secondary);
+';
+  html += '            font-style: italic;
+';
+  html += '        }
+';
+  html += '        
+';
+  html += '        .back-link {
+';
+  html += '            display: block;
+';
+  html += '            text-align: center;
+';
+  html += '            margin: 3rem auto;
+';
+  html += '            padding: 1.2rem 2.5rem;
+';
+  html += '            background: var(--white);
+';
+  html += '            color: var(--primary-color);
+';
+  html += '            text-decoration: none;
+';
+  html += '            border-radius: 50px;
+';
+  html += '            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+';
+  html += '            max-width: 350px;
+';
+  html += '            font-size: 1.1rem;
+';
+  html += '            font-weight: 500;
+';
+  html += '            transition: all 0.3s ease;
+';
+  html += '        }
+';
+  html += '        .back-link:hover {
+';
+  html += '            transform: translateY(-2px);
+';
+  html += '            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+';
+  html += '        }
+';
+  html += '        
+';
+  html += '        @media (max-width: 768px) {
+';
+  html += '            .article-title { font-size: 2rem; }
+';
+  html += '            .article-header { padding: 2rem 1rem; }
+';
+  html += '            .article-content { padding: 2rem 1rem; }
+';
+  html += '            .article-content h2 { font-size: 1.6rem; }
+';
+  html += '            .article-content h3 { font-size: 1.4rem; }
+';
+  html += '            .article-content p { font-size: 1.1rem; }
+';
+  html += '            .table-of-contents { padding: 1.5rem; }
+';
+  html += '            .image-container { padding: 1rem; }
+';
+  html += '        }
+';
+  html += '    </style>
+';
+  html += '</head>
+';
+  html += '<body>
+';
+  html += '    <header id="header">
+';
+  html += '        <div class="container">
+';
+  html += '            <div class="header-content">
+';
+  html += '                <a href="https://white-hotel.archi-prisma.co.jp/index.html" class="logo">White Hotel</a>
+';
+  html += '                <nav class="nav-menu">
+';
+  html += '                    <a href="https://white-hotel.archi-prisma.co.jp/index.html#home" class="nav-link">ホーム</a>
+';
+  html += '                    <a href="https://white-hotel.archi-prisma.co.jp/blog.html" class="nav-link">ブログ</a>
+';
+  html += '                </nav>
+';
+  html += '            </div>
+';
+  html += '        </div>
+';
+  html += '    </header>
+';
+  html += '    <main>
+';
+  html += '        <article class="article-container">
+';
+  html += '            <div class="article-card">
+';
+  html += '                <header class="article-header">
+';
+  html += '                    <h1 class="article-title">' + title + '</h1>
+';
+  html += '                    <div class="article-meta">' + dateStr + ' | ホワイトホテル鎌倉</div>
+';
+  html += '                </header>
+';
+  html += '                <div class="article-content">
+';
+  html += '                    ' + tocHtml + '
+';
+  html += '                    ' + content + '
+';
+  html += '                </div>
+';
+  html += '            </div>
+';
+  html += '        </article>
+';
+  html += '        <a href="https://white-hotel.archi-prisma.co.jp/blog.html" class="back-link">← ブログ一覧に戻る</a>
+';
+  html += '    </main>
+';
+  html += '    
+';
+  html += '    <script>
+';
+  html += '        // 目次のスムーススクロール
+';
+  html += '        document.querySelectorAll(".toc-link").forEach(link => {
+';
+  html += '            link.addEventListener("click", function(e) {
+';
+  html += '                e.preventDefault();
+';
+  html += '                const targetId = this.getAttribute("href").substring(1);
+';
+  html += '                const targetElement = document.getElementById(targetId);
+';
+  html += '                if (targetElement) {
+';
+  html += '                    targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+';
+  html += '                }
+';
+  html += '            });
+';
+  html += '        });
+';
+  html += '        
+';
+  html += '        // ページロード時のアニメーション
+';
+  html += '        window.addEventListener("load", function() {
+';
+  html += '            document.body.style.opacity = "0";
+';
+  html += '            document.body.style.transition = "opacity 0.3s ease";
+';
+  html += '            setTimeout(() => {
+';
+  html += '                document.body.style.opacity = "1";
+';
+  html += '            }, 100);
+';
+  html += '        });
+';
+  html += '    </script>
+';
+  html += '</body>
+';
+  html += '</html>';
+  
+  return html;
+}
+
+/**
+ * Googleドキュメントのメニューから実行する関数
+ */
+function publishCurrentDocumentToGitHub() {
+  try {
+    var doc = DocumentApp.getActiveDocument();
+    if (!doc) {
+      console.error('ドキュメントが見つかりません');
+      return;
+    }
+    
+    var result = publishBlogToGitHub(doc.getId());
+    
+    if (result.success) {
+      var successHTML = '<div style="padding: 20px; font-family: Arial, sans-serif;">' + 
+        '<h2 style="color: #4CAF50;">✅ 公開成功！</h2>' + 
+        '<p>' + result.message + '</p>' + 
+        '<p><strong>ファイル:</strong> ' + result.fileName + '</p>' + 
+        '<p><strong>URL:</strong> <a href="' + result.url + '" target="_blank">' + result.url + '</a></p>' + 
+        '<p><strong>画像数:</strong> ' + result.imagesCount + '枚</p>' + 
+        '<button onclick="google.script.host.close()">閉じる</button>' + 
+        '</div>';
+      
+      var htmlOutput = HtmlService.createHtmlOutput(successHTML).setWidth(500).setHeight(350);
+      DocumentApp.getUi().showModalDialog(htmlOutput, 'ブログ公開完了（画像対応修正版）');
+    } else {
+      var errorHTML = '<div style="padding: 20px; font-family: Arial, sans-serif;">' + 
+        '<h2 style="color: #f44336;">❌ エラー</h2>' + 
+        '<p>' + result.message + '</p>' + 
+        '<button onclick="google.script.host.close()">閉じる</button>' + 
+        '</div>';
+      
+      var htmlOutput = HtmlService.createHtmlOutput(errorHTML).setWidth(400).setHeight(200);
+      DocumentApp.getUi().showModalDialog(htmlOutput, 'エラー');
+    }
+  } catch (error) {
+    console.error('実行エラー:', error);
+  }
+}
+
+/**
+ * Googleドキュメントにメニューを追加
+ */
+function onOpen() {
+  DocumentApp.getUi()
+    .createMenu('ホワイトホテル ブログ')
+    .addItem('GitHubに公開（画像対応修正版）', 'publishCurrentDocumentToGitHub')
+    .addToUi();
+}
+
+/**
+ * 画像検出テスト関数
+ */
+function testImageDetection() {
+  try {
+    var doc = DocumentApp.getActiveDocument();
+    if (!doc) {
+      console.error('ドキュメントが見つかりません');
+      return;
+    }
+    
+    console.log('画像検出テスト開始...');
+    var images = extractAllImages(doc);
+    console.log('検出結果: ' + images.length + '枚の画像');
+    
+    for (var i = 0; i < images.length; i++) {
+      console.log('画像 ' + (i + 1) + ': ' + images[i].filename);
+    }
+    
+    var testHTML = '<div style="padding: 20px; font-family: Arial, sans-serif;">' + 
+      '<h2>画像検出テスト結果</h2>' + 
+      '<p>検出された画像数: <strong>' + images.length + '</strong></p>' + 
+      '<button onclick="google.script.host.close()">閉じる</button>' + 
+      '</div>';
+    
+    var htmlOutput = HtmlService.createHtmlOutput(testHTML).setWidth(400).setHeight(200);
+    DocumentApp.getUi().showModalDialog(htmlOutput, '画像検出テスト');
+    
+  } catch (error) {
+    console.error('テストエラー:', error);
+  }
+}
+
+/**
+ * 接続テスト
+ */
+function testConnection() {
+  try {
+    var url = 'https://api.github.com/repos/' + GITHUB_CONFIG.owner + '/' + GITHUB_CONFIG.repo;
+    var response = UrlFetchApp.fetch(url, {
+      headers: {
+        'Authorization': 'token ' + GITHUB_CONFIG.token,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    
+    if (response.getResponseCode() === 200) {
+      console.log('GitHub接続成功！');
+      return true;
+    } else {
+      console.error('GitHub接続失敗:', response.getResponseCode());
+      return false;
+    }
+  } catch (error) {
+    console.error('接続エラー:', error);
+    return false;
+  }
+}

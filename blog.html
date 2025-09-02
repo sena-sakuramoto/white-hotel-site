@@ -1,88 +1,359 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HLY44XNBP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6HLY44XNBP');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ブログ | ホワイトホテル鎌倉</title>
     <meta name="description" content="ホワイトホテル鎌倉の最新情報、鎌倉の観光ガイド、ホテルのこだわりなどを紹介するブログです。">
-    <link rel="canonical" href="https://whitehotel-kamakura.jp/blog.html">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta name="keywords" content="ホワイトホテル鎌倉,ブログ,鎌倉観光,江ノ電,リノベーション,建築家,旅行記,鎌倉スポット">
+    <meta property="og:title" content="ブログ | ホワイトホテル鎌倉">
+    <meta property="og:description" content="ホワイトホテル鎌倉の最新情報、鎌倉の観光ガイド、ホテルのこだわりなどを紹介するブログです。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://white-hotel.archi-prisma.co.jp/blog.html">
+    <meta property="og:image" content="https://white-hotel.archi-prisma.co.jp/images/blog-og-image.jpg">
+    <meta property="og:site_name" content="ホワイトホテル鎌倉">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ブログ | ホワイトホテル鎌倉">
+    <meta name="twitter:description" content="ホワイトホテル鎌倉の最新情報、鎌倉の観光ガイド、ホテルのこだわりなどを紹介するブログです。">
+    <meta name="twitter:image" content="https://white-hotel.archi-prisma.co.jp/images/blog-og-image.jpg">
+    <link rel="canonical" href="https://white-hotel.archi-prisma.co.jp/blog.html">
+    <link rel="icon" type="image/png" href="./images/logo_white hotel kamakura.png">
     <link rel="stylesheet" href="style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "ホワイトホテル鎌倉ブログ",
+      "url": "https://white-hotel.archi-prisma.co.jp/blog.html",
+      "description": "ホワイトホテル鎌倉の最新情報、鎌倉の観光ガイド、ホテルのこだわりなどを紹介するブログです。",
+      "publisher": {
+        "@type": "Organization",
+        "name": "ホワイトホテル鎌倉",
+        "url": "https://white-hotel.archi-prisma.co.jp",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://white-hotel.archi-prisma.co.jp/images/logo_white hotel kamakura.png"
+        }
+      },
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "headline": "鎌倉の隠れた名所5選",
+          "url": "https://white-hotel.archi-prisma.co.jp/blog/kamakura-hidden-spots.html",
+          "datePublished": "2025-07-07",
+          "dateModified": "2025-07-07",
+          "description": "ホワイトホテル鎌倉からアクセスしやすい、地元の人だけが知る鎌倉の魅力的なスポットをご紹介します。",
+          "author": {
+            "@type": "Organization",
+            "name": "ホワイトホテル鎌倉"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "建築家が語る、リノベーションの舞台裏",
+          "url": "https://white-hotel.archi-prisma.co.jp/blog/renovation-story.html",
+          "datePublished": "2025-06-20",
+          "dateModified": "2025-06-20",
+          "description": "当ホテルのリノベーションに携わった若手建築家チームが、デザインのこだわりや苦労話を語ります。",
+          "author": {
+            "@type": "Organization",
+            "name": "ホワイトホテル鎌倉"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "江ノ電ビューの魅力とは？",
+          "url": "https://white-hotel.archi-prisma.co.jp/blog/enoshima-view.html",
+          "datePublished": "2025-06-01",
+          "dateModified": "2025-06-01",
+          "description": "窓から見える江ノ電の風景が、なぜ旅の思い出を特別なものにするのか。その理由を探ります。",
+          "author": {
+            "@type": "Organization",
+            "name": "ホワイトホテル鎌倉"
+          }
+        }
+      ]
+    }
+    </script>
     <style>
         body {
-            background-color: var(--bg-offwhite);
-            padding-top: 80px; /* ヘッダーの高さ分 */
+            background: linear-gradient(135deg, var(--bg-offwhite) 0%, #f8f9fa 100%);
+            padding-top: 80px;
+            font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
         }
-        .blog-container {
-            max-width: 900px;
-            margin: 4rem auto;
-            padding: 2rem;
-            background: var(--white);
-            border-radius: 20px;
-            box-shadow: var(--shadow-soft);
-            line-height: 1.8;
-            color: var(--text-primary);
-        }
-        .blog-container h1 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
+        
+        .blog-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2c5282 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
             text-align: center;
-            margin-bottom: 2rem;
             position: relative;
+            overflow: hidden;
         }
-        .blog-container h1::after {
+        
+        .blog-hero::before {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--primary-color);
-            border-radius: 3px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
         }
+        
+        .blog-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .blog-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .blog-hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+        
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .blog-main {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .blog-sidebar {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
         .blog-post-list {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
+        
         .blog-post-item {
             border-bottom: 1px solid var(--border-light);
-            padding: 1.5rem 0;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .blog-post-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-color);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .blog-post-item:hover {
+            background: var(--bg-offwhite);
+            transform: translateY(-2px);
+        }
+        
+        .blog-post-item:hover::before {
+            transform: scaleY(1);
+        }
+        
         .blog-post-item:last-child {
             border-bottom: none;
         }
+        
         .blog-post-item h2 {
             font-size: 1.8rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            line-height: 1.4;
         }
+        
         .blog-post-item h2 a {
             color: var(--text-primary);
             text-decoration: none;
-            transition: var(--transition-smooth);
+            transition: color 0.3s ease;
+            position: relative;
         }
-        .blog-post-item h2 a:hover {
+        
+        .blog-post-item h2 a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .blog-post-item:hover h2 a {
             color: var(--primary-color);
         }
+        
+        .blog-post-item:hover h2 a::after {
+            width: 100%;
+        }
+        
         .blog-post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             font-size: 0.9rem;
             color: var(--text-secondary);
             margin-bottom: 1rem;
         }
+        
+        .blog-post-meta::before {
+            content: '📅';
+            font-size: 1rem;
+        }
+        
         .blog-post-excerpt {
             color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
         }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+        
+        .sidebar-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-list a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 0.3rem 0;
+        }
+        
+        .sidebar-list a:hover {
+            color: var(--primary-color);
+            padding-left: 0.5rem;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
         .back-link {
             display: block;
             text-align: center;
-            margin-top: 3rem;
+            margin: 3rem auto;
+            max-width: 1200px;
+            padding: 1rem 2rem;
             font-size: 1.1rem;
             color: var(--primary-color);
             text-decoration: none;
-            transition: var(--transition-smooth);
+            background: var(--white);
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
+        
         .back-link:hover {
-            text-decoration: underline;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .blog-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .blog-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+            
+            .blog-sidebar {
+                position: static;
+                order: -1;
+            }
+            
+            .blog-post-item {
+                padding: 1.5rem 1rem;
+            }
+            
+            .blog-post-item h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -121,58 +392,93 @@
         <a href="index.html#bookingWidget" class="mobile-nav-link">空室をさがす</a>
     </div>
 
+    <section class="blog-hero">
+        <div class="blog-hero-content">
+            <h1>ブログ</h1>
+            <p class="blog-hero-subtitle">鎌倉の魅力とホワイトホテルの日常をお届けします</p>
+        </div>
+    </section>
+
     <main>
         <div class="blog-container">
-            <h1>ブログ</h1>
-            <ul class="blog-post-list">
-                <li class="blog-post-item">
-                    <h2><a href="#">鎌倉の隠れた名所5選</a></h2>
-                    <p class="blog-post-meta">2025年7月7日</p>
-                    <p class="blog-post-excerpt">ホワイトホテル鎌倉からアクセスしやすい、地元の人だけが知る鎌倉の魅力的なスポットをご紹介します。</p>
+            <div class="blog-main">
+                <ul class="blog-post-list">
+                                                                                <li class="blog-post-item">
+                    <h2><a href="blog/2025-08-28-blog-679336.html">はじめまして、ホワイトホテル鎌倉です｜未来へつなぐ実験プロジェクト</a></h2>
+                    <p class="blog-post-meta">2025年08月28日</p>
+                    <p class="blog-post-excerpt">ホワイトホテル鎌倉周辺の魅力的なスポットや体験をご紹介します。</p>
                 </li>
-                <li class="blog-post-item">
-                    <h2><a href="#">建築家が語る、リノベーションの舞台裏</a></h2>
-                    <p class="blog-post-meta">2025年6月20日</p>
-                    <p class="blog-post-excerpt">当ホテルのリノベーションに携わった若手建築家チームが、デザインのこだわりや苦労話を語ります。</p>
+<li class="blog-post-item">
+                    <h2><a href="blog/2025-08-25-blog-411131.html">20250825_BLOG_自己紹介</a></h2>
+                    <p class="blog-post-meta">2025年08月25日</p>
+                    <p class="blog-post-excerpt">20250825_BLOG_自己紹介についてご紹介しています。</p>
                 </li>
-                <li class="blog-post-item">
-                    <h2><a href="#">江ノ電ビューの魅力とは？</a></h2>
-                    <p class="blog-post-meta">2025年6月1日</p>
-                    <p class="blog-post-excerpt">窓から見える江ノ電の風景が、なぜ旅の思い出を特別なものにするのか。その理由を探ります。</p>
+<li class="blog-post-item">
+                    <h2><a href="blog/2025-08-25-blog-518591.html">BLOGテンプレ_ホワイトホテル鎌倉</a></h2>
+                    <p class="blog-post-meta">2025年08月25日</p>
+                    <p class="blog-post-excerpt">ホワイトホテル鎌倉周辺の魅力的なスポットや体験をご紹介します。</p>
                 </li>
-            </ul>
+<li class="blog-post-item">
+                    <h2><a href="blog/2025-08-25-blog-475125.html">20250825_BLOG_自己紹介</a></h2>
+                    <p class="blog-post-meta">2025年08月25日</p>
+                    <p class="blog-post-excerpt">20250825_BLOG_自己紹介についてご紹介しています。</p>
+                </li>
+<li class="blog-post-item">
+                    <h2><a href="blog/2025-08-25-blog-413372.html">20250825_BLOG_自己紹介</a></h2>
+                    <p class="blog-post-meta">2025年08月25日</p>
+                    <p class="blog-post-excerpt">20250825_BLOG_自己紹介についてご紹介しています。</p>
+                </li>
+                    <!-- 新しいブログ記事がここに自動追加されます -->
+                </ul>
+            </div>
+            
+            <aside class="blog-sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">🔍 記事を探す</h3>
+                    <input type="text" class="search-box" placeholder="キーワードで検索...">
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">📂 カテゴリー</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="#kamakura">🏛️ 鎌倉観光</a></li>
+                        <li><a href="#gourmet">🍽️ グルメ・カフェ</a></li>
+                        <li><a href="#hotel">🏨 ホテル情報</a></li>
+                        <li><a href="#events">🎪 イベント・季節情報</a></li>
+                        <li><a href="#architecture">🏗️ 建築・デザイン</a></li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">📅 アーカイブ</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="#2025-08">2025年8月</a></li>
+                        <li><a href="#2025-07">2025年7月</a></li>
+                        <li><a href="#2025-06">2025年6月</a></li>
+                        <li><a href="#2025-05">2025年5月</a></li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">🔗 関連リンク</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="index.html#rooms">客室情報</a></li>
+                        <li><a href="index.html#location">アクセス</a></li>
+                        <li><a href="index.html#bookingWidget">予約する</a></li>
+                        <li><a href="story.html">ホテルの物語</a></li>
+                    </ul>
+                </div>
+            </aside>
         </div>
         <a href="index.html" class="back-link">← ホームに戻る</a>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/swiper/8.4.5/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/swiper/8.4.5/swiper-bundle.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
     <script>
-        // ヘッダーの透明化とスクロール時の表示/非表示
-        const header = document.getElementById('header');
-        // サブページではヘッダーを常に不透明にするため、header-transparentクラスの制御は行わない
-        // let lastScrollY = window.scrollY;
-        // const handleScroll = () => {
-        //     const currentScrollY = window.scrollY;
-        //     const isScrolled = currentScrollY > 50;
-        //     if (header) {
-        //         header.classList.toggle('header-transparent', !isScrolled && window.innerWidth > 768 && window.scrollY < 50);
-        //          if (window.innerWidth > 768) {
-        //             if (currentScrollY > lastScrollY && isScrolled) {
-        //                 header.style.transform = 'translateY(-100%)';
-        //             } else {
-        //                 header.style.transform = 'translateY(0)';
-        //             }
-        //         }
-        //     }
-        //     lastScrollY = currentScrollY;
-        // };
-        // window.addEventListener('scroll', handleScroll, { passive: true });
-        // handleScroll();
-
         // モバイルメニューのトグル
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
@@ -183,12 +489,170 @@
         };
         mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
+        // ブログ検索機能
+        const searchBox = document.querySelector('.search-box');
+        const blogPosts = document.querySelectorAll('.blog-post-item');
+        
+        searchBox.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            blogPosts.forEach(post => {
+                const title = post.querySelector('h2 a').textContent.toLowerCase();
+                const excerpt = post.querySelector('.blog-post-excerpt').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+                    post.style.display = 'block';
+                    post.style.animation = 'fadeIn 0.3s ease';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+            
+            // 検索結果がない場合の表示
+            const visiblePosts = Array.from(blogPosts).filter(post => post.style.display !== 'none');
+            const blogMain = document.querySelector('.blog-main');
+            let noResultsMessage = blogMain.querySelector('.no-results');
+            
+            if (visiblePosts.length === 0 && searchTerm.trim() !== '') {
+                if (!noResultsMessage) {
+                    noResultsMessage = document.createElement('div');
+                    noResultsMessage.className = 'no-results';
+                    noResultsMessage.innerHTML = `
+                        <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+                            <h3>検索結果が見つかりませんでした</h3>
+                            <p>別のキーワードで検索してみてください</p>
+                        </div>
+                    `;
+                    blogMain.appendChild(noResultsMessage);
+                }
+                noResultsMessage.style.display = 'block';
+            } else if (noResultsMessage) {
+                noResultsMessage.style.display = 'none';
+            }
+        });
+
+        // カテゴリーフィルター機能
+        const categoryLinks = document.querySelectorAll('.sidebar-list a[href^="#"]');
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const category = this.getAttribute('href').substring(1);
+                filterByCategory(category);
+                
+                // アクティブ状態の管理
+                categoryLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        function filterByCategory(category) {
+            blogPosts.forEach(post => {
+                const title = post.querySelector('h2 a').textContent.toLowerCase();
+                const excerpt = post.querySelector('.blog-post-excerpt').textContent.toLowerCase();
+                
+                let shouldShow = false;
+                switch(category) {
+                    case 'kamakura':
+                        shouldShow = title.includes('鎌倉') || excerpt.includes('鎌倉');
+                        break;
+                    case 'gourmet':
+                        shouldShow = title.includes('グルメ') || title.includes('カフェ') || 
+                                   title.includes('ランチ') || title.includes('レストラン') ||
+                                   excerpt.includes('グルメ') || excerpt.includes('カフェ');
+                        break;
+                    case 'hotel':
+                        shouldShow = title.includes('ホテル') || title.includes('宿泊') ||
+                                   excerpt.includes('ホテル') || excerpt.includes('宿泊');
+                        break;
+                    case 'events':
+                        shouldShow = title.includes('イベント') || title.includes('祭り') ||
+                                   title.includes('季節') || excerpt.includes('イベント');
+                        break;
+                    case 'architecture':
+                        shouldShow = title.includes('建築') || title.includes('リノベーション') ||
+                                   title.includes('デザイン') || excerpt.includes('建築');
+                        break;
+                    default:
+                        shouldShow = true;
+                }
+                
+                post.style.display = shouldShow ? 'block' : 'none';
+                if (shouldShow) {
+                    post.style.animation = 'fadeIn 0.3s ease';
+                }
+            });
+        }
+
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // 記事ホバー効果の強化
+        blogPosts.forEach(post => {
+            post.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-4px)';
+            });
+            
+            post.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+        });
+
         // AOS初期化
         try {
             if (typeof AOS !== 'undefined') {
-                AOS.init({ duration: 800, easing: 'ease-out-quart', once: true });
+                AOS.init({ 
+                    duration: 800, 
+                    easing: 'ease-out-quart', 
+                    once: true,
+                    offset: 100
+                });
             }
-        } catch (e) { console.error("AOS initialization failed:", e); }
+        } catch (e) { 
+            console.error("AOS initialization failed:", e); 
+        }
+
+        // ローディングアニメーション
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // アクティブなサイドバーリンクの管理
+        const addActiveStyle = () => {
+            const style = document.createElement('style');
+            style.textContent = `
+                .sidebar-list a.active {
+                    color: var(--primary-color) !important;
+                    background: rgba(59, 130, 246, 0.1);
+                    padding: 0.5rem !important;
+                    border-radius: 6px;
+                    font-weight: 600;
+                }
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `;
+            document.head.appendChild(style);
+        };
+        addActiveStyle();
     </script>
 </body>
 </html>
