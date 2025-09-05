@@ -51,6 +51,17 @@
         * {
             -webkit-touch-callout: none; /* iOS でのタップハイライトを防止 */
         }
+        
+        /* スマホ専用改行 */
+        .sp-break {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .sp-break {
+                display: inline;
+            }
+        }
         #header { 
             position: fixed;
             top: 0;
@@ -166,8 +177,8 @@
                     <div class="hero-badge">鎌倉駅徒歩2分 • 江ノ電ビュー • 期間限定オープン</div>
                     <h1>あなたの旅が、<br>物語をつむぐ宿。</h1>
                     <p class="hero-subtitle">
-                        ここは、若手建築家チームが未来へと繋ぐ、再生プロジェクトの舞台。<br>
-                        あなたの滞在が、この宿の新しい１ページになります。
+                        ここは、若手建築家チームが<br class="sp-break">未来へと繋ぐ、<br>再生プロジェクトの舞台。<br>
+                        あなたの滞在が、<br class="sp-break">この宿の新しい１ページになります。
                     </p>
                     <div class="hero-cta-group">
                         <a href="#bookingWidget" class="btn btn-primary">
@@ -556,7 +567,7 @@
                 <div class="section-header">
                     <h2 class="section-title">私たちの宿づくり</h2>
                     <p class="section-subtitle">
-                        <span class="no-break">若手建築家チームが奮闘する、宿づくりの裏側をショート動画でお届けします。</span>
+                        <span class="no-break">若手建築家チームが奮闘する、<br class="sp-break">宿づくりの裏側を<br class="sp-break">ショート動画でお届けします。</span>
                     </p>
                 </div>
                 <div class="coming-soon-container">
@@ -565,7 +576,7 @@
                         <span class="viral-subtext">話題沸騰中！</span>
                     </div>
                     <h3>TikTok動画公開中！</h3>
-                    <p>宿づくりの様子をTikTokで公開しています。下のスライダーでご覧いただけます！<br>最新情報は、SNSで発信しています。</p>
+                    <p>宿づくりの様子を<br class="sp-break">TikTokで公開しています。<br>下のスライダーで<br class="sp-break">ご覧いただけます！<br>最新情報は、<br class="sp-break">SNSで発信しています。</p>
                     <div class="social-links-video">
                         <a href="https://www.instagram.com/suz.u3n.chu" target="_blank" class="social-link-video instagram">
                             <svg><use xlink:href="#icon-instagram"/></svg>
@@ -740,9 +751,9 @@
                 <div class="section-header" data-aos="fade-up">
                     <h2 class="section-title">お部屋と料金のご案内</h2>
                     <p class="section-subtitle">
-                        シンプルで心地いい。個性ある4つのお部屋をご用意しました。<br>
-                        全室江ノ電ビュー！ご利用人数に応じて、最適なプランをご利用できます。<br>
-                        ※金土日祝は表示金額の1.2倍となります。
+                        シンプルで心地いい。<br class="sp-break">個性ある4つのお部屋を<br class="sp-break">ご用意しました。<br>
+                        全室江ノ電ビュー！<br class="sp-break">ご利用人数に応じて、<br class="sp-break">最適なプランを<br class="sp-break">ご利用できます。<br>
+                        ※金土日祝は表示金額の<br class="sp-break">1.2倍となります。
                     </p>
                 </div>
 
