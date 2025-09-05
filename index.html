@@ -11,7 +11,7 @@
       gtag('config', 'G-6HLY44XNBP');
     </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ホワイトホテル鎌倉 | 鎌倉の旅が始まる、駅徒歩2分の小さな宿</title>
     <meta name="description" content="鎌倉駅から歩いてすぐ。窓から江ノ電が眺められる、建築家が手がける小さな宿。あなたの「泊まる」が、この宿の未来に繋がります。公式サイトで、特別な時間を見つけませんか？">
     <meta name="keywords" content="鎌倉ホテル,鎌倉,宿,江ノ電,リノベーションホテル,建築家,女子旅">
@@ -38,7 +38,18 @@
         body { 
             margin: 0; 
             font-family: 'Inter', 'Noto Sans JP', sans-serif; 
-            visibility: visible; 
+            visibility: visible;
+            overflow-x: hidden; /* 横スクロール防止 */
+        }
+        
+        /* スマホ表示幅固定 */
+        html {
+            -webkit-text-size-adjust: 100%; /* Webkit テキストサイズ調整を無効化 */
+            -ms-text-size-adjust: 100%; /* MS テキストサイズ調整を無効化 */
+        }
+        
+        * {
+            -webkit-touch-callout: none; /* iOS でのタップハイライトを防止 */
         }
         #header { 
             position: fixed;
