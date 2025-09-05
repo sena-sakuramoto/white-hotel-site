@@ -64,31 +64,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 1.5rem;
 }
 
-/* カスタムローダー */
-.page-loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--primary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    transition: opacity 0.1s ease;
-    will-change: opacity;
-    pointer-events: none;
-}
-.loader-content { text-align: center; color: var(--white); }
-.loader-logo { font-size: 2.5rem; font-weight: 700; margin-bottom: 2rem; display: none; } /* Hide text logo */
-.loader-logo-image { height: 80px; margin-bottom: 2rem; } /* Style for image logo */
-.loader-bar { width: 200px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden; margin: 0 auto; }
-.loader-progress { height: 100%; background: var(--white); border-radius: 4px; width: 0%; animation: loading 0.8s ease-in-out forwards; }
-@keyframes loading {
-    0% { width: 0%; }
-    100% { width: 100%; }
-}
 
 /* Floor Guide Styles */
 .floor-guide-section {
