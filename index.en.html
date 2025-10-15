@@ -1819,10 +1819,12 @@
             if (checkinDateEl) {
                 checkinDateEl.min = formatDate(today);
                 checkinDateEl.value = formatDate(today);
+                checkinDateEl.max = '2027-10-14';
             }
             if (checkoutDateEl) {
                 checkoutDateEl.min = formatDate(tomorrow);
                 checkoutDateEl.value = formatDate(tomorrow);
+                checkoutDateEl.max = '2027-10-15';
             }
 
             // Auto-adjust check-out date when check-in date changes
