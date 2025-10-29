@@ -1512,13 +1512,35 @@
                 return 0; // For unknown room types
             }
 
-            // Weekend/holiday pricing calculation
+            // Get check-in date information
             const checkinDate = new Date(checkinDateStr);
-            const dayOfWeek = checkinDate.getDay(); // 0 = Sunday, 6 = Saturday
+            const year = checkinDate.getFullYear();
+            const month = checkinDate.getMonth(); // 0-based (0=January, 11=December)
+            const day = checkinDate.getDate();
 
-            // 1.2x multiplier for check-in on Friday (5), Saturday (6), or the day before a holiday (isPreHoliday)
-            if (dayOfWeek === 5 || dayOfWeek === 6 || isPreHoliday(checkinDate)) {
-                basePrice *= 1.20; // 20% UP
+            // New Year season pricing (12/24-12/31 or 1/1-1/5)
+            const isNewYearSeason = (month === 11 && day >= 24) || (month === 0 && day <= 5);
+
+            if (isNewYearSeason) {
+                console.log('🎍 New Year season pricing applied: Base price ×2.0');
+                basePrice *= 2.0; // 100% UP
+            } else {
+                // Obon period pricing (8/12-16 check-in)
+                const obonStart = new Date(year, 7, 12); // August is 7 (0-based)
+                const obonEnd = new Date(year, 7, 16);
+
+                if (checkinDate >= obonStart && checkinDate <= obonEnd) {
+                    console.log('🎋 Obon period pricing applied: Base price ×1.5');
+                    basePrice *= 1.5; // 50% UP
+                } else {
+                    // Weekend/holiday pricing calculation (outside of special periods)
+                    const dayOfWeek = checkinDate.getDay(); // 0 = Sunday, 6 = Saturday
+
+                    // 1.2x multiplier for check-in on Friday (5), Saturday (6), or the day before a holiday (isPreHoliday)
+                    if (dayOfWeek === 5 || dayOfWeek === 6 || isPreHoliday(checkinDate)) {
+                        basePrice *= 1.20; // 20% UP
+                    }
+                }
             }
 
             return Math.round(basePrice); // Rounding

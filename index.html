@@ -1482,22 +1482,34 @@
                 return 0; // 不明な部屋タイプの場合
             }
 
-            // お盆料金の計算 (8/12-16 チェックイン)
+            // チェックイン日付の取得
             const checkinDate = new Date(checkinDateStr);
             const year = checkinDate.getFullYear();
-            const obonStart = new Date(year, 7, 12); // 8月は7 (0ベース)
-            const obonEnd = new Date(year, 7, 16);
-            
-            if (checkinDate >= obonStart && checkinDate <= obonEnd) {
-                console.log('🎋 お盆料金適用: 基本料金 ×1.5');
-                basePrice *= 1.5; // 50% UP
+            const month = checkinDate.getMonth(); // 0-based (0=1月, 11=12月)
+            const day = checkinDate.getDate();
+
+            // 年末年始料金の判定 (12/24-12/31 または 1/1-1/5)
+            const isNewYearSeason = (month === 11 && day >= 24) || (month === 0 && day <= 5);
+
+            if (isNewYearSeason) {
+                console.log('🎍 年末年始料金適用: 基本料金 ×2.0');
+                basePrice *= 2.0; // 100% UP
             } else {
-                // 週末・祝日料金の計算 (お盆期間外のみ)
-                const dayOfWeek = checkinDate.getDay(); // 0 = Sunday, 6 = Saturday
-                
-                // 金曜日 (5), 土曜日 (6), または祝前日 (isPreHoliday) にチェックインした場合に1.2倍
-                if (dayOfWeek === 5 || dayOfWeek === 6 || isPreHoliday(checkinDate)) {
-                    basePrice *= 1.20; // 20% UP
+                // お盆料金の計算 (8/12-16 チェックイン)
+                const obonStart = new Date(year, 7, 12); // 8月は7 (0ベース)
+                const obonEnd = new Date(year, 7, 16);
+
+                if (checkinDate >= obonStart && checkinDate <= obonEnd) {
+                    console.log('🎋 お盆料金適用: 基本料金 ×1.5');
+                    basePrice *= 1.5; // 50% UP
+                } else {
+                    // 週末・祝日料金の計算 (お盆期間外のみ)
+                    const dayOfWeek = checkinDate.getDay(); // 0 = Sunday, 6 = Saturday
+
+                    // 金曜日 (5), 土曜日 (6), または祝前日 (isPreHoliday) にチェックインした場合に1.2倍
+                    if (dayOfWeek === 5 || dayOfWeek === 6 || isPreHoliday(checkinDate)) {
+                        basePrice *= 1.20; // 20% UP
+                    }
                 }
             }
 
