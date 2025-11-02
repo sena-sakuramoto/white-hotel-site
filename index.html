@@ -190,10 +190,28 @@
 
             <div class="booking-widget" id="bookingWidget">
                 <div class="widget-header">
-                    <h3 class="widget-title">空室検索・料金チェック</h3>
-                    <p class="widget-subtitle">ご希望の日にちで、お部屋を探してみませんか？</p>
+                    <h3 class="widget-title">ご予約について</h3>
+                    <p class="widget-subtitle" style="color: #d4af37; font-weight: 600; font-size: 1.1rem;">現在、公式サイトからのご予約受付を一時停止しております</p>
                 </div>
-                <form class="booking-form" onsubmit="searchAvailability(event)">
+                <div style="padding: 2rem; background: #f9f9f9; border-radius: 8px; text-align: center;">
+                    <p style="margin-bottom: 1rem; line-height: 1.8;">
+                        誠に申し訳ございませんが、現在システムメンテナンスのため、<br>
+                        公式サイトからのご予約を一時的に停止させていただいております。
+                    </p>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.8;">
+                        ご予約をご希望の方は、お手数ですが以下の方法でお問い合わせください。
+                    </p>
+                    <div style="margin-top: 1.5rem;">
+                        <a href="https://www.booking.com/hotel/jp/white-hotel-kamakura.ja.html" target="_blank" class="btn btn-primary" style="margin-bottom: 0.5rem;">
+                            Booking.comで予約する
+                        </a>
+                    </div>
+                    <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
+                        ご不便をおかけして申し訳ございません。<br>
+                        何卒よろしくお願いいたします。
+                    </p>
+                </div>
+                <form class="booking-form" onsubmit="searchAvailability(event)" style="display: none;">
                     <div class="form-group">
                         <label for="checkinDate" class="form-label">チェックイン</label>
                         <input type="date" class="form-input" id="checkinDate" required>

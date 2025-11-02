@@ -144,10 +144,28 @@
 
             <div class="booking-widget" id="bookingWidget">
                 <div class="widget-header">
-                    <h3 class="widget-title">Check Availability & Rates</h3>
-                    <p class="widget-subtitle">Why not find a room for your desired dates?</p>
+                    <h3 class="widget-title">About Reservations</h3>
+                    <p class="widget-subtitle" style="color: #d4af37; font-weight: 600; font-size: 1.1rem;">Online booking is temporarily suspended</p>
                 </div>
-                <form class="booking-form" onsubmit="searchAvailability(event)">
+                <div style="padding: 2rem; background: #f9f9f9; border-radius: 8px; text-align: center;">
+                    <p style="margin-bottom: 1rem; line-height: 1.8;">
+                        We apologize, but online booking through our official website<br>
+                        is temporarily suspended due to system maintenance.
+                    </p>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.8;">
+                        If you would like to make a reservation, please use the following method:
+                    </p>
+                    <div style="margin-top: 1.5rem;">
+                        <a href="https://www.booking.com/hotel/jp/white-hotel-kamakura.ja.html" target="_blank" class="btn btn-primary" style="margin-bottom: 0.5rem;">
+                            Book on Booking.com
+                        </a>
+                    </div>
+                    <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
+                        We apologize for any inconvenience.<br>
+                        Thank you for your understanding.
+                    </p>
+                </div>
+                <form class="booking-form" onsubmit="searchAvailability(event)" style="display: none;">
                     <div class="form-group">
                         <label for="checkinDate" class="form-label">Check-in</label>
                         <input type="date" class="form-input" id="checkinDate" required>
