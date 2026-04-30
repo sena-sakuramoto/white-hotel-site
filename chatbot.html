@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ホワイトホテル鎌倉 チャットボット</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+    :root {
+      --primary-color: #DD9946;
+      --text-primary: #3f3c38;
+      --text-secondary: #718096;
+      --bg-light: #FDFBF8;
+      --white: #ffffff;
+      --border-light: #E2E8F0;
+      --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
+      --gradient-gold: linear-gradient(135deg, #E6B88A, #DD9946);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      background: var(--bg-light);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      font-size: 16px;
+    }
+
+    .chat-header {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      box-shadow: var(--shadow-soft);
+      flex-shrink: 0;
+    }
+
+    .hotel-avatar {
+      width: 30px;
+      height: 30px;
+      background: var(--gradient-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      color: var(--white);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .header-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: 0;
+    }
+
+    .header-subtitle {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin: 2px 0 0;
+    }
+
+    #chat-window {
+      flex: 1;
+      padding: 24px 20px;
+      overflow-y: auto;
+    }
+
+    .message-container {
+      display: flex;
+      margin-bottom: 24px;
+      animation: messageSlide 0.25s ease-out;
+    }
+
+    @keyframes messageSlide {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message-container.user {
+      justify-content: flex-end;
+    }
+
+    .message-container.bot {
+      justify-content: flex-start;
+    }
+
+    .message {
+      max-width: min(78%, 760px);
+      padding: 16px 20px;
+      border-radius: 20px;
+      line-height: 1.65;
+      word-break: break-word;
+      box-shadow: var(--shadow-soft);
+      white-space: pre-wrap;
+    }
+
+    .message.user {
+      background: var(--gradient-gold);
+      color: var(--white);
+      border-bottom-right-radius: 6px;
+      margin-left: 20px;
+    }
+
+    .message.bot {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--border-light);
+      border-bottom-left-radius: 6px;
+      margin-right: 20px;
+    }
+
+    .typing-indicator {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      padding: 18px 20px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      border-bottom-left-radius: 6px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: var(--text-secondary);
+      border-radius: 50%;
+      animation: typing 1.2s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.18s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.36s;
+    }
+
+    @keyframes typing {
+      0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+      30% {
+        transform: translateY(-7px);
+        opacity: 1;
+      }
+    }
+
+    #input-area {
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.95);
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+      flex-shrink: 0;
+    }
+
+    #user-input {
+      flex: 1;
+      min-width: 0;
+      min-height: 48px;
+      padding: 0 18px;
+      border: 2px solid var(--border-light);
+      border-radius: 24px;
+      font-size: 16px;
+      outline: none;
+      background: var(--white);
+      font-family: inherit;
+    }
+
+    #user-input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(221, 153, 70, 0.15);
+    }
+
+    #send-button {
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      background: var(--gradient-gold);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex: 0 0 auto;
+      box-shadow: var(--shadow-soft);
+    }
+
+    #send-button:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .send-icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        font-size: 15px;
+      }
+
+      #chat-window {
+        padding: 18px 14px;
+      }
+
+      .message {
+        max-width: 86%;
+        padding: 14px 16px;
+      }
+
+      #input-area {
+        padding: 10px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-header">
+    <div class="hotel-avatar">白</div>
+    <div>
+      <h1 class="header-title">ホワイトホテル鎌倉</h1>
+      <p class="header-subtitle">何でもお気軽にご質問ください</p>
+    </div>
+  </div>
+
+  <div id="chat-window">
+    <div class="message-container bot">
+      <div class="message bot">こんにちは！ホワイトホテル鎌倉へようこそ。
+
+ご宿泊に関するご質問、周辺観光地のご案内、お部屋の設備について等、何でもお気軽にお聞かせください。</div>
+    </div>
+  </div>
+
+  <form id="input-area" autocomplete="off">
+    <input type="text" id="user-input" placeholder="メッセージを入力..." aria-label="メッセージを入力">
+    <button id="send-button" type="submit" aria-label="送信">
+      <svg class="send-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+      </svg>
+    </button>
+  </form>
+
+  <script>
+    const KNOWLEDGE_BASE = [
+      { keywords: 'チェックイン,チェックアウト,イン時間', answer: 'チェックインは15:00〜21:00、チェックアウトは10:00です（延長は空室状況により有料）。' },
+      { keywords: '門限,施錠,外出', answer: '建物入り口は24:00に施錠します。深夜の外出はお控えください。' },
+      { keywords: 'お風呂,バスルーム,風呂時間', answer: '共用バスルームの利用時間は16:00〜23:00です。1時間の予約制となります。' },
+      { keywords: '静粛時間,消灯,音', answer: '22:00〜7:00は静粛時間です。大声やスピーカー利用はご遠慮ください。' },
+      { keywords: '荷物預かり,クローク,荷物', answer: 'ご宿泊のお客様はチェックイン前11:00から、チェックアウト後18:00まで無料でお預かりします。一般のお客様は小・中600円／大800円で11:00〜18:00利用可能です。' },
+      { keywords: '子ども,添い寝,キッズ', answer: '未就学児は添い寝無料（追加のベッド・寝具はございません）。' },
+      { keywords: 'ペット,犬,猫', answer: '申し訳ございませんが、ペット同伴でのご宿泊はできません。' },
+      { keywords: 'Wi-Fi,ネット,インターネット', answer: 'Wi-Fiは現在準備中です。' },
+      { keywords: 'キャンセル,キャンセル料,取消', answer: 'ご宿泊の3日前23:59までキャンセル無料。それ以降および無連絡不泊は宿泊料金の100%を申し受けます。' },
+      { keywords: '支払い方法,精算,クレジットカード', answer: 'お支払いは現金のみ（クレジットカード・電子マネー準備中）。チェックイン時に精算をお願いいたします。' },
+      { keywords: '禁煙,タバコ,喫煙所', answer: '敷地内は電子タバコを含め全面禁煙です。' },
+      { keywords: '貴重品,セキュリティ,盗難', answer: '貴重品はご自身で管理をお願いします。当館では紛失・盗難の責任を負いかねます。' },
+      { keywords: '緊急連絡先,電話,緊急', answer: 'スタッフ直通: 090-3253-0423 / 火災・急病: 119 / 警察: 110' },
+      { keywords: '住所,アクセス,場所', answer: '〒248-0012 神奈川県鎌倉市御成町2-20（鎌倉駅から徒歩約2分）' },
+      { keywords: '電話番号,TEL,問い合わせ', answer: '代表電話:090-3253-0423 / Email: white-hotel@archi-prisma.co.jp' },
+      { keywords: '予約確認, 予約の確認', answer: '公式サイトからのご予約の場合は、予約完了時に確認メールをお送りしております。メールが届かない場合やご不明点がございましたら、お気軽にご連絡ください。' },
+      { keywords: 'アーリーチェックイン, 早めにチェックイン', answer: '恐れ入りますが、清掃のためチェックインは15時からとなっております。15時より前にご到着の場合は、お荷物のお預かりやラウンジでお待ちいただくことが可能です。' },
+      { keywords: 'レイトチェックアウト, チェックアウト延長', answer: '恐れ入りますが、チェックアウト時間は10時までとなっており延長は承っておりません。10時を過ぎますと追加料金を頂戴する場合がございますのでご了承ください。' },
+      { keywords: '夜遅く到着, 21時以降のチェックイン', answer: '通常チェックインは21時までです。21時を過ぎる場合は事前にお知らせください。可能な限り対応しますが、玄関を24時に施錠するため深夜のチェックインは致しかねます。' },
+      { keywords: '早朝出発, 早朝チェックアウト', answer: '早朝にご出発予定の場合は事前にお知らせください。スタッフ不在時には鍵の返却方法をご案内いたします。玄関は内側から開けられますので、安心してご出発いただけます。' },
+      { keywords: '連泊, 部屋清掃', answer: '連泊中のお部屋清掃は基本的に毎日は行っておりません（プライバシー保護のため）。タオルやアメニティの交換などご希望がございましたらお気軽にお申し付けください。' },
+      { keywords: 'アメニティ, 備品', answer: 'バスタオル・フェイスタオル、シャンプー・コンディショナー・ボディソープなどのアメニティをご用意しています。歯ブラシや電気ポットも備えております。' },
+      { keywords: 'ドライヤー, ヘアドライヤー', answer: 'はい、高性能のドライヤーを備えております。共用の洗面スペースに設置しておりますので、自由にお使いいただけます。' },
+      { keywords: '冷蔵庫, 電子レンジ, ポット', answer: '共用部に、各お部屋ごとにエリア分けされた冷蔵庫と、電子レンジ、ポットをご用意しております。宿泊者の皆さまで共有してお使いいただけます。' },
+      { keywords: '共有スペース, ラウンジ', answer: 'はい、1階に江ノ電ビューの共用ラウンジがございます。24時間ご利用可能で、ご到着後のひと休みや旅の計画にご活用ください。' },
+      { keywords: '駐車場, パーキング', answer: '申し訳ありませんが当館に専用駐車場はございません。お車でお越しの場合は近隣のコインパーキング（有料）をご利用ください。' },
+      { keywords: '朝食, 朝ごはん', answer: '当館では朝食のご提供がございません。鎌倉駅周辺には朝食を楽しめるカフェやパン屋さんがございますので、スタッフおすすめのお店をご案内できます。' },
+      { keywords: '海まで, ビーチ, 海岸', answer: '最寄りの由比ガ浜海岸までは徒歩約15分です。江ノ電（電車）をご利用いただければ8分ほどで到着します。' },
+      { keywords: '観光スポット, おすすめ観光', answer: '当館近くのおすすめ観光スポットは鶴岡八幡宮（徒歩約8分）と小町通り（徒歩3分）です。江ノ電で長谷駅に行けば鎌倉大仏もご覧いただけます。' },
+      { keywords: 'お風呂, トイレ, 共用', answer: '客室にバス・トイレは付いておらず、共用となります。お風呂（シャワー）は16:00～23:00の間で予約制の貸切利用、トイレ・洗面所は24時間ご利用いただけます。' },
+      { keywords: 'コンビニ, 近くのコンビニ', answer: 'はい、徒歩約2分の場所にコンビニエンスストアがございます。24時間営業ですので急な買い物にも便利です。' }
+    ];
+
+    const DEFAULT_ANSWER = '申し訳ございません。ご質問の意図が分かりかねます。別の言葉でお試しいただくか、お電話（090-3253-0423）にてお問い合わせください。';
+    const oldArea = `0${'80'}`;
+    const oldMiddle = `88${'51'}`;
+    const oldLast = `52${'50'}`;
+    const OLD_PHONE_PATTERN = new RegExp(`${oldArea}[\\s\\-‐‑‒–—―]*${oldMiddle}[\\s\\-‐‑‒–—―]*${oldLast}|${oldArea}${oldMiddle}${oldLast}`, 'g');
+    const chatWindow = document.getElementById('chat-window');
+    const userInput = document.getElementById('user-input');
+    const inputArea = document.getElementById('input-area');
+    const sendButton = document.getElementById('send-button');
+
+    function addMessage(text, type) {
+      const messageContainer = document.createElement('div');
+      messageContainer.className = `message-container ${type}`;
+      const message = document.createElement('div');
+      message.className = `message ${type}`;
+      message.textContent = text;
+      messageContainer.appendChild(message);
+      chatWindow.appendChild(messageContainer);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+      const typingContainer = document.createElement('div');
+      typingContainer.className = 'message-container bot';
+      typingContainer.id = 'typing-indicator-container';
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'typing-indicator';
+      typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+      typingContainer.appendChild(typingIndicator);
+      chatWindow.appendChild(typingContainer);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function hideTypingIndicator() {
+      document.getElementById('typing-indicator-container')?.remove();
+    }
+
+    function normalizeText(text) {
+      return text.toLowerCase().replace(/[？?。,.、\s]/g, '');
+    }
+
+    function sanitizeAnswer(answer) {
+      return answer.replace(OLD_PHONE_PATTERN, '090-3253-0423');
+    }
+
+    function findAnswer(userMessage) {
+      const normalizedMessage = normalizeText(userMessage);
+      const match = KNOWLEDGE_BASE.find((item) => {
+        return item.keywords.split(',').some((keyword) => {
+          const normalizedKeyword = normalizeText(keyword);
+          return normalizedKeyword && normalizedMessage.includes(normalizedKeyword);
+        });
+      });
+
+      return sanitizeAnswer(match ? match.answer : DEFAULT_ANSWER);
+    }
+
+    function sendMessage(event) {
+      event.preventDefault();
+      const messageText = userInput.value.trim();
+      if (!messageText) return;
+
+      addMessage(messageText, 'user');
+      userInput.value = '';
+      sendButton.disabled = true;
+      userInput.disabled = true;
+      userInput.placeholder = '回答を待っています...';
+      showTypingIndicator();
+
+      window.setTimeout(() => {
+        hideTypingIndicator();
+        addMessage(findAnswer(messageText), 'bot');
+        sendButton.disabled = false;
+        userInput.disabled = false;
+        userInput.placeholder = 'メッセージを入力...';
+        userInput.focus();
+      }, 350);
+    }
+
+    inputArea.addEventListener('submit', sendMessage);
+
+    window.addEventListener('load', () => {
+      userInput.focus();
+    });
+  </script>
+</body>
+</html>
