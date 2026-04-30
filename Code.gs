@@ -113,7 +113,7 @@ ${data.name} 様
 
 ---
 ホワイトホテル鎌倉
-TEL: 08088515250
+TEL: 09032530423
 Email: ${ADMIN_EMAIL}
 `;
 
@@ -152,7 +152,7 @@ ${data.name} 様
 
 ---
 ホワイトホテル鎌倉
-TEL: 08088515250
+TEL: 09032530423
 Email: ${ADMIN_EMAIL}
 `;
   }

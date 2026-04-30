@@ -543,7 +543,7 @@ ${name} 様
 
 ホワイトホテル鎌倉
 〒248-0012 神奈川県鎌倉市御成町2-20
-TEL: 080-8851-5250
+TEL: 090-3253-0423
 Email: white-hotel@archi-prisma.co.jp
 `;
 
@@ -613,7 +613,7 @@ https://white-hotel.archi-prisma.co.jp/documents/minor_consent_form.pdf
 
 ホワイトホテル鎌倉
 〒248-0012 神奈川県鎌倉市御成町2-20
-TEL: 080-8851-5250
+TEL: 090-3253-0423
 Email: white-hotel@archi-prisma.co.jp
 `;
 
