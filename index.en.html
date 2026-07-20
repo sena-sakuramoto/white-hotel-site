@@ -18,13 +18,13 @@
     <meta property="og:title" content="White Hotel Kamakura | A small inn just a 2-minute walk from the station, where your Kamakura journey begins">
     <meta property="og:description" content="A small inn designed by an architect, with views of the Enoden train from the window. Your stay will connect to the future of this inn.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://whitehotel-kamakura.jp/index.en.html">
-    <meta property="og:image" content="https://whitehotel-kamakura.jp/images/ogp-white-hotel-kamakura.jpg">
+    <meta property="og:url" content="https://white-hotel.archi-prisma.co.jp/index.en.html">
+    <meta property="og:image" content="https://white-hotel.archi-prisma.co.jp/images/ogp-white-hotel-kamakura.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://whitehotel-kamakura.jp/images/ogp-white-hotel-kamakura.jpg">
-    <link rel="canonical" href="https://whitehotel-kamakura.jp/index.en.html">
-    <link rel="alternate" hreflang="ja" href="https://whitehotel-kamakura.jp/index.html">
-    <link rel="alternate" hreflang="en" href="https://whitehotel-kamakura.jp/index.en.html">
+    <meta name="twitter:image" content="https://white-hotel.archi-prisma.co.jp/images/ogp-white-hotel-kamakura.jpg">
+    <link rel="canonical" href="https://white-hotel.archi-prisma.co.jp/index.en.html">
+    <link rel="alternate" hreflang="ja" href="https://white-hotel.archi-prisma.co.jp/index.html">
+    <link rel="alternate" hreflang="en" href="https://white-hotel.archi-prisma.co.jp/index.en.html">
     <link rel="preload" href="./images/logo_white hotel kamakura.png" as="image">
     <link rel="icon" type="image/png" href="./images/logo_white hotel kamakura.png">
     <link rel="apple-touch-icon" href="./images/logo_white hotel kamakura.png">
@@ -89,7 +89,7 @@
                     <a href="#reviews" class="nav-link">Reviews</a>
                     <a href="#faq" class="nav-link">FAQ</a>
                     <a href="story.html" class="nav-link">Story</a>
-                    <a href="#flower-shop" class="nav-link">Flowers</a>
+                    <a href="flower-shop.html" class="nav-link">Flowers</a>
                     <a href="blog.en.html" class="nav-link">Blog</a>
                     <a href="sponsor.en.html" class="nav-link">Sponsors</a>
                     <a href="#bookingWidget" class="nav-cta">Find a Room</a>
@@ -116,7 +116,7 @@
         <a href="#reviews" class="mobile-nav-link">Reviews</a>
         <a href="#faq" class="mobile-nav-link">FAQ</a>
         <a href="story.html" class="mobile-nav-link">Story</a>
-        <a href="#flower-shop" class="mobile-nav-link">Flowers</a>
+        <a href="flower-shop.html" class="mobile-nav-link">Flowers</a>
         <a href="blog.en.html" class="mobile-nav-link">Blog</a>
         <a href="sponsor.en.html" class="mobile-nav-link">Sponsors</a>
         <a href="#bookingWidget" class="mobile-nav-link">Find a Room</a>
@@ -155,65 +155,12 @@
                     <p style="margin-bottom: 1rem; line-height: 1.8;">
                         Please check current availability and rates, then complete your reservation on Booking.com.
                     </p>
-                    <p style="margin-bottom: 1.5rem; line-height: 1.8;">
-                        If you would like to make a reservation, please use the following method:
-                    </p>
                     <div style="margin-top: 1.5rem;">
                         <a href="https://www.booking.com/hotel/jp/howaitohoterulian-cang.ja.html" target="_blank" class="btn btn-primary" style="margin-bottom: 0.5rem;">
                             Book on Booking.com
                         </a>
                     </div>
-                    <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
-                        We apologize for any inconvenience.<br>
-                        Thank you for your understanding.
-                    </p>
                 </div>
-                <form class="booking-form" onsubmit="searchAvailability(event)" style="display: none;">
-                    <div class="form-group">
-                        <label for="checkinDate" class="form-label">Check-in</label>
-                        <input type="date" class="form-input" id="checkinDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="checkoutDate" class="form-label">Check-out</label>
-                        <input type="date" class="form-input" id="checkoutDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="guestCount" class="form-label">Guests</label>
-                        <select class="form-input" id="guestCount" required>
-                            <option value="1">1 person</option>
-                            <option value="2" selected>2 people</option>
-                            <option value="3">3 people</option>
-                            <option value="4">4 people</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="roomType" class="form-label">Room Type</label>
-                        <select class="form-input" id="roomType">
-                            
-                            <option value="triple">Room A (Max 3 people)</option>
-                            <option value="twin">Room B (Max 2 people)</option>
-                            <option value="semi-twin">Room C (Max 2 people)</option>
-                            <option value="single">Room D (Max 1 person)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Are all guests under 18 years old?</label>
-                        <div class="radio-group">
-                            <input type="radio" id="allMinorsNo" name="allMinors" value="false" checked>
-                            <label for="allMinorsNo">No</label>
-                            <input type="radio" id="allMinorsYes" name="allMinors" value="true">
-                            <label for="allMinorsYes">Yes</label>
-                        </div>
-                    </div>
-                    <div id="minorConsentSection" class="form-group" style="display: none;">
-                        <p class="consent-message">
-                            Please download the <a href="./documents/minor_consent_form.pdf" target="_blank">Minor Consent Form</a>, have it filled out and signed by a guardian, and be sure to bring the original handwritten copy with you at check-in.
-                        </p>
-                    </div>
-                    <button type="submit" class="btn search-btn">
-                        <svg><use xlink:href="#icon-search"/></svg> Search
-                    </button>
-                </form>
             </div>
         </section>
 
@@ -857,7 +804,7 @@
                         <p class="service-card-description">We will store your luggage for free before check-in and after check-out. Enjoy Kamakura to the fullest without worrying about the time.</p>
                         <ul class="service-benefits">
                             <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="benefit-icon"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Luggage storage before check-in (from 11:00 AM)</li>
-                            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="benefit-icon"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Luggage storage after check-out (until 6:00 PM)</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="benefit-icon"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Luggage storage after check-out</li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="benefit-icon"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Free anytime during your stay</li>
                         </ul>
                         <a href="#bookingWidget" class="btn" style="width: 100%; justify-content: center;">Book Your Stay Here</a>
