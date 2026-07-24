@@ -16,67 +16,564 @@
     <meta name="description" content="ホワイトホテル鎌倉の再生プロジェクトと、お客様の滞在が未来に繋がる物語。若手建築家チームが手がける実験的な宿のコンセプトをご紹介します。">
     <link rel="canonical" href="https://whitehotel-kamakura.jp/story.html">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20260721-4">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
         body {
             background-color: var(--bg-offwhite);
-            padding-top: 80px; /* ヘッダーの高さ分 */
+            padding-top: 70px;
         }
-        .story-container {
-            max-width: 800px;
-            margin: 4rem auto;
-            padding: 2rem;
-            background: var(--white);
-            border-radius: 20px;
-            box-shadow: var(--shadow-soft);
-            line-height: 1.8;
-            color: var(--text-primary);
-        }
-        .story-container h1 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 2rem;
+        .story-reader-shell {
             position: relative;
+            max-width: 1330px;
+            margin: 0 auto;
+            padding: 3.5rem 0.75rem 4rem;
+            perspective: 1800px;
+            overflow-anchor: none;
         }
-        .story-container h1::after {
-            content: '';
+        .story-view[hidden] { display: none; }
+        .story-view.is-entering { animation: storyOpen .58s ease both; }
+        @keyframes storyOpen {
+            from { opacity: 0; transform: translateY(12px) scale(.985); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .book-cover-button {
+            display: block;
+            position: relative;
+            width: min(560px, 88vw);
+            aspect-ratio: 1 / 1;
+            margin: 1.5rem auto 0;
+            border: 0;
+            padding: 0;
+            background: transparent;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: transform .28s ease;
+            transform-style: preserve-3d;
+            filter: drop-shadow(18px 24px 18px rgba(37, 27, 18, .26));
+        }
+        .book-cover-button::before {
+            content: "";
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--primary-color);
-            border-radius: 3px;
+            inset: 3.5% 2.8% 2.5% 7.2%;
+            z-index: -1;
+            border-radius: 3px 12px 12px 3px;
+            background: #d9c9a9;
+            box-shadow: 5px 0 0 #b8a27d, 9px 0 0 #8b7353;
+            transform: translateZ(-14px);
         }
-        .story-container p {
-            margin-bottom: 1.5rem;
+        .book-cover-button:hover { transform: translateY(-5px); }
+        .story-reader-shell.is-opening .book-cover-button {
+            transform-origin: 8% 50%;
+            animation: openBookCover 1.35s cubic-bezier(.62,.02,.22,1) both;
+            pointer-events: none;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
         }
-        .story-container p:last-of-type {
-            margin-bottom: 0;
+        .story-reader-shell.is-opening #storyCover {
+            position: absolute;
+            z-index: 8;
+            top: 3.5rem;
+            left: .75rem;
+            right: .75rem;
+            pointer-events: none;
         }
-        .story-container strong {
-            color: var(--primary-color);
+        @keyframes openBookCover {
+            0% { transform: rotateY(0deg) translateZ(0) scale(1); opacity: 1; }
+            22% { transform: translateX(-2%) rotateY(-22deg) translateZ(28px) scale(1.01); opacity: 1; }
+            58% { transform: translateX(-22%) rotateY(-104deg) translateZ(52px) scale(1.02); opacity: 1; }
+            100% { transform: translateX(-57%) rotateY(-178deg) translateZ(4px) scale(1.02); opacity: .08; }
         }
-        .story-container small {
-            display: block;
-            text-align: right;
-            margin-top: 2rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-        .back-link {
-            display: block;
+        .book-cover-button:focus-visible { outline: 3px solid var(--primary-color); outline-offset: 6px; border-radius: 18px; }
+        .story-reader-shell.is-opening .book-cover-button:focus-visible { outline: none; }
+        .book-cover-image { display: block; width: 100%; height: 100%; object-fit: contain; }
+        .book-cover-copy {
+            position: absolute;
+            inset: 20% 28%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            margin-top: 3rem;
-            font-size: 1.1rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: var(--transition-smooth);
+            pointer-events: none;
         }
-        .back-link:hover {
-            text-decoration: underline;
+        .book-cover-kicker { color: var(--primary-color); font-size: .8rem; letter-spacing: .18em; margin-bottom: 1.5rem; }
+        .book-cover-title { font-size: clamp(1.45rem, 2.25vw, 2rem); line-height: 1.55; letter-spacing: .04em; margin: 0; white-space: nowrap; }
+        .book-cover-open { margin-top: 2rem; color: var(--primary-color); font-weight: 700; font-size: .9rem; letter-spacing: .08em; }
+        .book-spread {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            min-height: 690px;
+            background: url('images/2026/story-open-book-blank.png') center / 100% 100% no-repeat;
+            filter: drop-shadow(0 18px 25px rgba(82, 61, 38, .13));
+        }
+        .book-spread.is-content-spread {
+            background-image: url('images/2026/story-open-book-no-flowers.png');
+        }
+        .book-page-grid {
+            position: absolute;
+            inset: 9% 10.5% 10%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7.5%;
+        }
+        .chapter-leaf {
+            position: relative;
+            min-width: 0;
+            color: #4b4742;
+        }
+        .chapter-leaf-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 5% 8% 10%;
+        }
+        .chapter-title-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+        .chapter-title-content[hidden] { display: none; }
+        .chapter-number { color: var(--primary-color); font-size: 1.1rem; letter-spacing: .16em; margin: 0 0 1.4rem; }
+        .chapter-title { color: var(--primary-color); font-size: clamp(1.4rem, 1.8vw, 1.7rem); font-weight: 500; line-height: 1.65; letter-spacing: .04em; margin: 0; white-space: nowrap; }
+        .chapter-leaf-right {
+            position: relative;
+            padding: 4% 7% 9% 4%;
+            overflow: hidden;
+        }
+        .chapter-source {
+            display: none;
+        }
+        .desktop-page-copy {
+            height: 100%;
+            padding-right: .85rem;
+            overflow: hidden;
+        }
+        .desktop-page-copy[hidden] { display: none; }
+        .desktop-page-copy p,
+        .chapter-source p { margin: 0 0 1.15rem; font-family: 'Noto Serif JP', 'Yu Mincho', serif; font-size: clamp(.78rem, .92vw, .9rem); line-height: 1.9; }
+        .desktop-page-copy strong,
+        .chapter-source strong { color: var(--primary-color); }
+        .chapter-leaf-left.has-page-copy {
+            display: block;
+            padding: 8% 9% 10% 12%;
+            text-align: left;
+        }
+        .page-turn-button {
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            padding: 0;
+            background: transparent;
+            cursor: pointer;
+            color: transparent;
+        }
+        .page-turn-button:disabled { cursor: default; }
+        .page-turn-button:focus-visible { outline: none; }
+        .page-flip-sheet {
+            position: absolute;
+            top: 9%;
+            bottom: 10%;
+            left: 50%;
+            width: 39.5%;
+            z-index: 12;
+            transform-style: preserve-3d;
+            pointer-events: none;
+            display: none;
+        }
+        .page-flip-face {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            backface-visibility: hidden;
+            background: #fbf7ed;
+            color: #4b4742;
+            box-shadow: inset 18px 0 24px rgba(102, 77, 43, .08), 8px 4px 16px rgba(65, 45, 25, .18);
+        }
+        .page-flip-face .desktop-page-copy { padding: 4% 8% 8%; }
+        .page-flip-back { transform: rotateY(180deg); box-shadow: inset -18px 0 24px rgba(102, 77, 43, .1), -8px 4px 16px rgba(65, 45, 25, .18); }
+        .book-spread.turning-next .page-flip-sheet {
+            display: block;
+            transform-origin: left center;
+            animation: pageTurnNext .82s cubic-bezier(.6,.02,.25,1) both;
+        }
+        .book-spread.turning-prev .page-flip-sheet {
+            display: block;
+            left: 10.5%;
+            transform-origin: right center;
+            animation: pageTurnPrev .82s cubic-bezier(.6,.02,.25,1) both;
+        }
+        @keyframes pageTurnNext {
+            0% { transform: perspective(1800px) rotateY(0deg) translateZ(2px); }
+            45% { transform: perspective(1800px) rotateY(-82deg) translateZ(34px) skewY(-.8deg); }
+            100% { transform: perspective(1800px) rotateY(-180deg) translateZ(2px); }
+        }
+        @keyframes pageTurnPrev {
+            0% { transform: perspective(1800px) rotateY(0deg) translateZ(2px); }
+            45% { transform: perspective(1800px) rotateY(82deg) translateZ(34px) skewY(.8deg); }
+            100% { transform: perspective(1800px) rotateY(180deg) translateZ(2px); }
+        }
+        .chapter-signature { text-align: right; margin-top: 1.8rem !important; }
+        .keep-together { white-space: nowrap; }
+        .page-number { position: absolute; bottom: 3%; left: 50%; transform: translateX(-50%); color: var(--primary-color); font-family: Georgia, serif; font-size: 1rem; }
+        .story-pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 730px;
+            margin: .35rem auto 0;
+            gap: 1rem;
+        }
+        .story-page-button {
+            border: 0;
+            background: transparent;
+            color: #a36f2e;
+            font: inherit;
+            font-weight: 700;
+            letter-spacing: .06em;
+            padding: .7rem 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(221,153,70,.7);
+        }
+        .story-page-button i { margin: 0 .55rem; }
+        .story-page-button:hover { color: var(--primary-color); }
+        .story-page-button:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 3px; }
+        .back-link { display: block; text-align: center; margin-top: 2.4rem; color: var(--primary-color); text-decoration: none; }
+        .back-link:hover { text-decoration: underline; }
+        @media (max-width: 900px) {
+            .story-reader-shell { padding: 2rem 1rem 3rem; }
+            .book-cover-button {
+                width: min(360px, 82vw);
+                aspect-ratio: 702 / 970;
+                margin-top: .75rem;
+                filter: drop-shadow(12px 18px 14px rgba(37, 27, 18, .25));
+            }
+            .book-cover-button::before {
+                inset: .7% -.6% .7% 2.5%;
+                border-radius: 2px 8px 8px 2px;
+                background: #d8c7a7;
+                box-shadow: 3px 0 0 #b49c75, 6px 0 0 #826b4d;
+            }
+            .book-cover-image {
+                object-fit: cover;
+                border-radius: 2px 7px 7px 2px;
+            }
+            .book-spread { aspect-ratio: auto; min-height: 0; padding: 2rem 1.2rem; background: #fffdf8; border-radius: 16px; box-shadow: var(--shadow-medium); filter: none; }
+            .book-page-grid { position: static; grid-template-columns: 1fr; gap: 1.75rem; }
+            .chapter-leaf-left { min-height: 250px; padding: 2rem 1rem; border-bottom: 1px solid rgba(221,153,70,.25); }
+            .chapter-title { white-space: normal; }
+            .chapter-leaf-right { padding: 0; }
+            .chapter-source { display: block; }
+            .desktop-page-copy,
+            .page-turn-button,
+            .page-flip-sheet { display: none !important; }
+            .chapter-leaf-left.has-page-copy { display: flex; padding: 2rem 1rem; text-align: center; }
+            .page-number { position: static; display: block; transform: none; text-align: center; margin-top: 1.5rem; }
+            .story-pagination { margin-top: 1.2rem; }
+        }
+        @media (max-width: 520px) {
+            .book-cover-copy { inset: 18% 27%; }
+            .book-cover-title { font-size: 1.45rem; }
+            .story-pagination { align-items: stretch; }
+            .story-page-button { flex: 1; padding: .7rem .4rem; font-size: .82rem; }
+        }
+        .desktop-flip-reader { display: none; }
+        @media (min-width: 901px) {
+            .desktop-flip-reader {
+                display: block;
+                max-width: min(1260px, calc((100vh - 140px) * 1.6));
+                margin: 0 auto 3.8rem;
+                position: relative;
+            }
+            .desktop-flip-stage {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 16 / 10;
+                overflow: clip;
+                overflow-clip-margin: 28px;
+                contain: layout style;
+                transform: translateZ(0);
+            }
+            .desktop-flipbook-track {
+                position: absolute;
+                left: 4%;
+                top: 2%;
+                width: 92%;
+                height: 96%;
+                transition: transform .85s cubic-bezier(.62, .02, .25, 1);
+                will-change: transform;
+                backface-visibility: hidden;
+                transform: translate3d(0, 0, 0);
+            }
+            .desktop-flip-stage.is-closing .desktop-flipbook-track {
+                pointer-events: none;
+                animation: closeSpreadIntoCover .82s cubic-bezier(.52, .02, .24, 1) both;
+            }
+            @keyframes closeSpreadIntoCover {
+                0% {
+                    opacity: 1;
+                    transform: translate3d(0, 0, 0) scaleX(1);
+                    filter: blur(0);
+                }
+                46% {
+                    opacity: .52;
+                    transform: translate3d(0, 0, 0) scaleX(.95);
+                    filter: blur(.15px);
+                }
+                65%, 100% {
+                    opacity: 0;
+                    transform: translate3d(0, 0, 0) scaleX(.88);
+                    filter: blur(.35px);
+                }
+            }
+            .desktop-flip-stage.is-closed .desktop-flipbook-track {
+                transform: translate3d(-21.4%, 0, 0);
+            }
+            .desktop-flip-stage.is-closed .desktop-flipbook-track:hover {
+                transform: translate3d(-21.4%, -8px, 0) scale(1.012);
+                filter: drop-shadow(0 18px 16px rgba(49, 31, 18, .2));
+                cursor: pointer;
+            }
+            @media (prefers-reduced-motion: reduce) {
+                .desktop-flipbook-track { transition-duration: .01ms; }
+                .desktop-flip-stage.is-closed .desktop-flipbook-track:hover {
+                    transform: translate3d(-21.4%, 0, 0);
+                }
+            }
+            .desktop-page-area {
+                position: absolute;
+                left: 12.15%;
+                top: .5%;
+                width: 79%;
+                height: 91.5%;
+                z-index: 3;
+                isolation: isolate;
+                backface-visibility: hidden;
+                border-radius: 4px 8px 9px 4px;
+                box-shadow:
+                    0 2px 0 rgba(248, 242, 229, .96),
+                    0 4px 0 rgba(220, 207, 183, .88),
+                    0 6px 0 rgba(244, 236, 221, .9),
+                    0 8px 0 rgba(177, 151, 116, .42),
+                    0 16px 22px rgba(54, 36, 20, .17);
+                transition: box-shadow .16s ease;
+            }
+            .desktop-flip-stage.is-closed .desktop-page-area,
+            .desktop-flip-stage.is-opening .desktop-page-area {
+                box-shadow: none;
+            }
+            .desktop-flipbook {
+                width: 100%;
+                height: 100%;
+            }
+            .desktop-closing-cover {
+                position: absolute;
+                left: 50%;
+                top: 2.48%;
+                width: 36.34%;
+                height: 87.84%;
+                z-index: 1000;
+                visibility: hidden;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateX(-50%) scale(.97);
+            }
+            .desktop-closing-cover img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                border-radius: 2px 7px 7px 2px;
+                object-fit: cover;
+                box-shadow: 10px 16px 22px rgba(48, 31, 19, .22);
+            }
+            .desktop-flip-stage.is-closing .desktop-closing-cover {
+                visibility: visible;
+                animation: revealClosedCover .96s cubic-bezier(.44, .02, .2, 1) both;
+            }
+            @keyframes revealClosedCover {
+                0%, 58% {
+                    opacity: 0;
+                    transform: translateX(-50%) scale(.97);
+                }
+                76% {
+                    opacity: .82;
+                    transform: translateX(-50%) scale(.985);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateX(-50%) scale(1);
+                }
+            }
+            .desktop-flipbook.stf__parent {
+                backface-visibility: hidden;
+            }
+            .flip-page {
+                box-sizing: border-box;
+                overflow: hidden;
+                background: #fbf7ed;
+                color: #4b4742;
+            }
+            .flip-page:not(.flip-cover) {
+                background-image: url('images/2026/story-paper-texture.jpg');
+                background-size: cover;
+                border: 1px solid rgba(113, 89, 59, .08);
+            }
+            .flip-page.stf__item.--left:not(.flip-cover) {
+                box-shadow: inset -17px 0 22px -24px rgba(73, 54, 36, .34);
+            }
+            .flip-page.stf__item.--right:not(.flip-cover) {
+                box-shadow: inset 17px 0 22px -24px rgba(73, 54, 36, .34);
+            }
+            .flip-cover {
+                padding: 0;
+                background: #261f19;
+                box-shadow: 0 16px 30px rgba(52, 35, 22, .24);
+            }
+            .flip-cover img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+            }
+            .desktop-flip-stage.is-opening .flip-cover {
+                box-shadow: none;
+                filter: drop-shadow(9px 11px 12px rgba(49, 31, 18, .16));
+            }
+            .desktop-flip-stage.is-opening .stf__hardShadow,
+            .desktop-flip-stage.is-opening .stf__hardInnerShadow {
+                display: none !important;
+            }
+            .flip-page.flip-title-page {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 10% 9%;
+                background-image: url('images/2026/story-title-page-floral-clean.jpg');
+                background-size: cover;
+                background-position: center;
+            }
+            .flip-title-page .chapter-number { margin-bottom: 1.25rem; }
+            .flip-title-page .chapter-title {
+                font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+                white-space: nowrap;
+            }
+            .flip-copy-page {
+                padding: 10% 9% 9%;
+            }
+            .flip-copy-page p {
+                margin: 0 0 1.05rem;
+                font-family: 'Noto Serif JP', 'Yu Mincho', serif;
+                font-size: clamp(.72rem, .82vw, .84rem);
+                line-height: 1.9;
+            }
+            .flip-copy-page strong { color: var(--primary-color); }
+            .flip-photo-page {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 8% 9% 7%;
+            }
+            .flip-photo-figure {
+                position: relative;
+                width: 118%;
+                margin: 0;
+                text-align: center;
+                transform: rotate(-.18deg);
+                transform-origin: 50% 0;
+            }
+            .flip-photo-sheet {
+                position: relative;
+                padding: 2.2% 2.2% 3.6%;
+                background: #f5efe4;
+                border: 1px solid rgba(105, 82, 55, .12);
+                box-shadow:
+                    0 1px 0 rgba(87, 65, 42, .12),
+                    0 8px 18px rgba(70, 52, 37, .15);
+                transform-origin: 50% 1%;
+            }
+            .flip-photo-artwork {
+                display: block;
+                width: 100%;
+                height: auto;
+                aspect-ratio: 2 / 3;
+                object-fit: cover;
+            }
+            .flip-photo-figure figcaption {
+                margin-top: .58rem;
+                color: #8b7964;
+                font-family: 'Noto Serif JP', 'Yu Mincho', serif;
+                font-size: clamp(.6rem, .7vw, .72rem);
+                letter-spacing: .16em;
+            }
+            .flip-photo-tape {
+                position: absolute;
+                z-index: 3;
+                top: -3.8%;
+                left: 50%;
+                width: 34%;
+                height: auto;
+                pointer-events: none;
+                transform: translateX(-50%) rotate(.4deg);
+                transform-origin: 18% 50%;
+                filter: drop-shadow(0 2px 1px rgba(72, 55, 36, .13));
+            }
+            .flip-page-number {
+                position: absolute;
+                bottom: 3.2%;
+                left: 50%;
+                transform: translateX(-50%);
+                color: #a36f2e;
+                font-family: Georgia, serif;
+                font-size: .85rem;
+            }
+            .desktop-flip-pagination {
+                position: absolute;
+                left: 15.5%;
+                right: 12.5%;
+                bottom: -2rem;
+                z-index: 20;
+                max-width: none;
+                margin: 0;
+            }
+            .desktop-flip-pagination[hidden] { display: none !important; }
+            #storyCover,
+            #chapter1,
+            #chapter2 { display: none !important; }
+
+            @media (max-height: 700px) {
+                .story-reader-shell {
+                    padding-top: 1.2rem;
+                    padding-bottom: .6rem;
+                }
+                .desktop-flip-reader {
+                    max-width: min(1260px, calc((100dvh - 140px) * 1.6));
+                    margin-bottom: .65rem;
+                }
+                .flip-title-page .chapter-title { font-size: 1rem; }
+                .flip-title-page .chapter-number { margin-bottom: .8rem; }
+                .flip-copy-page { padding: 8% 8% 7%; }
+                .flip-copy-page p {
+                    margin-bottom: .72rem;
+                    font-size: .58rem;
+                    line-height: 1.72;
+                }
+                .flip-page-number { bottom: 2%; }
+                .back-link { margin-top: .2rem; }
+            }
         }
     </style>
 </head>
@@ -86,14 +583,15 @@
             <div class="header-content">
                 <a href="index.html" class="logo">White Hotel</a>
                 <nav class="nav-menu">
-                    <a href="#home" class="nav-link">ホーム</a>
-                    <a href="#rooms" class="nav-link">お部屋</a>
-                    <a href="#location" class="nav-link">アクセス</a>
-                    <a href="#reviews" class="nav-link">みんなの声</a>
-                    <a href="#faq" class="nav-link">FAQ</a>
+                    <a href="index.html#home" class="nav-link">ホーム</a>
+                    <a href="index.html#rooms" class="nav-link">お部屋</a>
+                    <a href="index.html#location" class="nav-link">アクセス</a>
+                    <a href="index.html#reviews" class="nav-link">みんなの声</a>
+                    <a href="index.html#faq" class="nav-link">FAQ</a>
                     <a href="story.html" class="nav-link">物語</a>
+                    <a href="flower-shop.html" class="nav-link">花屋</a>
                     <a href="blog.html" class="nav-link">ブログ</a>
-                    <a href="#bookingWidget" class="nav-cta">空室をさがす</a>
+                    <a href="https://www.booking.com/hotel/jp/howaitohoterulian-cang.ja.html" target="_blank" rel="noopener" class="nav-cta">Booking.comで空室・料金を確認する</a>
                 </nav>
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="メニューを開閉する">
                     <span></span>
@@ -111,41 +609,115 @@
         <a href="#reviews" class="mobile-nav-link">みんなの声</a>
         <a href="#faq" class="mobile-nav-link">FAQ</a>
         <a href="story.html" class="mobile-nav-link">物語</a>
+        <a href="flower-shop.html" class="mobile-nav-link">花屋</a>
         <a href="blog.html" class="mobile-nav-link">ブログ</a>
-        <a href="#bookingWidget" class="mobile-nav-link">空室をさがす</a>
+        <a href="https://www.booking.com/hotel/jp/howaitohoterulian-cang.ja.html" target="_blank" rel="noopener" class="mobile-nav-link">Booking.comで空室・料金を確認する</a>
     </div>
 
-    <main>
-        <div class="story-container">
-            <h1>この宿の、未来に向けた物語</h1>
-            <h2>第1章　泊まることが、宿の未来を支える</h2>
-            <p>この度は、私たちの宿に興味を持ってくださり、ありがとうございます。</p>
-            <p>実は、この場所は「実験的なプロジェクト」の真っ最中です。</p>
-            <p>50年近く続いたこのホテルですが、長年ここを守ってこられたオーナー様が体調を崩されたことをきっかけに、私たち若手建築家チームがその想いを引き継がせていただくことになりました。</p>
-            <p>本格的なリニューアルを前に、まずはこの建物が持つありのままの魅力を知るため、<strong>2025年7月から10月までの期間限定</strong>で運営しました。</p>
-            <p>古い柱の傷、少し軋む床、窓から見える江ノ電の風景。この建物が長年積み重ねてきた「記憶の断片」を、あなたに体感していただきたいのです。</p>
-            <p>この3ヶ月間の運営で得られる収益を、その後のリニューアルへつなげることも、この試みの大切な目的でした。50年の歴史を持つホテルの未来をかけた、最初の一歩でした。</p>
-            <p><strong>あなたの「泊まる」という行為そのものが、この宿の未来を直接支える力になります。</strong></p>
-            <p>そして、あなたの滞在が、未来の宿を創るための大切なヒントにもなります。もしご宿泊いただけた際には、お部屋に置かれたノートに、この建物の好きなところ、少し不便なところ、どんな宿に生まれ変わってほしいかなど、どんな些細なことでも結構です。あなたが見つけた「記憶の断片」について、自由な感想をお聞かせいただけないでしょうか。</p>
-            <p style="text-align: right; margin-top: 2rem;">未来の宿の、最初の宿泊者であり、最初の支援者であるあなたに、心からの感謝を込めて。</p>
-            <p style="text-align: right;"><strong>若手建築家チームより</strong></p>
-            <hr style="margin: 4rem 0; border: 0; border-top: 1px solid #ddd;">
-            <h2>第2章　花とともに、この宿の物語を次の章へ</h2>
-            <p>2025年の夏、ホワイトホテル鎌倉では、ひとつの実験的な取り組みが始まりました。</p>
-            <p>約50年にわたり旅人を迎えてきたこの建物を、ただ新しくつくり替えるのではなく、ここに残る時間や記憶を大切にしながら、次の世代へつないでいくこと。その可能性を確かめるため、私たち若手建築家チームは期間限定でホテルの運営を始めました。</p>
-            <p>実際にこの場所を訪れ、宿泊し、応援してくださった皆さまのおかげで、この宿の物語はそこで終わることなく、次へとつながりました。</p>
-            <p>そして今、この宿は新しい一歩を踏み出します。</p>
-            <p>新たな運営パートナーとして加わるのは、相模原市で「アートフラワーショップ花木秀」を営む松浦さんです。</p>
-            <p>建物の歴史や個性を読み取り、空間をつくってきた私たち建築家の視点に、松浦さんが培ってきた花の知識と感性が重なることで、この宿に新しい過ごし方が生まれます。</p>
-            <p>客室や館内には、それぞれの空間に寄り添う花の装飾を施します。華美に飾り立てるのではなく、この建物がもともと持つ落ち着きや懐かしさを残しながら、滞在する方の心が少し和らぐような空間を目指します。</p>
-            <p>また、1階ロビーは実際に花を購入できるフラワーショップとして営業します。宿泊される方はもちろん、地域の方や鎌倉を訪れた方にも、気軽に立ち寄っていただける場所です。</p>
-            <p>旅の始まりに花を選ぶこと。大切な人への花を探すこと。鎌倉で過ごした時間の記憶を、花とともに持ち帰ること。</p>
-            <p>ホテルと花屋がひとつの場所にあることで、宿泊するためだけではない、人と地域との新しい接点をつくっていきます。</p>
-            <p>若手建築家たちが受け継いだ、約50年の歴史を持つ建物。そこに花の専門家である松浦さんが加わり、ホワイトホテル鎌倉の再生プロジェクトは次の段階へ進みます。</p>
-            <p>古いものをすべて新しくするのではなく、これまで積み重ねられてきたものに、新しい感性を少しずつ重ねていく。</p>
-            <p>ホワイトホテル鎌倉は、建物の記憶と、花のある時間を楽しんでいただける宿として、これからも物語を紡いでいきます。</p>
-            <p style="text-align: right; margin-top: 2rem;"><strong>ホワイトホテル鎌倉 運営チームより</strong></p>
-        </div>
+    <main class="story-reader-shell">
+        <section class="desktop-flip-reader" aria-label="ページをめくって読む物語">
+            <div class="desktop-flip-stage">
+                <div class="desktop-flipbook-track">
+                    <div class="desktop-page-area">
+                        <div class="desktop-flipbook" id="desktopFlipbook"></div>
+                    </div>
+                </div>
+                <div class="desktop-closing-cover" aria-hidden="true">
+                    <img src="images/2026/story-book-cover-cropped.jpg" alt="">
+                </div>
+            </div>
+            <nav class="story-pagination desktop-flip-pagination" aria-label="物語の章へ移動" hidden>
+                <button class="story-page-button desktop-flip-prev" type="button"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i><span>表紙</span></button>
+                <button class="story-page-button desktop-flip-next" type="button"><span>第1章</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            </nav>
+        </section>
+        <section class="story-view" id="storyCover" aria-label="物語の表紙">
+            <button class="book-cover-button" type="button" data-story-target="chapter2" aria-label="本を開いて第2章を読む">
+                <img class="book-cover-image" src="images/2026/story-book-cover-cropped.jpg" alt="この宿の、未来に向けた物語と金文字で記された革張りの本の表紙">
+            </button>
+        </section>
+
+        <section class="story-view" id="chapter2" aria-label="第2章" hidden>
+            <div class="book-spread">
+                <div class="book-page-grid">
+                    <div class="chapter-leaf chapter-leaf-left">
+                        <div class="chapter-title-content">
+                            <p class="chapter-number">第2章</p>
+                            <h1 class="chapter-title">花とともに、<br>この宿の物語を次の章へ</h1>
+                        </div>
+                        <div class="desktop-page-copy" data-page-copy="left"></div>
+                        <button class="page-turn-button" type="button" data-page-direction="prev" aria-label="前のページへ"></button>
+                    </div>
+                    <article class="chapter-leaf chapter-leaf-right">
+                        <div class="desktop-page-copy" data-page-copy="right"></div>
+                        <div class="chapter-source" data-page-groups="3,2,3,3">
+                            <p>2025年10月。期間限定だったこの宿は、一度、物語を閉じるはずでした。</p>
+                            <p>けれど、ここを訪れ、泊まり、応援してくださった皆さまのおかげで、物語には続きが生まれました。</p>
+                            <p>約50年にわたり旅人を迎えてきた建物を、ただ新しくするのではなく、ここに残る時間や記憶を大切にしながら次の世代へつなぐ。その可能性を確かめるため、2025年の夏、私たち若手建築家チームはホテルの運営を始めました。</p>
+                            <p>その次のページをともに開くのが、相模原市で「アートフラワーショップ花木秀」を営む松浦さんです。新たな運営パートナーとして、この宿に加わります。</p>
+                            <p>建物の歴史や個性を読み解く建築家の視点と、松浦さんが培ってきた花の知識と感性。その二つが重なることで、この宿に新しい時間が流れ始めます。</p>
+                            <p>客室や館内には、それぞれの空間に寄り添う花を。華やかに飾り立てるのではなく、この建物が持つ落ち着きや懐かしさを残しながら、ふと心がほどける場所を目指します。</p>
+                            <p>1階エントランスでは、実際に花を購入できるフラワーショップを営みます。宿泊される方だけでなく、地域の方や鎌倉を訪れた方も、気軽に立ち寄れる場所です。</p>
+                            <p>旅の始まりに花を選ぶ。大切な人への花を探す。鎌倉で過ごした記憶を、花とともに持ち帰る。</p>
+                            <p>ホテルと花屋がひとつになることで、泊まるためだけではない、人と地域の新しい接点が生まれていきます。</p>
+                            <p>古いものをすべて新しくするのではなく、積み重ねられてきたものに、新しい感性を少しずつ重ねていく。花とともに、この宿の物語をこれからも紡いでいきます。</p>
+                            <p class="chapter-signature"><strong>ホワイトホテル鎌倉 運営チームより</strong></p>
+                        </div>
+                        <button class="page-turn-button" type="button" data-page-direction="next" aria-label="次のページへ"></button>
+                    </article>
+                </div>
+                <div class="page-flip-sheet" aria-hidden="true">
+                    <div class="page-flip-face page-flip-front"><div class="desktop-page-copy"></div></div>
+                    <div class="page-flip-face page-flip-back"><div class="desktop-page-copy"></div></div>
+                </div>
+                <span class="page-number">— 2 —</span>
+            </div>
+            <nav class="story-pagination" aria-label="物語のページ移動">
+                <button class="story-page-button" type="button" data-story-target="storyCover"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i>表紙</button>
+                <button class="story-page-button" type="button" data-story-target="chapter1">第1章<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            </nav>
+        </section>
+
+        <section class="story-view" id="chapter1" aria-label="第1章" hidden>
+            <div class="book-spread">
+                <div class="book-page-grid">
+                    <div class="chapter-leaf chapter-leaf-left">
+                        <div class="chapter-title-content">
+                            <p class="chapter-number">第1章</p>
+                            <h1 class="chapter-title">泊まることが、<br>宿の未来を支える</h1>
+                        </div>
+                        <div class="desktop-page-copy" data-page-copy="left"></div>
+                        <button class="page-turn-button" type="button" data-page-direction="prev" aria-label="前のページへ"></button>
+                    </div>
+                    <article class="chapter-leaf chapter-leaf-right">
+                        <div class="desktop-page-copy" data-page-copy="right"></div>
+                        <div class="chapter-source" data-page-groups="4,3,3">
+                            <p>この度は、私たちの宿に興味を持ってくださり、ありがとうございます。</p>
+                            <p>実は、この場所は「実験的なプロジェクト」の真っ最中です。</p>
+                            <p>50年近く続いたこのホテルですが、長年ここを守ってこられたオーナー様が体調を崩されたことをきっかけに、私たち若手建築家チームがその想いを引き継がせていただくことになりました。</p>
+                            <p>本格的なリニューアルを前に、まずはこの建物が持つありのままの魅力を知るため、<strong>2025年7月から10月までの期間限定</strong>で運営しております。</p>
+                            <p>古い柱の傷、少し軋む床、窓から見える江ノ電の風景。この建物が長年積み重ねてきた「記憶の断片」を、あなたに体感していただきたいのです。</p>
+                            <p>実を言うと、この3ヶ月間の運営で得られる収益のすべてが、11月からのフルリニューアルに向けた資金となります。もし、この試みがうまくいかなければ、50年の歴史を持つこのホテルは、ここで完全にその役目を終えることになります。</p>
+                            <p><strong>あなたの「泊まる」という行為そのものが、この宿の未来を直接支える力になります。</strong></p>
+                            <p>そして、あなたの滞在が、未来の宿を創るための大切なヒントにもなります。もしご宿泊いただけた際には、お部屋に置かれたノートに、この建物の好きなところ、少し不便なところ、どんな宿に生まれ変わってほしいかなど、どんな些細なことでも結構です。あなたが見つけた「記憶の断片」について、自由な感想をお聞かせいただけないでしょうか。</p>
+                            <p class="chapter-signature">未来の宿の、最初の宿泊者であり、最初の支援者であるあなたに、<span class="keep-together">心からの感謝を込めて。</span></p>
+                            <p class="chapter-signature"><strong>若手建築家チームより</strong></p>
+                        </div>
+                        <button class="page-turn-button" type="button" data-page-direction="next" aria-label="次のページへ"></button>
+                    </article>
+                </div>
+                <div class="page-flip-sheet" aria-hidden="true">
+                    <div class="page-flip-face page-flip-front"><div class="desktop-page-copy"></div></div>
+                    <div class="page-flip-face page-flip-back"><div class="desktop-page-copy"></div></div>
+                </div>
+                <span class="page-number">— 1 —</span>
+            </div>
+            <nav class="story-pagination" aria-label="物語のページ移動">
+                <button class="story-page-button" type="button" data-story-target="chapter2"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i>第2章</button>
+                <button class="story-page-button" type="button" data-story-target="storyCover">表紙<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            </nav>
+        </section>
+
         <a href="index.html" class="back-link">← ホームに戻る</a>
     </main>
 
@@ -154,6 +726,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+    <script src="assets/js/page-flip.browser.js"></script>
     <script>
         // ヘッダーの透明化とスクロール時の表示/非表示
         const header = document.getElementById('header');
@@ -186,6 +759,353 @@
             document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         };
         mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        const initializeDesktopFlipbook = () => {
+            if (!window.matchMedia('(min-width: 901px)').matches || !window.St?.PageFlip) return;
+
+            const flipbook = document.getElementById('desktopFlipbook');
+            const flipStage = flipbook.closest('.desktop-flip-stage');
+            const flipPagination = document.querySelector('.desktop-flip-pagination');
+            const flipPrev = flipPagination.querySelector('.desktop-flip-prev');
+            const flipNext = flipPagination.querySelector('.desktop-flip-next');
+            flipStage.classList.add('is-closed');
+            const chapterStarts = new Map();
+            let pageNumber = 0;
+
+            const cover = document.createElement('div');
+            cover.className = 'flip-page flip-cover';
+            cover.dataset.density = 'hard';
+            const coverImage = document.createElement('img');
+            coverImage.src = 'images/2026/story-book-cover-cropped.jpg';
+            coverImage.alt = 'この宿の、未来に向けた物語';
+            cover.appendChild(coverImage);
+            flipbook.appendChild(cover);
+            pageNumber += 1;
+
+            ['chapter2', 'chapter1'].forEach((chapterId) => {
+                const chapter = document.getElementById(chapterId);
+                if (chapterId === 'chapter1' && pageNumber % 2 === 0) {
+                    const blankPage = document.createElement('div');
+                    blankPage.className = 'flip-page flip-photo-page';
+                    const figure = document.createElement('figure');
+                    figure.className = 'flip-photo-figure';
+                    const sheet = document.createElement('div');
+                    sheet.className = 'flip-photo-sheet';
+                    const photo = document.createElement('img');
+                    photo.className = 'flip-photo-artwork';
+                    photo.src = 'images/2026/story-chapter2-facade-illustration.webp';
+                    photo.alt = '手描き風に描かれたホワイトホテル鎌倉の外観';
+                    const caption = document.createElement('figcaption');
+                    caption.textContent = 'ホワイトホテル鎌倉';
+                    const tape = document.createElement('img');
+                    tape.className = 'flip-photo-tape';
+                    tape.src = 'images/2026/story-washi-tape.webp';
+                    tape.alt = '';
+                    tape.setAttribute('aria-hidden', 'true');
+                    sheet.append(photo, caption);
+                    figure.append(sheet, tape);
+                    blankPage.appendChild(figure);
+                    flipbook.appendChild(blankPage);
+                    pageNumber += 1;
+                }
+                chapterStarts.set(chapterId, pageNumber);
+
+                const titlePage = document.createElement('div');
+                titlePage.className = 'flip-page flip-title-page';
+                const titleContent = chapter.querySelector('.chapter-title-content').cloneNode(true);
+                titleContent.hidden = false;
+                titlePage.appendChild(titleContent);
+                flipbook.appendChild(titlePage);
+                pageNumber += 1;
+
+                const source = chapter.querySelector('.chapter-source');
+                const groupSizes = source.dataset.pageGroups.split(',').map(Number);
+                const paragraphs = Array.from(source.children);
+                let cursor = 0;
+                groupSizes.forEach((size) => {
+                    const copyPage = document.createElement('div');
+                    copyPage.className = 'flip-page flip-copy-page';
+                    paragraphs.slice(cursor, cursor + size).forEach((paragraph) => copyPage.appendChild(paragraph.cloneNode(true)));
+                    const number = document.createElement('span');
+                    number.className = 'flip-page-number';
+                    number.textContent = `— ${pageNumber} —`;
+                    copyPage.appendChild(number);
+                    flipbook.appendChild(copyPage);
+                    cursor += size;
+                    pageNumber += 1;
+                });
+                if (cursor < paragraphs.length) {
+                    const copyPage = document.createElement('div');
+                    copyPage.className = 'flip-page flip-copy-page';
+                    paragraphs.slice(cursor).forEach((paragraph) => copyPage.appendChild(paragraph.cloneNode(true)));
+                    const number = document.createElement('span');
+                    number.className = 'flip-page-number';
+                    number.textContent = `— ${pageNumber} —`;
+                    copyPage.appendChild(number);
+                    flipbook.appendChild(copyPage);
+                    pageNumber += 1;
+                }
+            });
+
+            const pageFlip = new St.PageFlip(flipbook, {
+                width: 460,
+                height: 700,
+                size: 'stretch',
+                minWidth: 190,
+                maxWidth: 460,
+                minHeight: 290,
+                maxHeight: 700,
+                maxShadowOpacity: 0.28,
+                showCover: true,
+                mobileScrollSupport: false,
+                usePortrait: false,
+                autoSize: false,
+                drawShadow: true,
+                flippingTime: 1050,
+                startZIndex: 10
+            });
+            pageFlip.loadFromHTML(flipbook.querySelectorAll('.flip-page'));
+            let isClosingBook = false;
+            const closeBook = () => {
+                if (isClosingBook) return;
+                isClosingBook = true;
+                flipPrev.blur();
+                flipNext.blur();
+                flipPagination.hidden = true;
+                flipStage.classList.remove('is-opening', 'is-closed');
+                flipStage.classList.add('is-closing');
+                window.setTimeout(() => {
+                    pageFlip.turnToPage(0);
+                    flipStage.classList.add('is-closed');
+                }, 720);
+                window.setTimeout(() => {
+                    flipStage.classList.remove('is-closing');
+                    isClosingBook = false;
+                    updateDesktopNavigation();
+                }, 1220);
+            };
+
+            const closeFromFirstSpread = (event) => {
+                if (isClosingBook || pageFlip.getCurrentPageIndex() !== chapterStarts.get('chapter2')) return;
+                const pointX = event.touches?.[0]?.clientX ?? event.clientX;
+                const bookRect = flipbook.getBoundingClientRect();
+                if (!Number.isFinite(pointX) || pointX >= bookRect.left + bookRect.width / 2) return;
+
+                event.preventDefault();
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                closeBook();
+            };
+
+            // 第2章の最初の左ページから表紙へ戻るときだけ、
+            // 紙ページの逆めくりではなく、本を閉じる専用動作を使う。
+            flipbook.addEventListener('mousedown', closeFromFirstSpread, true);
+            flipbook.addEventListener('touchstart', closeFromFirstSpread, { capture: true, passive: false });
+
+            const updateDesktopNavigation = () => {
+                if (isClosingBook) return;
+                const currentPage = pageFlip.getCurrentPageIndex();
+                const chapter1Start = chapterStarts.get('chapter1');
+                const isCover = currentPage === 0;
+                flipPagination.hidden = isCover;
+                flipStage.classList.toggle('is-closed', isCover);
+                flipStage.classList.remove('is-opening', 'is-closing');
+                if (isCover) return;
+
+                const prevLabel = flipPrev.querySelector('span');
+                const nextLabel = flipNext.querySelector('span');
+                if (currentPage >= chapter1Start) {
+                    prevLabel.textContent = '第2章';
+                    nextLabel.textContent = '閉じる';
+                    flipPrev.onclick = () => {
+                        flipPrev.blur();
+                        pageFlip.flip(chapterStarts.get('chapter2'));
+                    };
+                    flipNext.onclick = closeBook;
+                } else {
+                    prevLabel.textContent = '表紙';
+                    nextLabel.textContent = '第1章';
+                    flipPrev.onclick = closeBook;
+                    flipNext.onclick = () => {
+                        flipNext.blur();
+                        pageFlip.flip(chapter1Start);
+                    };
+                }
+            };
+
+            pageFlip.on('changeState', (event) => {
+                if (isClosingBook) return;
+                if (event.data === 'flipping') {
+                    if (pageFlip.getCurrentPageIndex() === 0 && !flipStage.classList.contains('is-closing')) {
+                        flipStage.classList.add('is-opening');
+                    }
+                    flipStage.classList.remove('is-closed');
+                    return;
+                }
+                if (event.data === 'read') {
+                    window.requestAnimationFrame(updateDesktopNavigation);
+                }
+            });
+            updateDesktopNavigation();
+        };
+        window.addEventListener('load', () => {
+            window.setTimeout(initializeDesktopFlipbook, 80);
+        }, { once: true });
+
+        const storyViews = document.querySelectorAll('.story-view');
+        const readerShell = document.querySelector('.story-reader-shell');
+        const desktopReader = window.matchMedia('(min-width: 901px)');
+        const chapterState = new Map();
+        const chapterOrder = ['chapter2', 'chapter1'];
+
+        const fillPage = (container, paragraphs) => {
+            container.replaceChildren(...(paragraphs || []).map((paragraph) => paragraph.cloneNode(true)));
+        };
+
+        const renderChapter = (chapter) => {
+            const state = chapterState.get(chapter);
+            if (!state) return;
+
+            const leftIndex = state.spread * 2;
+            const rightIndex = leftIndex + 1;
+            const leftPage = state.pages[leftIndex];
+            const rightPage = state.pages[rightIndex];
+            const leftLeaf = chapter.querySelector('.chapter-leaf-left');
+            const title = chapter.querySelector('.chapter-title-content');
+            const leftCopy = chapter.querySelector('[data-page-copy="left"]');
+            const rightCopy = chapter.querySelector('[data-page-copy="right"]');
+            const prevButton = chapter.querySelector('[data-page-direction="prev"]');
+            const nextButton = chapter.querySelector('[data-page-direction="next"]');
+            const spread = chapter.querySelector('.book-spread');
+
+            const isTitlePage = leftIndex === 0;
+            title.hidden = !isTitlePage;
+            leftCopy.hidden = isTitlePage;
+            leftLeaf.classList.toggle('has-page-copy', !isTitlePage);
+            spread.classList.toggle('is-content-spread', !isTitlePage);
+            fillPage(leftCopy, isTitlePage ? [] : leftPage);
+            fillPage(rightCopy, rightPage);
+            const chapterIndex = chapterOrder.indexOf(chapter.id);
+            prevButton.disabled = state.spread === 0 && chapterIndex === 0;
+            nextButton.disabled = state.spread >= state.maxSpread && chapterIndex === chapterOrder.length - 1;
+
+            const visibleNumbers = [leftIndex, rightIndex]
+                .filter((index) => index > 0 && index < state.pages.length);
+            chapter.querySelector('.page-number').textContent = visibleNumbers.length
+                ? `— ${visibleNumbers.join('–')} —`
+                : '— 1 —';
+        };
+
+        document.querySelectorAll('.story-view[id^="chapter"]').forEach((chapter) => {
+            const source = chapter.querySelector('.chapter-source');
+            const groupSizes = source.dataset.pageGroups.split(',').map(Number);
+            const sourceParagraphs = Array.from(source.children);
+            const pages = [null];
+            let cursor = 0;
+            groupSizes.forEach((size) => {
+                pages.push(sourceParagraphs.slice(cursor, cursor + size));
+                cursor += size;
+            });
+            if (cursor < sourceParagraphs.length) pages.push(sourceParagraphs.slice(cursor));
+            chapterState.set(chapter, {
+                pages,
+                spread: 0,
+                maxSpread: Math.max(0, Math.ceil(pages.length / 2) - 1)
+            });
+            renderChapter(chapter);
+
+            chapter.querySelectorAll('[data-page-direction]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    if (!desktopReader.matches) return;
+                    const state = chapterState.get(chapter);
+                    const direction = button.dataset.pageDirection;
+                    const nextSpread = state.spread + (direction === 'next' ? 1 : -1);
+                    const spread = chapter.querySelector('.book-spread');
+                    const leftCopy = chapter.querySelector('[data-page-copy="left"]');
+                    const rightCopy = chapter.querySelector('[data-page-copy="right"]');
+                    if (spread.classList.contains('turning-next') || spread.classList.contains('turning-prev')) return;
+
+                    const chapterIndex = chapterOrder.indexOf(chapter.id);
+                    const crossingForward = nextSpread > state.maxSpread && chapterIndex < chapterOrder.length - 1;
+                    const crossingBackward = nextSpread < 0 && chapterIndex > 0;
+                    if ((nextSpread < 0 && !crossingBackward) || (nextSpread > state.maxSpread && !crossingForward)) return;
+
+                    const front = spread.querySelector('.page-flip-front .desktop-page-copy');
+                    const back = spread.querySelector('.page-flip-back .desktop-page-copy');
+                    if (direction === 'next') {
+                        const currentRight = state.pages[state.spread * 2 + 1] || [];
+                        const targetChapter = crossingForward ? document.getElementById(chapterOrder[chapterIndex + 1]) : chapter;
+                        const targetState = chapterState.get(targetChapter);
+                        const nextLeft = crossingForward ? [] : (state.pages[nextSpread * 2] || []);
+                        const nextRight = crossingForward
+                            ? (targetState.pages[1] || [])
+                            : (state.pages[nextSpread * 2 + 1] || []);
+                        fillPage(front, currentRight);
+                        fillPage(back, nextLeft);
+                        fillPage(rightCopy, nextRight);
+                    } else {
+                        const currentLeft = state.spread === 0 ? [] : (state.pages[state.spread * 2] || []);
+                        const previousRight = crossingBackward ? [] : (state.pages[nextSpread * 2 + 1] || []);
+                        fillPage(front, currentLeft);
+                        fillPage(back, previousRight);
+                    }
+
+                    spread.classList.remove('turning-next', 'turning-prev');
+                    spread.classList.add(direction === 'next' ? 'turning-next' : 'turning-prev');
+                    window.setTimeout(() => {
+                        if (crossingForward || crossingBackward) {
+                            const targetId = chapterOrder[chapterIndex + (crossingForward ? 1 : -1)];
+                            const targetChapter = document.getElementById(targetId);
+                            const targetState = chapterState.get(targetChapter);
+                            targetState.spread = crossingForward ? 0 : targetState.maxSpread;
+                            storyViews.forEach((view) => { view.hidden = view.id !== targetId; });
+                            renderChapter(targetChapter);
+                        } else {
+                            state.spread = nextSpread;
+                            renderChapter(chapter);
+                        }
+                    }, 790);
+                    window.setTimeout(() => spread.classList.remove('turning-next', 'turning-prev'), 840);
+                });
+            });
+        });
+
+        const showStoryView = (targetId, options = {}) => {
+            const reveal = () => {
+            storyViews.forEach((view) => {
+                const isTarget = view.id === targetId;
+                view.hidden = !isTarget;
+                view.classList.remove('is-entering');
+                if (isTarget) {
+                    requestAnimationFrame(() => view.classList.add('is-entering'));
+                }
+            });
+            const chapter = document.getElementById(targetId);
+            if (chapterState.has(chapter)) {
+                chapterState.get(chapter).spread = 0;
+                renderChapter(chapter);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            if (options.fromCover && desktopReader.matches) {
+                const chapter = document.getElementById(targetId);
+                chapter.hidden = false;
+                chapter.classList.add('is-entering');
+                chapterState.get(chapter).spread = 0;
+                renderChapter(chapter);
+                readerShell.classList.add('is-opening');
+                window.setTimeout(reveal, 1340);
+                window.setTimeout(() => readerShell.classList.remove('is-opening'), 1420);
+            } else {
+                reveal();
+            }
+        };
+        document.querySelectorAll('[data-story-target]').forEach((button) => {
+            button.addEventListener('click', () => showStoryView(button.dataset.storyTarget, {
+                fromCover: button.classList.contains('book-cover-button')
+            }));
+        });
 
         // AOS初期化
         try {
